@@ -1,1 +1,2 @@
 # Catalog migrations package initialization
+

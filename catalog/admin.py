@@ -1,6 +1,15 @@
 from django.contrib import admin
 from django.utils.html import format_html
-from .models import Category, Color, Size, Product, ProductImage, ProductVariant
+from .models import (
+    Category,
+    Color,
+    Size,
+    Product,
+    ProductImage,
+    ProductVariant,
+    HomepageSection,
+    HomepageSectionItem,
+)
 
 
 @admin.register(Category)
@@ -103,3 +112,29 @@ class ProductVariantAdmin(admin.ModelAdmin):
     list_filter = ('clothing_type', 'product__category', 'color', 'size')
     search_fields = ('sku', 'product__title')
     ordering = ('product', 'clothing_type', 'size__order')
+
+
+class HomepageSectionItemInline(admin.TabularInline):
+    model = HomepageSectionItem
+    extra = 1
+    fields = ('product', 'order')
+    autocomplete_fields = ['product']
+
+
+@admin.register(HomepageSection)
+class HomepageSectionAdmin(admin.ModelAdmin):
+    list_display = (
+        'title',
+        'slug',
+        'badge_label',
+        'direction',
+        'display_order',
+        'is_active',
+    )
+    list_editable = ('display_order', 'is_active', 'direction')
+    search_fields = ('title', 'slug', 'subtitle', 'badge_label')
+    prepopulated_fields = {'slug': ('title',)}
+    inlines = [HomepageSectionItemInline]
+    ordering = ('display_order', 'title')
+
+

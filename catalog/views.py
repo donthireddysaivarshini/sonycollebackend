@@ -3,8 +3,12 @@ from rest_framework import generics, viewsets
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 
-from .models import Category, Product
-from .serializers import CategorySerializer, ProductSerializer
+from .models import Category, Product, HomepageSection
+from .serializers import (
+    CategorySerializer,
+    ProductSerializer,
+    HomepageSectionSerializer,
+)
 
 
 class CategoryListView(generics.ListAPIView):
@@ -106,3 +110,36 @@ class ProductViewSet(viewsets.ReadOnlyModelViewSet):
             queryset = queryset.order_by('-created_at')
 
         return queryset.distinct()
+
+
+class HomepageSectionListView(generics.ListAPIView):
+    """
+    Public listing of active homepage sections with nested active products.
+    Ordered by merchandising sequence.
+    """
+
+    permission_classes = [AllowAny]
+    serializer_class = HomepageSectionSerializer
+    pagination_class = None
+
+    def get_queryset(self):
+        return (
+            HomepageSection.objects.filter(is_active=True)
+            .prefetch_related('items__product')
+            .order_by('display_order', 'title')
+        )
+
+
+class HomepageSectionDetailView(generics.RetrieveAPIView):
+    """
+    Retrieve single active homepage section by its slug.
+    """
+
+    permission_classes = [AllowAny]
+    serializer_class = HomepageSectionSerializer
+    lookup_field = 'slug'
+
+    def get_queryset(self):
+        return HomepageSection.objects.filter(is_active=True).prefetch_related('items__product')
+
+

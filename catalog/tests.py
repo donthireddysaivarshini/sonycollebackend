@@ -5,7 +5,16 @@ from django.db.utils import IntegrityError
 from rest_framework.test import APIClient
 from rest_framework import status
 
-from .models import Category, Color, Size, Product, ProductImage, ProductVariant
+from .models import (
+    Category,
+    Color,
+    Size,
+    Product,
+    ProductImage,
+    ProductVariant,
+    HomepageSection,
+    HomepageSectionItem,
+)
 
 
 class CategoryModelAndApiTests(TestCase):
@@ -402,3 +411,134 @@ class ProductApiContractTests(TestCase):
         self.assertEqual(len(res.json()), 1)
         res = self.client.get('/api/catalog/products/?clothing_type=standard')
         self.assertEqual(len(res.json()), 0)
+
+
+class HomepageSectionTests(TestCase):
+    """
+    Test suite for HomepageSection and HomepageSectionItem models and API endpoints.
+    Verifies section ordering, product assignment ordering, inactive exclusions,
+    and multi-section product assignments.
+    """
+
+    def setUp(self):
+        self.client = APIClient()
+        self.category, _ = Category.objects.get_or_create(slug="sarees", defaults={"name": "Sarees"})
+
+        # Create test products
+        self.prod1 = Product.objects.create(
+            title="Kanchivaram Silk Saree",
+            slug="kanchivaram-silk-saree",
+            sku_prefix="SFK-SAR-1",
+            category=self.category,
+            feeding_config="none",
+            price=Decimal("4999.00"),
+            is_active=True,
+        )
+        self.prod2 = Product.objects.create(
+            title="Banarasi Brocade Saree",
+            slug="banarasi-brocade-saree",
+            sku_prefix="SFK-SAR-2",
+            category=self.category,
+            feeding_config="none",
+            price=Decimal("5999.00"),
+            is_active=True,
+        )
+        self.inactive_prod = Product.objects.create(
+            title="Archived Out-of-Stock Saree",
+            slug="archived-saree",
+            sku_prefix="SFK-SAR-ARC",
+            category=self.category,
+            feeding_config="none",
+            price=Decimal("2000.00"),
+            is_active=False,
+        )
+
+    def test_homepage_section_list_api_ordered(self):
+        """GET /api/catalog/sections/ returns 6 canonical sections in display_order."""
+        response = self.client.get('/api/catalog/sections/')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        data = response.json()
+
+        self.assertEqual(len(data), 6)
+        expected_slugs = [
+            'feeding-collection',
+            'handstock',
+            'sarees',
+            'kids-wear',
+            'new-arrivals',
+            'best-sellers',
+        ]
+        self.assertEqual([s["slug"] for s in data], expected_slugs)
+
+    def test_homepage_section_detail_api(self):
+        """GET /api/catalog/sections/<slug>/ returns single section."""
+        response = self.client.get('/api/catalog/sections/sarees/')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        data = response.json()
+        self.assertEqual(data["title"], "Sarees")
+        self.assertEqual(data["slug"], "sarees")
+        self.assertEqual(data["direction"], "left")
+
+    def test_homepage_section_products_ordering(self):
+        """Assigned products within a section appear in exact order defined by HomepageSectionItem."""
+        section = HomepageSection.objects.get(slug='sarees')
+
+        # Assign prod2 first (order 1), prod1 second (order 2)
+        HomepageSectionItem.objects.create(section=section, product=self.prod2, order=1)
+        HomepageSectionItem.objects.create(section=section, product=self.prod1, order=2)
+
+        response = self.client.get('/api/catalog/sections/sarees/')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        products = response.json()["products"]
+
+        self.assertEqual(len(products), 2)
+        self.assertEqual(products[0]["slug"], "banarasi-brocade-saree")
+        self.assertEqual(products[1]["slug"], "kanchivaram-silk-saree")
+
+    def test_inactive_product_excluded_from_section(self):
+        """Assigned product with is_active=False is excluded from public section results."""
+        section = HomepageSection.objects.get(slug='sarees')
+        HomepageSectionItem.objects.create(section=section, product=self.prod1, order=1)
+        HomepageSectionItem.objects.create(section=section, product=self.inactive_prod, order=2)
+
+        response = self.client.get('/api/catalog/sections/sarees/')
+        products = response.json()["products"]
+        self.assertEqual(len(products), 1)
+        self.assertEqual(products[0]["slug"], "kanchivaram-silk-saree")
+
+    def test_inactive_section_excluded_from_storefront(self):
+        """Deactivated section is omitted from GET /api/catalog/sections/."""
+        HomepageSection.objects.create(
+            title="Seasonal Diwali Festive",
+            slug="seasonal-diwali-festive",
+            display_order=99,
+            is_active=False,
+        )
+        response = self.client.get('/api/catalog/sections/')
+        slugs = [s["slug"] for s in response.json()]
+        self.assertNotIn("seasonal-diwali-festive", slugs)
+
+    def test_product_in_multiple_sections(self):
+        """A single product can belong to multiple homepage sections simultaneously."""
+        sec_sarees = HomepageSection.objects.get(slug='sarees')
+        sec_bestsellers = HomepageSection.objects.get(slug='best-sellers')
+
+        HomepageSectionItem.objects.create(section=sec_sarees, product=self.prod1, order=1)
+        HomepageSectionItem.objects.create(section=sec_bestsellers, product=self.prod1, order=1)
+
+        # Appears in Sarees
+        res1 = self.client.get('/api/catalog/sections/sarees/')
+        self.assertEqual(len(res1.json()["products"]), 1)
+
+        # Also appears in Best Sellers
+        res2 = self.client.get('/api/catalog/sections/best-sellers/')
+        self.assertEqual(len(res2.json()["products"]), 1)
+
+    def test_section_product_uniqueness(self):
+        """Assigning duplicate product to the same section raises IntegrityError."""
+        section = HomepageSection.objects.get(slug='sarees')
+        HomepageSectionItem.objects.create(section=section, product=self.prod1, order=1)
+
+        with self.assertRaises(IntegrityError):
+            HomepageSectionItem.objects.create(section=section, product=self.prod1, order=2)
+

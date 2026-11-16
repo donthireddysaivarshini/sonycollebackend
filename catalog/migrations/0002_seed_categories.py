@@ -100,3 +100,4 @@ class Migration(migrations.Migration):
     operations = [
         migrations.RunPython(seed_categories, unseed_categories),
     ]
+

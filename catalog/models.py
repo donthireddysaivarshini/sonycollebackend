@@ -236,3 +236,69 @@ class ProductVariant(models.Model):
     def save(self, *args, **kwargs):
         self.full_clean()
         super().save(*args, **kwargs)
+
+
+class HomepageSection(models.Model):
+    """
+    Predefined merchandising sections for the storefront homepage.
+    Distinct from categories: products can belong to multiple sections.
+    """
+
+    DIRECTION_CHOICES = (
+        ('left', 'Left'),
+        ('right', 'Right'),
+    )
+
+    title = models.CharField(max_length=100)
+    slug = models.SlugField(max_length=100, unique=True)
+    subtitle = models.CharField(max_length=255, blank=True)
+    badge_label = models.CharField(max_length=50, blank=True)
+    view_all_link = models.CharField(max_length=255, blank=True)
+    direction = models.CharField(max_length=10, choices=DIRECTION_CHOICES, default='left')
+    display_order = models.PositiveIntegerField(default=0)
+    is_active = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = 'Homepage Section'
+        verbose_name_plural = 'Homepage Sections'
+        ordering = ['display_order', 'title']
+
+    def __str__(self):
+        return f"{self.title} (Order: {self.display_order})"
+
+
+class HomepageSectionItem(models.Model):
+    """
+    Through model maintaining explicit ordering of products within a homepage section.
+    """
+
+    section = models.ForeignKey(
+        HomepageSection,
+        on_delete=models.CASCADE,
+        related_name='items',
+    )
+    product = models.ForeignKey(
+        Product,
+        on_delete=models.CASCADE,
+        related_name='section_items',
+    )
+    order = models.PositiveIntegerField(default=0)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = 'Homepage Section Item'
+        verbose_name_plural = 'Homepage Section Items'
+        ordering = ['order', 'id']
+        constraints = [
+            models.UniqueConstraint(
+                fields=['section', 'product'],
+                name='unique_section_product',
+            )
+        ]
+
+    def __str__(self):
+        return f"{self.product.title} in {self.section.title} (Pos: {self.order})"
+
+

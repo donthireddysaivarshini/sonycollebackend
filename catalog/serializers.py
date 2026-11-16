@@ -1,5 +1,14 @@
 from rest_framework import serializers
-from .models import Category, Color, Size, Product, ProductImage, ProductVariant
+from .models import (
+    Category,
+    Color,
+    Size,
+    Product,
+    ProductImage,
+    ProductVariant,
+    HomepageSection,
+    HomepageSectionItem,
+)
 
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -116,3 +125,38 @@ class ProductSerializer(serializers.ModelSerializer):
             'images',
             'variants',
         )
+
+
+class HomepageSectionSerializer(serializers.ModelSerializer):
+    """
+    Serializes a HomepageSection with its assigned active products
+    ordered by merchandising sequence.
+    """
+
+    products = serializers.SerializerMethodField()
+
+    class Meta:
+        model = HomepageSection
+        fields = (
+            'id',
+            'title',
+            'slug',
+            'subtitle',
+            'badge_label',
+            'view_all_link',
+            'direction',
+            'display_order',
+            'products',
+        )
+
+    def get_products(self, obj):
+        items = (
+            obj.items.filter(product__is_active=True)
+            .select_related('product__category')
+            .prefetch_related('product__images', 'product__variants__color', 'product__variants__size')
+            .order_by('order', 'id')
+        )
+        products = [item.product for item in items]
+        return ProductSerializer(products, many=True, context=self.context).data
+
+
