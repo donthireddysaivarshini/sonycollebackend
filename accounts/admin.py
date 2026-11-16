@@ -82,3 +82,4 @@ class SavedAddressAdmin(admin.ModelAdmin):
     list_filter = ('is_default', 'state', 'city')
     search_fields = ('recipient_name', 'phone', 'pincode', 'user__email', 'address_line1')
     ordering = ('-is_default', '-created_at')
+

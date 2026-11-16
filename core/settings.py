@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'corsheaders',
     # Local apps
     'accounts.apps.AccountsConfig',
+    'catalog.apps.CatalogConfig',
 ]
 
 MIDDLEWARE = [
@@ -162,7 +163,7 @@ JAZZMIN_SETTINGS = {
     'site_brand': 'Sony Feeding Kurtis',
     'welcome_sign': 'Welcome to Sony Feeding Kurtis Administration',
     'copyright': 'Sony Feeding Kurtis / Sony Collections',
-    'search_model': ['accounts.CustomUser', 'accounts.SavedAddress'],
+    'search_model': ['accounts.CustomUser', 'catalog.Product'],
     'topmenu_links': [
         {'name': 'Home', 'url': 'admin:index', 'permissions': ['auth.view_user']},
         {'name': 'Storefront', 'url': 'http://localhost:5173', 'new_window': True},
@@ -173,6 +174,11 @@ JAZZMIN_SETTINGS = {
         'auth': 'fas fa-users-cog',
         'accounts.CustomUser': 'fas fa-user',
         'accounts.SavedAddress': 'fas fa-address-book',
+        'catalog.Category': 'fas fa-tags',
+        'catalog.Product': 'fas fa-tshirt',
+        'catalog.ProductVariant': 'fas fa-boxes',
+        'catalog.Color': 'fas fa-palette',
+        'catalog.Size': 'fas fa-ruler',
     },
     'default_icon_parents': 'fas fa-chevron-circle-right',
     'default_icon_children': 'fas fa-circle',

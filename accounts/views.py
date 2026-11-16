@@ -170,3 +170,4 @@ class SavedAddressViewSet(viewsets.ModelViewSet):
         address.is_default = True
         address.save()
         return Response(SavedAddressSerializer(address).data, status=status.HTTP_200_OK)
+
