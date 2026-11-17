@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     # Local apps
     'accounts.apps.AccountsConfig',
     'catalog.apps.CatalogConfig',
+    'cart.apps.CartConfig',
 ]
 
 MIDDLEWARE = [
@@ -179,6 +180,8 @@ JAZZMIN_SETTINGS = {
         'catalog.ProductVariant': 'fas fa-boxes',
         'catalog.Color': 'fas fa-palette',
         'catalog.Size': 'fas fa-ruler',
+        'cart.Cart': 'fas fa-shopping-cart',
+        'cart.StockReservation': 'fas fa-clock',
     },
     'default_icon_parents': 'fas fa-chevron-circle-right',
     'default_icon_children': 'fas fa-circle',

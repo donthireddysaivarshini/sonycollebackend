@@ -10,5 +10,6 @@ urlpatterns = [
     path('api/health/', health_check, name='health_check'),
     path('api/auth/', include('accounts.urls')),
     path('api/catalog/', include('catalog.urls')),
+    path('api/cart/', include('cart.urls')),
 ]
 

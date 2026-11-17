@@ -82,3 +82,4 @@ class Migration(migrations.Migration):
     operations = [
         migrations.RunPython(seed_sections, unseed_sections),
     ]
+
