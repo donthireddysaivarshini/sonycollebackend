@@ -10,6 +10,7 @@ from .views import (
     OrderListView,
     OrderReturnRequestView,
 )
+from reports.views import OrderInvoiceDownloadView
 
 app_name = 'orders'
 
@@ -23,5 +24,6 @@ urlpatterns = [
     path('<str:order_number>/cancel/', OrderCancelView.as_view(), name='order_cancel'),
     path('<str:order_number>/returns/', OrderReturnRequestView.as_view(), name='order_returns'),
     path('<str:order_number>/exchanges/', OrderExchangeRequestView.as_view(), name='order_exchanges'),
+    path('<str:order_number>/invoice/', OrderInvoiceDownloadView.as_view(), name='order_invoice'),
 ]
 

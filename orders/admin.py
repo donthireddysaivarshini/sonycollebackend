@@ -79,6 +79,7 @@ class OrderAdmin(admin.ModelAdmin):
         'mark_as_shipped',
         'mark_as_delivered',
         'cancel_selected_orders',
+        'export_orders_to_excel_action',
     ]
     readonly_fields = [
         'order_number',
@@ -251,6 +252,21 @@ class OrderAdmin(admin.ModelAdmin):
                 cancelled_count += 1
 
         self.message_user(request, f"{cancelled_count} order(s) cancelled and inventory restored.")
+
+    @admin.action(description="Export selected orders to formatted Excel (.xlsx)")
+    def export_orders_to_excel_action(self, request, queryset):
+        from django.http import HttpResponse
+        from django.utils import timezone
+        from reports.services import export_orders_to_excel
+
+        excel_bytes = export_orders_to_excel(queryset)
+        filename = f"sony_orders_{timezone.now().strftime('%Y%m%d_%H%M%S')}.xlsx"
+        response = HttpResponse(
+            excel_bytes,
+            content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        )
+        response['Content-Disposition'] = f'attachment; filename="{filename}"'
+        return response
 
 
 @admin.register(FeedingOrder)

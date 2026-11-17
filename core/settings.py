@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'cart.apps.CartConfig',
     'orders.apps.OrdersConfig',
     'payments.apps.PaymentsConfig',
+    'reports.apps.ReportsConfig',
 ]
 
 MIDDLEWARE = [
@@ -191,6 +192,7 @@ JAZZMIN_SETTINGS = {
         'orders.NonFeedingOrder': 'fas fa-female',
         'orders.ReturnRequest': 'fas fa-undo',
         'orders.ExchangeRequest': 'fas fa-exchange-alt',
+        'reports.Invoice': 'fas fa-file-invoice',
         'payments.PaymentTransaction': 'fas fa-credit-card',
         'payments.RefundRecord': 'fas fa-undo-alt',
     },
