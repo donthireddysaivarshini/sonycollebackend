@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'catalog.apps.CatalogConfig',
     'cart.apps.CartConfig',
     'orders.apps.OrdersConfig',
+    'payments.apps.PaymentsConfig',
 ]
 
 MIDDLEWARE = [
@@ -186,6 +187,8 @@ JAZZMIN_SETTINGS = {
         'orders.Order': 'fas fa-receipt',
         'orders.FeedingOrder': 'fas fa-baby',
         'orders.NonFeedingOrder': 'fas fa-female',
+        'payments.PaymentTransaction': 'fas fa-credit-card',
+        'payments.RefundRecord': 'fas fa-undo-alt',
     },
     'default_icon_parents': 'fas fa-chevron-circle-right',
     'default_icon_children': 'fas fa-circle',
@@ -233,4 +236,10 @@ CORS_ALLOWED_ORIGINS = [
     if origin.strip()
 ]
 CORS_ALLOW_CREDENTIALS = True
+
+# Razorpay Payment Gateway Configuration
+RAZORPAY_KEY_ID = os.getenv('RAZORPAY_KEY_ID', 'rzp_test_placeholder_key')
+RAZORPAY_KEY_SECRET = os.getenv('RAZORPAY_KEY_SECRET', 'placeholder_secret')
+RAZORPAY_WEBHOOK_SECRET = os.getenv('RAZORPAY_WEBHOOK_SECRET', 'placeholder_webhook_secret')
+COD_ENABLED = os.getenv('COD_ENABLED', 'False').lower() in ('true', '1')
 
