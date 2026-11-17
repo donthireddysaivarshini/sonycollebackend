@@ -10,7 +10,7 @@ from rest_framework.test import APIClient
 
 from accounts.models import SavedAddress
 from catalog.models import Category, Color, Product, ProductVariant, Size
-from cart.models import Cart, CartItem
+from cart.models import Cart, CartItem, StockReservation
 from orders.admin import FeedingOrderAdmin, NonFeedingOrderAdmin, OrderAdmin, OrderItemInline
 from orders.models import FeedingOrder, NonFeedingOrder, Order, OrderItem, generate_order_number
 
@@ -400,4 +400,172 @@ class OrderAPITests(OrdersBaseTestCase):
 
         # Cart is cleared after order creation
         self.assertEqual(cart.items.count(), 0)
+
+
+class ConcurrencyAndInventoryRaceConditionTests(OrdersBaseTestCase):
+    """
+    Inventory protection tests verifying atomic stock reservation
+    and zero overselling under race conditions.
+    """
+
+    def test_concurrent_checkout_of_last_unit_rejects_second_buyer(self):
+        # Set physical stock to exactly 1 unit
+        self.variant_feeding.stock = 1
+        self.variant_feeding.reserved_stock = 0
+        self.variant_feeding.save(update_fields=['stock', 'reserved_stock'])
+
+        user2 = User.objects.create_user(
+            email='concurrent.buyer@example.com',
+            first_name='Concurrent',
+            last_name='Buyer',
+            password='TestPassword123!',
+        )
+        saved_address2 = SavedAddress.objects.create(
+            user=user2,
+            recipient_name='Concurrent Buyer',
+            phone='9876543219',
+            address_line1='Street 2',
+            city='Hyderabad',
+            state='Telangana',
+            pincode='500002',
+            is_default=True,
+        )
+
+        client1 = APIClient()
+        client1.force_authenticate(user=self.user)
+        payload1 = {
+            'items': [{'variant_id': self.variant_feeding.id, 'quantity': 1}],
+            'address_id': self.saved_address.id,
+            'payment_method': 'razorpay',
+        }
+
+        client2 = APIClient()
+        client2.force_authenticate(user=user2)
+        payload2 = {
+            'items': [{'variant_id': self.variant_feeding.id, 'quantity': 1}],
+            'address_id': saved_address2.id,
+            'payment_method': 'razorpay',
+        }
+
+        # First buyer acquires the last physical unit
+        res1 = client1.post(reverse('orders:order_checkout'), payload1, format='json')
+        self.assertEqual(res1.status_code, status.HTTP_201_CREATED)
+        self.assertIn('order_number', res1.data)
+
+        # Second buyer attempts to checkout the exact same variant
+        res2 = client2.post(reverse('orders:order_checkout'), payload2, format='json')
+        self.assertEqual(res2.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertIn('error', res2.data)
+        self.assertIn('available for selected variant', str(res2.data['error']))
+
+        # Verify database inventory invariants: exactly 1 unit reserved, 0 available. Zero overselling!
+        self.variant_feeding.refresh_from_db()
+        self.assertEqual(self.variant_feeding.stock, 1)
+        self.assertEqual(self.variant_feeding.reserved_stock, 1)
+        self.assertEqual(self.variant_feeding.available_stock, 0)
+
+        # Direct attempt to reserve more stock via StockReservation also fails atomically
+        from django.core.exceptions import ValidationError
+        with self.assertRaises(ValidationError):
+            StockReservation.create_reservation(variant=self.variant_feeding, quantity=1, user=user2)
+
+
+class OrderCancellationInventoryRestorationTests(OrdersBaseTestCase):
+    def test_paid_order_cancellation_restores_physical_stock_and_triggers_refund(self):
+        # Create paid order with 2 units
+        self.variant_feeding.stock = 8  # was 10, 2 were purchased
+        self.variant_feeding.reserved_stock = 0
+        self.variant_feeding.save(update_fields=['stock', 'reserved_stock'])
+
+        order = Order.objects.create(
+            user=self.user,
+            first_name='Priya',
+            phone='9876543210',
+            email='priya@example.com',
+            shipping_address='Flat 402',
+            city='Hyderabad',
+            state='Telangana',
+            zip_code='500028',
+            subtotal=Decimal('2798.00'),
+            total_amount=Decimal('2798.00'),
+            order_status='Ordered',
+            payment_status='Paid',
+            razorpay_payment_id='pay_cancel_restore_99',
+        )
+        OrderItem.objects.create(
+            order=order,
+            product=self.product,
+            variant=self.variant_feeding,
+            product_name=self.product.title,
+            product_sku=self.variant_feeding.sku,
+            clothing_type='Feeding',
+            color='Magenta',
+            size='M',
+            unit_price=Decimal('1399.00'),
+            quantity=2,
+            line_total=Decimal('2798.00'),
+        )
+
+        self.client.force_authenticate(user=self.user)
+        url = reverse('orders:order_cancel', kwargs={'order_number': order.order_number})
+        response = self.client.post(url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['order_status'], 'Cancelled')
+        self.assertEqual(response.data['payment_status'], 'Refunded')
+
+        # Physical stock incremented atomically back to 10 (8 + 2)
+        self.variant_feeding.refresh_from_db()
+        self.assertEqual(self.variant_feeding.stock, 10)
+
+        # Refund record created
+        from payments.models import RefundRecord
+        refund = RefundRecord.objects.filter(order=order).first()
+        self.assertIsNotNone(refund)
+        self.assertEqual(refund.amount, Decimal('2798.00'))
+        self.assertEqual(refund.status, RefundRecord.STATUS_PROCESSED)
+
+    def test_admin_fulfillment_actions_and_tracking_assignment(self):
+        from django.contrib.messages.storage.fallback import FallbackStorage
+
+        order = Order.objects.create(
+            user=self.user,
+            first_name='Priya',
+            phone='9876543210',
+            email='priya@example.com',
+            shipping_address='Flat 402',
+            city='Hyderabad',
+            state='Telangana',
+            zip_code='500028',
+            subtotal=Decimal('1399.00'),
+            total_amount=Decimal('1399.00'),
+            order_status='Ordered',
+            payment_status='Paid',
+        )
+
+        admin_instance = OrderAdmin(Order, site)
+        request = RequestFactory().get('/admin/orders/order/')
+        request.user = self.user
+        setattr(request, 'session', 'session')
+        messages = FallbackStorage(request)
+        setattr(request, '_messages', messages)
+
+        # 1. Transition to Processing
+        admin_instance.mark_as_processing(request, Order.objects.filter(id=order.id))
+        order.refresh_from_db()
+        self.assertEqual(order.order_status, 'Processing')
+
+        # 2. Assign tracking and transition to Shipped
+        order.tracking_number = 'BLUEDART-987654'
+        order.carrier_name = 'BlueDart Express'
+        order.save(update_fields=['tracking_number', 'carrier_name'])
+
+        admin_instance.mark_as_shipped(request, Order.objects.filter(id=order.id))
+        order.refresh_from_db()
+        self.assertEqual(order.order_status, 'Shipped')
+
+        # 3. Transition to Delivered
+        admin_instance.mark_as_delivered(request, Order.objects.filter(id=order.id))
+        order.refresh_from_db()
+        self.assertEqual(order.order_status, 'Delivered')
+
 

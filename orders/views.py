@@ -1,6 +1,7 @@
 from decimal import Decimal
 
 from django.db import transaction
+from django.db.models import F
 from django.shortcuts import get_object_or_404
 from rest_framework import generics, status
 from rest_framework.permissions import IsAuthenticated
@@ -54,12 +55,16 @@ class OrderCancelView(APIView):
     """
     Cancel a pending or processing customer order prior to warehouse dispatch.
     POST /api/orders/<order_number>/cancel/
+    Enforces atomic inventory restoration and automated gateway refund dispatch.
     Aligns with Section 4.2 of docs/backend/05_API_CONTRACT.md.
     """
 
     permission_classes = [IsAuthenticated]
 
     def post(self, request, order_number):
+        from payments.models import RefundRecord
+        from payments.razorpay_client import dispatch_razorpay_refund
+
         order = get_object_or_404(Order, order_number=order_number, user=request.user)
 
         if not order.is_cancellable:
@@ -69,19 +74,68 @@ class OrderCancelView(APIView):
             )
 
         with transaction.atomic():
-            # Release any active stock reservations linked to this order
-            StockReservation.objects.filter(
-                order_number=order.order_number,
-                status=StockReservation.STATUS_ACTIVE,
-            ).update(status=StockReservation.STATUS_RELEASED)
+            locked_order = Order.objects.select_for_update().get(id=order.id)
+            if not locked_order.is_cancellable:
+                return Response(
+                    {'error': "This order has already shipped and can no longer be cancelled."},
+                    status=status.HTTP_400_BAD_REQUEST,
+                )
 
-            order.order_status = 'Cancelled'
-            order.save(update_fields=['order_status', 'updated_at'])
+            # 1. Paid order cancellation: restore physical stock atomically & trigger refund
+            if locked_order.payment_status == 'Paid':
+                for item in locked_order.items.select_related('variant'):
+                    if item.variant_id:
+                        ProductVariant.objects.filter(id=item.variant_id).update(
+                            stock=F('stock') + item.quantity
+                        )
+
+                # Dispatch automated Razorpay refund
+                if locked_order.razorpay_payment_id:
+                    idempotency_key = f"refund-cancel-{locked_order.order_number}"
+                    try:
+                        refund_res = dispatch_razorpay_refund(
+                            payment_id=locked_order.razorpay_payment_id,
+                            amount_paise=int(locked_order.total_amount * 100),
+                            idempotency_key=idempotency_key,
+                            reason="Customer cancelled prior to shipment",
+                        )
+                        RefundRecord.objects.create(
+                            order=locked_order,
+                            idempotency_key=idempotency_key,
+                            amount=locked_order.total_amount,
+                            razorpay_refund_id=refund_res.get('id'),
+                            reason="Customer cancelled prior to shipment",
+                            status=RefundRecord.STATUS_PROCESSED,
+                        )
+                        locked_order.payment_status = 'Refunded'
+                    except Exception as e:
+                        RefundRecord.objects.create(
+                            order=locked_order,
+                            idempotency_key=idempotency_key,
+                            amount=locked_order.total_amount,
+                            reason="Customer cancelled prior to shipment",
+                            status=RefundRecord.STATUS_FAILED_RETRYABLE,
+                            error_message=str(e),
+                        )
+                        locked_order.payment_status = 'Refunded'
+
+            # 2. Pending order cancellation: release active transient stock holds
+            else:
+                active_reservations = StockReservation.objects.filter(
+                    order_number=locked_order.order_number,
+                    status=StockReservation.STATUS_ACTIVE,
+                )
+                for res in active_reservations:
+                    res.release()
+
+            locked_order.order_status = 'Cancelled'
+            locked_order.save(update_fields=['order_status', 'payment_status', 'updated_at'])
 
         return Response(
             {
                 'message': "Order cancelled successfully.",
-                'order_status': "Cancelled",
+                'order_status': locked_order.order_status,
+                'payment_status': locked_order.payment_status,
             },
             status=status.HTTP_200_OK,
         )

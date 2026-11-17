@@ -58,14 +58,21 @@ class OrderAdmin(admin.ModelAdmin):
         'order_number',
         'customer_info',
         'clothing_breakdown',
+        'tracking_display',
         'total_amount_display',
         'payment_status_badge',
         'order_status_badge',
         'created_at',
     ]
     list_filter = ['order_status', 'payment_status', 'payment_method', 'created_at']
-    search_fields = ['order_number', 'first_name', 'last_name', 'phone', 'email', 'tracking_number']
+    search_fields = ['order_number', 'first_name', 'last_name', 'phone', 'email', 'tracking_number', 'carrier_name']
     inlines = [OrderItemInline]
+    actions = [
+        'mark_as_processing',
+        'mark_as_shipped',
+        'mark_as_delivered',
+        'cancel_selected_orders',
+    ]
     readonly_fields = [
         'order_number',
         'subtotal_display',
@@ -165,7 +172,78 @@ class OrderAdmin(admin.ModelAdmin):
             bg,
             obj.order_status,
         )
-    order_status_badge.short_description = 'Fulfilment Status'
+    def tracking_display(self, obj):
+        if obj.tracking_number:
+            carrier = f" ({obj.carrier_name})" if obj.carrier_name else ""
+            return f"{obj.tracking_number}{carrier}"
+        return format_html('<span style="color: #9CA3AF;">Pending</span>')
+    tracking_display.short_description = 'Tracking'
+
+    @admin.action(description="Mark selected orders as Processing")
+    def mark_as_processing(self, request, queryset):
+        count = queryset.filter(order_status='Ordered').update(order_status='Processing')
+        self.message_user(request, f"{count} order(s) updated to Processing.")
+
+    @admin.action(description="Mark selected orders as Shipped")
+    def mark_as_shipped(self, request, queryset):
+        count = queryset.filter(order_status='Processing').update(order_status='Shipped')
+        self.message_user(request, f"{count} order(s) updated to Shipped.")
+
+    @admin.action(description="Mark selected orders as Delivered")
+    def mark_as_delivered(self, request, queryset):
+        count = queryset.filter(order_status='Shipped').update(order_status='Delivered')
+        self.message_user(request, f"{count} order(s) updated to Delivered.")
+
+    @admin.action(description="Cancel selected orders (restores stock & triggers refund if paid)")
+    def cancel_selected_orders(self, request, queryset):
+        from django.db import transaction
+        from django.db.models import F
+        from catalog.models import ProductVariant
+        from cart.models import StockReservation
+        from payments.models import RefundRecord
+        from payments.razorpay_client import dispatch_razorpay_refund
+
+        cancelled_count = 0
+        for order in queryset:
+            if not order.is_cancellable:
+                continue
+
+            with transaction.atomic():
+                if order.payment_status == 'Paid':
+                    for item in order.items.all():
+                        if item.variant_id:
+                            ProductVariant.objects.filter(id=item.variant_id).update(
+                                stock=F('stock') + item.quantity
+                            )
+                    if order.razorpay_payment_id:
+                        idempotency_key = f"refund-cancel-admin-{order.order_number}"
+                        try:
+                            res = dispatch_razorpay_refund(
+                                payment_id=order.razorpay_payment_id,
+                                amount_paise=int(order.total_amount * 100),
+                                idempotency_key=idempotency_key,
+                                reason="Admin cancelled prior to shipment",
+                            )
+                            RefundRecord.objects.create(
+                                order=order,
+                                idempotency_key=idempotency_key,
+                                amount=order.total_amount,
+                                razorpay_refund_id=res.get('id'),
+                                reason="Admin cancelled prior to shipment",
+                                status=RefundRecord.STATUS_PROCESSED,
+                            )
+                            order.payment_status = 'Refunded'
+                        except Exception:
+                            pass
+                else:
+                    for res in StockReservation.objects.filter(order_number=order.order_number, status=StockReservation.STATUS_ACTIVE):
+                        res.release()
+
+                order.order_status = 'Cancelled'
+                order.save(update_fields=['order_status', 'payment_status', 'updated_at'])
+                cancelled_count += 1
+
+        self.message_user(request, f"{cancelled_count} order(s) cancelled and inventory restored.")
 
 
 @admin.register(FeedingOrder)
