@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
     'catalog.apps.CatalogConfig',
     'cart.apps.CartConfig',
+    'orders.apps.OrdersConfig',
 ]
 
 MIDDLEWARE = [
@@ -182,6 +183,9 @@ JAZZMIN_SETTINGS = {
         'catalog.Size': 'fas fa-ruler',
         'cart.Cart': 'fas fa-shopping-cart',
         'cart.StockReservation': 'fas fa-clock',
+        'orders.Order': 'fas fa-receipt',
+        'orders.FeedingOrder': 'fas fa-baby',
+        'orders.NonFeedingOrder': 'fas fa-female',
     },
     'default_icon_parents': 'fas fa-chevron-circle-right',
     'default_icon_children': 'fas fa-circle',

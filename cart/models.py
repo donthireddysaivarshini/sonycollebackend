@@ -167,6 +167,13 @@ class StockReservation(models.Model):
         blank=True,
         related_name='stock_reservations',
     )
+    order = models.ForeignKey(
+        'orders.Order',
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name='stock_reservations',
+    )
     order_number = models.CharField(
         max_length=50,
         blank=True,
