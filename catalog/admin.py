@@ -9,6 +9,7 @@ from .models import (
     ProductVariant,
     HomepageSection,
     HomepageSectionItem,
+    SiteConfig,
 )
 
 
@@ -136,5 +137,36 @@ class HomepageSectionAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('title',)}
     inlines = [HomepageSectionItemInline]
     ordering = ('display_order', 'title')
+
+
+@admin.register(SiteConfig)
+class SiteConfigAdmin(admin.ModelAdmin):
+    list_display = ('__str__', 'cod_enabled', 'return_window_days', 'exchange_window_days', 'updated_at')
+    fieldsets = (
+        ('Legal & Taxation (Pending Confirmation)', {
+            'fields': ('gstin', 'registered_address', 'tax_percentage', 'is_tax_inclusive'),
+            'description': 'Storewide tax configurations. Leave unset/null until officially confirmed.',
+        }),
+        ('Shipping & Delivery Policies', {
+            'fields': ('shipping_fee', 'free_shipping_threshold', 'shipping_notice'),
+        }),
+        ('Cash on Delivery (COD)', {
+            'fields': ('cod_enabled', 'cod_extra_charge'),
+        }),
+        ('Return & Exchange Policy Windows', {
+            'fields': ('return_window_days', 'exchange_window_days'),
+            'description': 'Maximum days after delivery customer may initiate return or exchange requests.',
+        }),
+        ('Customer Limits', {
+            'fields': ('max_saved_addresses',),
+        }),
+    )
+
+    def has_add_permission(self, request):
+        return not SiteConfig.objects.exists()
+
+    def has_delete_permission(self, request, obj=None):
+        return False
+
 
 

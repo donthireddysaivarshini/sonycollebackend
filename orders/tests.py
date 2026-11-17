@@ -9,10 +9,25 @@ from rest_framework import status
 from rest_framework.test import APIClient
 
 from accounts.models import SavedAddress
-from catalog.models import Category, Color, Product, ProductVariant, Size
+from catalog.models import Category, Color, Product, ProductVariant, SiteConfig, Size
 from cart.models import Cart, CartItem, StockReservation
-from orders.admin import FeedingOrderAdmin, NonFeedingOrderAdmin, OrderAdmin, OrderItemInline
-from orders.models import FeedingOrder, NonFeedingOrder, Order, OrderItem, generate_order_number
+from orders.admin import (
+    ExchangeRequestAdmin,
+    FeedingOrderAdmin,
+    NonFeedingOrderAdmin,
+    OrderAdmin,
+    OrderItemInline,
+    ReturnRequestAdmin,
+)
+from orders.models import (
+    ExchangeRequest,
+    FeedingOrder,
+    NonFeedingOrder,
+    Order,
+    OrderItem,
+    ReturnRequest,
+    generate_order_number,
+)
 
 User = get_user_model()
 
@@ -567,5 +582,209 @@ class OrderCancellationInventoryRestorationTests(OrdersBaseTestCase):
         admin_instance.mark_as_delivered(request, Order.objects.filter(id=order.id))
         order.refresh_from_db()
         self.assertEqual(order.order_status, 'Delivered')
+
+
+class ReturnAndExchangeWorkflowTests(OrdersBaseTestCase):
+    def setUp(self):
+        super().setUp()
+        from datetime import timedelta
+
+        # Delivered Order with 1 item
+        self.delivered_order = Order.objects.create(
+            user=self.user,
+            first_name='Priya',
+            phone='9876543210',
+            email='priya@example.com',
+            shipping_address='Flat 402',
+            city='Hyderabad',
+            state='Telangana',
+            zip_code='500028',
+            subtotal=Decimal('1399.00'),
+            total_amount=Decimal('1399.00'),
+            order_status='Delivered',
+            payment_status='Paid',
+            razorpay_payment_id='pay_delivered_return_123',
+        )
+        self.order_item = OrderItem.objects.create(
+            order=self.delivered_order,
+            product=self.product,
+            variant=self.variant_feeding,
+            product_name=self.product.title,
+            product_sku=self.variant_feeding.sku,
+            clothing_type='Feeding',
+            color='Magenta',
+            size='M',
+            unit_price=Decimal('1399.00'),
+            quantity=1,
+            line_total=Decimal('1399.00'),
+        )
+
+        # Replacement variant for exchanges (e.g. Size L)
+        self.replacement_variant = self.variant_non_feeding
+        self.replacement_variant.stock = 5
+        self.replacement_variant.reserved_stock = 0
+        self.replacement_variant.save(update_fields=['stock', 'reserved_stock'])
+
+        # Reset SiteConfig
+        self.config = SiteConfig.get_solo()
+        self.config.return_window_days = 7
+        self.config.exchange_window_days = 7
+        self.config.save()
+
+    def test_return_rejected_if_order_not_delivered(self):
+        self.delivered_order.order_status = 'Shipped'
+        self.delivered_order.save(update_fields=['order_status'])
+
+        self.client.force_authenticate(user=self.user)
+        url = reverse('orders:order_returns', kwargs={'order_number': self.delivered_order.order_number})
+        payload = {'item_id': self.order_item.id, 'reason': 'defective'}
+        response = self.client.post(url, payload, format='json')
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertIn("only be requested for orders that have been delivered", response.data['error'])
+
+    def test_return_rejected_if_window_expired(self):
+        from datetime import timedelta
+        # Simulate delivery 10 days ago (window is 7 days)
+        past_time = timezone.now() - timedelta(days=10)
+        Order.objects.filter(id=self.delivered_order.id).update(updated_at=past_time)
+
+        self.client.force_authenticate(user=self.user)
+        url = reverse('orders:order_returns', kwargs={'order_number': self.delivered_order.order_number})
+        payload = {'item_id': self.order_item.id, 'reason': 'defective'}
+        response = self.client.post(url, payload, format='json')
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertIn("expired", response.data['error'])
+
+    def test_return_success_and_duplicate_rejection(self):
+        self.client.force_authenticate(user=self.user)
+        url = reverse('orders:order_returns', kwargs={'order_number': self.delivered_order.order_number})
+        payload = {
+            'item_id': self.order_item.id,
+            'reason': 'defective',
+            'customer_notes': 'Stitching damaged near zipper',
+        }
+        response = self.client.post(url, payload, format='json')
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(response.data['status'], 'Requested')
+        self.assertEqual(response.data['product_name'], self.product.title)
+
+        # Duplicate submission for the same item must be rejected
+        dup_res = self.client.post(url, payload, format='json')
+        self.assertEqual(dup_res.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertIn("active return request already exists", dup_res.data['error'])
+
+    def test_exchange_rejected_if_replacement_out_of_stock(self):
+        self.replacement_variant.stock = 0
+        self.replacement_variant.save(update_fields=['stock'])
+
+        self.client.force_authenticate(user=self.user)
+        url = reverse('orders:order_exchanges', kwargs={'order_number': self.delivered_order.order_number})
+        payload = {
+            'item_id': self.order_item.id,
+            'replacement_variant_id': self.replacement_variant.id,
+            'reason': 'size_exchange',
+        }
+        response = self.client.post(url, payload, format='json')
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertIn("sufficient available stock", response.data['error'])
+
+    def test_exchange_success(self):
+        self.client.force_authenticate(user=self.user)
+        url = reverse('orders:order_exchanges', kwargs={'order_number': self.delivered_order.order_number})
+        payload = {
+            'item_id': self.order_item.id,
+            'replacement_variant_id': self.replacement_variant.id,
+            'reason': 'size_exchange',
+            'customer_notes': 'Exchange for Size L',
+        }
+        response = self.client.post(url, payload, format='json')
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(response.data['status'], 'Requested')
+        self.assertEqual(response.data['replacement_sku'], self.replacement_variant.sku)
+
+    def test_admin_return_approval_and_item_receipt_with_stock_restoration(self):
+        from django.contrib.messages.storage.fallback import FallbackStorage
+
+        # Initial physical stock before return
+        self.variant_feeding.stock = 10
+        self.variant_feeding.save(update_fields=['stock'])
+
+        return_req = ReturnRequest.objects.create(
+            order=self.delivered_order,
+            item=self.order_item,
+            user=self.user,
+            reason='quality',
+            status=ReturnRequest.STATUS_REQUESTED,
+        )
+
+        admin_instance = ReturnRequestAdmin(ReturnRequest, site)
+        request = RequestFactory().get('/admin/orders/returnrequest/')
+        request.user = self.user
+        setattr(request, 'session', 'session')
+        setattr(request, '_messages', FallbackStorage(request))
+
+        # 1. Admin approves return
+        admin_instance.approve_returns(request, ReturnRequest.objects.filter(id=return_req.id))
+        return_req.refresh_from_db()
+        self.assertEqual(return_req.status, ReturnRequest.STATUS_APPROVED)
+
+        # 2. Item received in warehouse: restores stock & triggers refund
+        admin_instance.mark_item_received_and_refund(request, ReturnRequest.objects.filter(id=return_req.id))
+        return_req.refresh_from_db()
+        self.assertEqual(return_req.status, ReturnRequest.STATUS_REFUNDED)
+
+        # Physical stock incremented by 1 (10 + 1 = 11)
+        self.variant_feeding.refresh_from_db()
+        self.assertEqual(self.variant_feeding.stock, 11)
+
+        # Refund record created
+        from payments.models import RefundRecord
+        refund = RefundRecord.objects.filter(order=self.delivered_order).first()
+        self.assertIsNotNone(refund)
+        self.assertEqual(refund.amount, Decimal('1399.00'))
+        self.assertEqual(refund.status, RefundRecord.STATUS_PROCESSED)
+
+    def test_admin_exchange_approval_and_dispatch_with_inventory_adjustments(self):
+        from django.contrib.messages.storage.fallback import FallbackStorage
+
+        # Setup initial stock
+        self.variant_feeding.stock = 10
+        self.variant_feeding.save(update_fields=['stock'])
+        self.replacement_variant.stock = 5
+        self.replacement_variant.save(update_fields=['stock'])
+
+        exchange_req = ExchangeRequest.objects.create(
+            order=self.delivered_order,
+            item=self.order_item,
+            user=self.user,
+            replacement_variant=self.replacement_variant,
+            reason='size_exchange',
+            status=ExchangeRequest.STATUS_REQUESTED,
+        )
+
+        admin_instance = ExchangeRequestAdmin(ExchangeRequest, site)
+        request = RequestFactory().get('/admin/orders/exchangerequest/')
+        request.user = self.user
+        setattr(request, 'session', 'session')
+        setattr(request, '_messages', FallbackStorage(request))
+
+        # 1. Admin approves exchange
+        admin_instance.approve_exchanges(request, ExchangeRequest.objects.filter(id=exchange_req.id))
+        exchange_req.refresh_from_db()
+        self.assertEqual(exchange_req.status, ExchangeRequest.STATUS_APPROVED)
+
+        # 2. Mark replacement dispatched: decrements replacement stock and restores original returned stock
+        admin_instance.mark_exchange_dispatched(request, ExchangeRequest.objects.filter(id=exchange_req.id))
+        exchange_req.refresh_from_db()
+        self.assertEqual(exchange_req.status, ExchangeRequest.STATUS_DISPATCHED)
+
+        # Replacement variant stock decremented from 5 to 4
+        self.replacement_variant.refresh_from_db()
+        self.assertEqual(self.replacement_variant.stock, 4)
+
+        # Original returned variant stock restored from 10 to 11
+        self.variant_feeding.refresh_from_db()
+        self.assertEqual(self.variant_feeding.stock, 11)
+
 
 

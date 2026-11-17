@@ -248,3 +248,119 @@ class NonFeedingOrder(Order):
         verbose_name = 'Non-Feeding Order'
         verbose_name_plural = 'Non-Feeding Orders'
 
+
+class ReturnRequest(models.Model):
+    """
+    Formal customer return request initiated after delivery.
+    Subject to admin review, warehouse receipt inspection, and prorated refund.
+    """
+
+    STATUS_REQUESTED = 'Requested'
+    STATUS_APPROVED = 'Approved'
+    STATUS_REJECTED = 'Rejected'
+    STATUS_ITEM_RECEIVED = 'Item Received'
+    STATUS_REFUNDED = 'Refunded'
+
+    STATUS_CHOICES = (
+        (STATUS_REQUESTED, 'Requested'),
+        (STATUS_APPROVED, 'Approved'),
+        (STATUS_REJECTED, 'Rejected'),
+        (STATUS_ITEM_RECEIVED, 'Item Received'),
+        (STATUS_REFUNDED, 'Refunded'),
+    )
+
+    order = models.ForeignKey(
+        Order,
+        on_delete=models.CASCADE,
+        related_name='return_requests',
+    )
+    item = models.ForeignKey(
+        OrderItem,
+        on_delete=models.CASCADE,
+        related_name='return_requests',
+    )
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name='return_requests',
+    )
+    reason = models.CharField(max_length=100)
+    customer_notes = models.TextField(blank=True)
+    admin_notes = models.TextField(blank=True)
+    status = models.CharField(
+        max_length=30,
+        choices=STATUS_CHOICES,
+        default=STATUS_REQUESTED,
+        db_index=True,
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = 'Return Request'
+        verbose_name_plural = 'Return Requests'
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return f"Return #{self.id} for {self.item.product_name} ({self.order.order_number}) - {self.status}"
+
+
+class ExchangeRequest(models.Model):
+    """
+    Formal customer exchange request initiated after delivery.
+    Specifies desired replacement variant, subject to admin approval and stock availability.
+    """
+
+    STATUS_REQUESTED = 'Requested'
+    STATUS_APPROVED = 'Approved'
+    STATUS_REJECTED = 'Rejected'
+    STATUS_DISPATCHED = 'Item Dispatched'
+
+    STATUS_CHOICES = (
+        (STATUS_REQUESTED, 'Requested'),
+        (STATUS_APPROVED, 'Approved'),
+        (STATUS_REJECTED, 'Rejected'),
+        (STATUS_DISPATCHED, 'Item Dispatched'),
+    )
+
+    order = models.ForeignKey(
+        Order,
+        on_delete=models.CASCADE,
+        related_name='exchange_requests',
+    )
+    item = models.ForeignKey(
+        OrderItem,
+        on_delete=models.CASCADE,
+        related_name='exchange_requests',
+    )
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name='exchange_requests',
+    )
+    replacement_variant = models.ForeignKey(
+        'catalog.ProductVariant',
+        on_delete=models.PROTECT,
+        related_name='exchange_requests',
+    )
+    reason = models.CharField(max_length=100)
+    customer_notes = models.TextField(blank=True)
+    admin_notes = models.TextField(blank=True)
+    status = models.CharField(
+        max_length=30,
+        choices=STATUS_CHOICES,
+        default=STATUS_REQUESTED,
+        db_index=True,
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = 'Exchange Request'
+        verbose_name_plural = 'Exchange Requests'
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return f"Exchange #{self.id} for {self.item.product_name} -> {self.replacement_variant.sku} ({self.order.order_number}) - {self.status}"
+
+

@@ -7,7 +7,7 @@ from accounts.models import SavedAddress
 from catalog.models import ProductVariant
 from cart.models import CartItem, StockReservation
 from cart.views import get_or_create_cart
-from .models import Order, OrderItem
+from .models import Order, OrderItem, ReturnRequest, ExchangeRequest
 
 
 class OrderItemSerializer(serializers.ModelSerializer):
@@ -118,4 +118,88 @@ class OrderCreateSerializer(serializers.Serializer):
         if not attrs.get('address_id') and not attrs.get('address'):
             raise serializers.ValidationError("Either address_id or address object must be provided.")
         return attrs
+
+
+class ReturnRequestSerializer(serializers.ModelSerializer):
+    order_number = serializers.CharField(source='order.order_number', read_only=True)
+    item_id = serializers.IntegerField(source='item.id', read_only=True)
+    product_name = serializers.CharField(source='item.product_name', read_only=True)
+    product_sku = serializers.CharField(source='item.product_sku', read_only=True)
+    quantity = serializers.IntegerField(source='item.quantity', read_only=True)
+    refund_amount = serializers.SerializerMethodField()
+
+    class Meta:
+        model = ReturnRequest
+        fields = [
+            'id',
+            'order_number',
+            'item_id',
+            'product_name',
+            'product_sku',
+            'quantity',
+            'refund_amount',
+            'reason',
+            'customer_notes',
+            'admin_notes',
+            'status',
+            'created_at',
+            'updated_at',
+        ]
+        read_only_fields = ['id', 'status', 'admin_notes', 'created_at', 'updated_at']
+
+    def get_refund_amount(self, obj) -> str:
+        return f"{obj.item.line_total:.2f}"
+
+
+class ReturnRequestCreateSerializer(serializers.Serializer):
+    item_id = serializers.IntegerField(required=True)
+    reason = serializers.CharField(required=True, max_length=100)
+    customer_notes = serializers.CharField(required=False, allow_blank=True, default='')
+
+
+class ExchangeRequestSerializer(serializers.ModelSerializer):
+    order_number = serializers.CharField(source='order.order_number', read_only=True)
+    item_id = serializers.IntegerField(source='item.id', read_only=True)
+    original_product_name = serializers.CharField(source='item.product_name', read_only=True)
+    original_sku = serializers.CharField(source='item.product_sku', read_only=True)
+    replacement_variant_id = serializers.IntegerField(source='replacement_variant.id', read_only=True)
+    replacement_sku = serializers.CharField(source='replacement_variant.sku', read_only=True)
+    replacement_details = serializers.SerializerMethodField()
+
+    class Meta:
+        model = ExchangeRequest
+        fields = [
+            'id',
+            'order_number',
+            'item_id',
+            'original_product_name',
+            'original_sku',
+            'replacement_variant_id',
+            'replacement_sku',
+            'replacement_details',
+            'reason',
+            'customer_notes',
+            'admin_notes',
+            'status',
+            'created_at',
+            'updated_at',
+        ]
+        read_only_fields = ['id', 'status', 'admin_notes', 'created_at', 'updated_at']
+
+    def get_replacement_details(self, obj) -> dict:
+        v = obj.replacement_variant
+        return {
+            'clothing_type': v.clothing_type,
+            'color': v.color.name,
+            'size': v.size.name,
+            'price': f"{v.final_price:.2f}",
+        }
+
+
+class ExchangeRequestCreateSerializer(serializers.Serializer):
+    item_id = serializers.IntegerField(required=True)
+    replacement_variant_id = serializers.IntegerField(required=True)
+    reason = serializers.CharField(required=True, max_length=100)
+    customer_notes = serializers.CharField(required=False, allow_blank=True, default='')
+
 

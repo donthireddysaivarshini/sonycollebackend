@@ -302,3 +302,42 @@ class HomepageSectionItem(models.Model):
         return f"{self.product.title} in {self.section.title} (Pos: {self.order})"
 
 
+class SiteConfig(models.Model):
+    """
+    Singleton configuration model centralizing all store-wide business policies
+    with zero unconfirmed defaults (unset/null by default).
+    """
+
+    gstin = models.CharField(max_length=30, blank=True, null=True, default=None)
+    registered_address = models.TextField(blank=True, null=True, default=None)
+    tax_percentage = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True, default=None)
+    is_tax_inclusive = models.BooleanField(blank=True, null=True, default=None)
+    shipping_fee = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True, default=None)
+    free_shipping_threshold = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True, default=None)
+    cod_enabled = models.BooleanField(default=False)
+    cod_extra_charge = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True, default=None)
+    return_window_days = models.PositiveIntegerField(blank=True, null=True, default=None)
+    exchange_window_days = models.PositiveIntegerField(blank=True, null=True, default=None)
+    max_saved_addresses = models.PositiveIntegerField(blank=True, null=True, default=None)
+    shipping_notice = models.CharField(max_length=255, blank=True, null=True, default=None)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = 'Site Configuration'
+        verbose_name_plural = 'Site Configuration'
+
+    def __str__(self):
+        return "Store Configuration (Singleton)"
+
+    @classmethod
+    def get_solo(cls):
+        obj, _ = cls.objects.get_or_create(id=1)
+        return obj
+
+    def save(self, *args, **kwargs):
+        self.id = 1
+        super().save(*args, **kwargs)
+
+
+

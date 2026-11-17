@@ -1,7 +1,14 @@
 from django.contrib import admin
 from django.utils.html import format_html
 
-from .models import FeedingOrder, NonFeedingOrder, Order, OrderItem
+from .models import (
+    FeedingOrder,
+    NonFeedingOrder,
+    Order,
+    OrderItem,
+    ReturnRequest,
+    ExchangeRequest,
+)
 
 
 class OrderItemInline(admin.TabularInline):
@@ -266,4 +273,223 @@ class NonFeedingOrderAdmin(OrderAdmin):
 
     def get_queryset(self, request):
         return super().get_queryset(request).filter(items__clothing_type__in=['Non-Feeding', 'Standard']).distinct()
+
+
+@admin.register(ReturnRequest)
+class ReturnRequestAdmin(admin.ModelAdmin):
+    list_display = [
+        'id',
+        'order_link',
+        'item_display',
+        'customer_email',
+        'reason',
+        'status_badge',
+        'created_at',
+    ]
+    list_filter = ['status', 'reason', 'created_at']
+    search_fields = [
+        'order__order_number',
+        'user__email',
+        'item__product_name',
+        'item__product_sku',
+    ]
+    actions = [
+        'approve_returns',
+        'reject_returns',
+        'mark_item_received_and_refund',
+    ]
+    readonly_fields = ['created_at', 'updated_at']
+
+    def order_link(self, obj):
+        return obj.order.order_number
+    order_link.short_description = 'Order Number'
+
+    def item_display(self, obj):
+        return f"{obj.item.quantity}x {obj.item.product_name} ({obj.item.size}) - ₹{obj.item.line_total}"
+    item_display.short_description = 'Returned Item'
+
+    def customer_email(self, obj):
+        return obj.user.email
+    customer_email.short_description = 'Customer'
+
+    def status_badge(self, obj):
+        colors = {
+            ReturnRequest.STATUS_REQUESTED: '#F59E0B',      # amber
+            ReturnRequest.STATUS_APPROVED: '#3B82F6',       # blue
+            ReturnRequest.STATUS_REJECTED: '#EF4444',       # red
+            ReturnRequest.STATUS_ITEM_RECEIVED: '#8B5CF6',   # purple
+            ReturnRequest.STATUS_REFUNDED: '#10B981',        # green
+        }
+        bg = colors.get(obj.status, '#6B7280')
+        return format_html(
+            '<span style="background-color: {}; color: #FFFFFF; padding: 3px 8px; border-radius: 4px; font-weight: 600; font-size: 11px;">{}</span>',
+            bg,
+            obj.status,
+        )
+    status_badge.short_description = 'Status'
+
+    @admin.action(description="Approve selected return requests")
+    def approve_returns(self, request, queryset):
+        count = queryset.filter(status=ReturnRequest.STATUS_REQUESTED).update(status=ReturnRequest.STATUS_APPROVED)
+        self.message_user(request, f"{count} return request(s) approved.")
+
+    @admin.action(description="Reject selected return requests")
+    def reject_returns(self, request, queryset):
+        count = queryset.filter(status=ReturnRequest.STATUS_REQUESTED).update(status=ReturnRequest.STATUS_REJECTED)
+        self.message_user(request, f"{count} return request(s) rejected.")
+
+    @admin.action(description="Mark item received in warehouse and process refund (restores physical stock)")
+    def mark_item_received_and_refund(self, request, queryset):
+        from django.db import transaction
+        from django.db.models import F
+        from catalog.models import ProductVariant
+        from payments.models import RefundRecord
+        from payments.razorpay_client import dispatch_razorpay_refund
+
+        processed = 0
+        for return_req in queryset:
+            if return_req.status not in (ReturnRequest.STATUS_REQUESTED, ReturnRequest.STATUS_APPROVED):
+                continue
+
+            with transaction.atomic():
+                # 1. Restore physical inventory
+                if return_req.item.variant_id:
+                    ProductVariant.objects.filter(id=return_req.item.variant_id).update(
+                        stock=F('stock') + return_req.item.quantity
+                    )
+
+                # 2. Trigger automated Razorpay refund if paid online
+                order = return_req.order
+                if order.payment_status in ('Paid', 'Refunded') and order.razorpay_payment_id:
+                    idempotency_key = f"refund-return-{return_req.id}"
+                    refund_amount_paise = int(return_req.item.line_total * 100)
+                    try:
+                        res = dispatch_razorpay_refund(
+                            payment_id=order.razorpay_payment_id,
+                            amount_paise=refund_amount_paise,
+                            idempotency_key=idempotency_key,
+                            reason=f"Return #{return_req.id} approved and received in warehouse",
+                        )
+                        RefundRecord.objects.create(
+                            order=order,
+                            idempotency_key=idempotency_key,
+                            amount=return_req.item.line_total,
+                            razorpay_refund_id=res.get('id'),
+                            reason=f"Return #{return_req.id} approved and received",
+                            status=RefundRecord.STATUS_PROCESSED,
+                        )
+                        return_req.status = ReturnRequest.STATUS_REFUNDED
+                    except Exception as e:
+                        RefundRecord.objects.create(
+                            order=order,
+                            idempotency_key=idempotency_key,
+                            amount=return_req.item.line_total,
+                            reason=f"Return #{return_req.id} approved and received",
+                            status=RefundRecord.STATUS_FAILED_RETRYABLE,
+                            error_message=str(e),
+                        )
+                        return_req.status = ReturnRequest.STATUS_ITEM_RECEIVED
+                else:
+                    return_req.status = ReturnRequest.STATUS_ITEM_RECEIVED
+
+                return_req.save(update_fields=['status', 'updated_at'])
+                processed += 1
+
+        self.message_user(request, f"{processed} return request(s) processed with stock restored.")
+
+
+@admin.register(ExchangeRequest)
+class ExchangeRequestAdmin(admin.ModelAdmin):
+    list_display = [
+        'id',
+        'order_link',
+        'original_item_display',
+        'replacement_variant_display',
+        'customer_email',
+        'status_badge',
+        'created_at',
+    ]
+    list_filter = ['status', 'reason', 'created_at']
+    search_fields = [
+        'order__order_number',
+        'user__email',
+        'item__product_name',
+        'replacement_variant__sku',
+    ]
+    actions = [
+        'approve_exchanges',
+        'reject_exchanges',
+        'mark_exchange_dispatched',
+    ]
+    readonly_fields = ['created_at', 'updated_at']
+
+    def order_link(self, obj):
+        return obj.order.order_number
+    order_link.short_description = 'Order Number'
+
+    def original_item_display(self, obj):
+        return f"{obj.item.quantity}x {obj.item.product_name} ({obj.item.size})"
+    original_item_display.short_description = 'Original Item'
+
+    def replacement_variant_display(self, obj):
+        v = obj.replacement_variant
+        return f"{v.product.title} - {v.color.name} - {v.size.name} ({v.sku})"
+    replacement_variant_display.short_description = 'Replacement Variant'
+
+    def customer_email(self, obj):
+        return obj.user.email
+    customer_email.short_description = 'Customer'
+
+    def status_badge(self, obj):
+        colors = {
+            ExchangeRequest.STATUS_REQUESTED: '#F59E0B',    # amber
+            ExchangeRequest.STATUS_APPROVED: '#3B82F6',     # blue
+            ExchangeRequest.STATUS_REJECTED: '#EF4444',     # red
+            ExchangeRequest.STATUS_DISPATCHED: '#10B981',   # green
+        }
+        bg = colors.get(obj.status, '#6B7280')
+        return format_html(
+            '<span style="background-color: {}; color: #FFFFFF; padding: 3px 8px; border-radius: 4px; font-weight: 600; font-size: 11px;">{}</span>',
+            bg,
+            obj.status,
+        )
+    status_badge.short_description = 'Status'
+
+    @admin.action(description="Approve selected exchange requests")
+    def approve_exchanges(self, request, queryset):
+        count = queryset.filter(status=ExchangeRequest.STATUS_REQUESTED).update(status=ExchangeRequest.STATUS_APPROVED)
+        self.message_user(request, f"{count} exchange request(s) approved.")
+
+    @admin.action(description="Reject selected exchange requests")
+    def reject_exchanges(self, request, queryset):
+        count = queryset.filter(status=ExchangeRequest.STATUS_REQUESTED).update(status=ExchangeRequest.STATUS_REJECTED)
+        self.message_user(request, f"{count} exchange request(s) rejected.")
+
+    @admin.action(description="Mark replacement dispatched (deducts replacement stock & restores returned stock)")
+    def mark_exchange_dispatched(self, request, queryset):
+        from django.db import transaction
+        from django.db.models import F
+        from catalog.models import ProductVariant
+
+        processed = 0
+        for exchange_req in queryset:
+            if exchange_req.status not in (ExchangeRequest.STATUS_REQUESTED, ExchangeRequest.STATUS_APPROVED):
+                continue
+
+            with transaction.atomic():
+                # 1. Decrement replacement variant stock
+                ProductVariant.objects.filter(id=exchange_req.replacement_variant_id).update(
+                    stock=F('stock') - exchange_req.item.quantity
+                )
+                # 2. Restore returned original variant stock
+                if exchange_req.item.variant_id:
+                    ProductVariant.objects.filter(id=exchange_req.item.variant_id).update(
+                        stock=F('stock') + exchange_req.item.quantity
+                    )
+                exchange_req.status = ExchangeRequest.STATUS_DISPATCHED
+                exchange_req.save(update_fields=['status', 'updated_at'])
+                processed += 1
+
+        self.message_user(request, f"{processed} exchange(s) dispatched with inventory adjusted.")
+
 

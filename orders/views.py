@@ -9,10 +9,17 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from accounts.models import SavedAddress
-from catalog.models import ProductVariant
+from catalog.models import ProductVariant, SiteConfig
 from cart.models import Cart, CartItem, StockReservation
-from .models import Order, OrderItem
-from .serializers import OrderCreateSerializer, OrderSerializer
+from .models import Order, OrderItem, ReturnRequest, ExchangeRequest
+from .serializers import (
+    OrderCreateSerializer,
+    OrderSerializer,
+    ReturnRequestSerializer,
+    ReturnRequestCreateSerializer,
+    ExchangeRequestSerializer,
+    ExchangeRequestCreateSerializer,
+)
 
 
 class OrderListView(generics.ListAPIView):
@@ -473,5 +480,240 @@ class OrderCheckoutView(APIView):
                 },
                 status=status.HTTP_201_CREATED,
             )
+
+
+class CustomerReturnListView(generics.ListAPIView):
+    """
+    Retrieve customer's global return request history.
+    GET /api/orders/returns/
+    """
+
+    permission_classes = [IsAuthenticated]
+    serializer_class = ReturnRequestSerializer
+    pagination_class = None
+
+    def get_queryset(self):
+        return (
+            ReturnRequest.objects.filter(user=self.request.user)
+            .select_related('order', 'item')
+            .order_by('-created_at')
+        )
+
+
+class CustomerExchangeListView(generics.ListAPIView):
+    """
+    Retrieve customer's global exchange request history.
+    GET /api/orders/exchanges/
+    """
+
+    permission_classes = [IsAuthenticated]
+    serializer_class = ExchangeRequestSerializer
+    pagination_class = None
+
+    def get_queryset(self):
+        return (
+            ExchangeRequest.objects.filter(user=self.request.user)
+            .select_related(
+                'order',
+                'item',
+                'replacement_variant',
+                'replacement_variant__color',
+                'replacement_variant__size',
+            )
+            .order_by('-created_at')
+        )
+
+
+class OrderReturnRequestView(APIView):
+    """
+    Submit or list return requests for a specific delivered order.
+    POST /api/orders/<order_number>/returns/
+    GET  /api/orders/<order_number>/returns/
+    """
+
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, order_number):
+        order = get_object_or_404(Order, order_number=order_number, user=request.user)
+        returns = order.return_requests.select_related('item').order_by('-created_at')
+        serializer = ReturnRequestSerializer(returns, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def post(self, request, order_number):
+        from django.utils import timezone
+
+        order = get_object_or_404(Order, order_number=order_number, user=request.user)
+
+        # 1. Fulfilment State Check: Must be Delivered
+        if order.order_status != 'Delivered':
+            return Response(
+                {'error': "Returns can only be requested for orders that have been delivered."},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        # 2. Configurable Policy Window Check
+        site_config = SiteConfig.get_solo()
+        if site_config.return_window_days is not None:
+            window_days = site_config.return_window_days
+            delta = timezone.now() - order.updated_at
+            if delta.days > window_days:
+                return Response(
+                    {'error': f"Return window of {window_days} day(s) has expired for this order."},
+                    status=status.HTTP_400_BAD_REQUEST,
+                )
+
+        # 3. Payload Validation
+        serializer = ReturnRequestCreateSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        item_id = serializer.validated_data['item_id']
+        item = get_object_or_404(OrderItem, id=item_id, order=order)
+
+        # 4. Idempotency & Duplicate Guards
+        if ReturnRequest.objects.filter(
+            item=item,
+            status__in=[
+                ReturnRequest.STATUS_REQUESTED,
+                ReturnRequest.STATUS_APPROVED,
+                ReturnRequest.STATUS_ITEM_RECEIVED,
+                ReturnRequest.STATUS_REFUNDED,
+            ],
+        ).exists():
+            return Response(
+                {'error': "An active return request already exists for this line item."},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        if ExchangeRequest.objects.filter(
+            item=item,
+            status__in=[
+                ExchangeRequest.STATUS_REQUESTED,
+                ExchangeRequest.STATUS_APPROVED,
+                ExchangeRequest.STATUS_DISPATCHED,
+            ],
+        ).exists():
+            return Response(
+                {'error': "An active exchange request already exists for this line item."},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        # 5. Create Return Request
+        return_req = ReturnRequest.objects.create(
+            order=order,
+            item=item,
+            user=request.user,
+            reason=serializer.validated_data['reason'],
+            customer_notes=serializer.validated_data.get('customer_notes', ''),
+        )
+
+        return Response(
+            ReturnRequestSerializer(return_req).data,
+            status=status.HTTP_201_CREATED,
+        )
+
+
+class OrderExchangeRequestView(APIView):
+    """
+    Submit or list exchange requests for a specific delivered order.
+    POST /api/orders/<order_number>/exchanges/
+    GET  /api/orders/<order_number>/exchanges/
+    """
+
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, order_number):
+        order = get_object_or_404(Order, order_number=order_number, user=request.user)
+        exchanges = order.exchange_requests.select_related(
+            'item',
+            'replacement_variant',
+            'replacement_variant__color',
+            'replacement_variant__size',
+        ).order_by('-created_at')
+        serializer = ExchangeRequestSerializer(exchanges, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def post(self, request, order_number):
+        from django.utils import timezone
+
+        order = get_object_or_404(Order, order_number=order_number, user=request.user)
+
+        # 1. Fulfilment State Check: Must be Delivered
+        if order.order_status != 'Delivered':
+            return Response(
+                {'error': "Exchanges can only be requested for orders that have been delivered."},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        # 2. Configurable Policy Window Check
+        site_config = SiteConfig.get_solo()
+        if site_config.exchange_window_days is not None:
+            window_days = site_config.exchange_window_days
+            delta = timezone.now() - order.updated_at
+            if delta.days > window_days:
+                return Response(
+                    {'error': f"Exchange window of {window_days} day(s) has expired for this order."},
+                    status=status.HTTP_400_BAD_REQUEST,
+                )
+
+        # 3. Payload Validation
+        serializer = ExchangeRequestCreateSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        item_id = serializer.validated_data['item_id']
+        replacement_variant_id = serializer.validated_data['replacement_variant_id']
+
+        item = get_object_or_404(OrderItem, id=item_id, order=order)
+        replacement_variant = get_object_or_404(ProductVariant, id=replacement_variant_id)
+
+        # 4. Duplicate Guards
+        if ExchangeRequest.objects.filter(
+            item=item,
+            status__in=[
+                ExchangeRequest.STATUS_REQUESTED,
+                ExchangeRequest.STATUS_APPROVED,
+                ExchangeRequest.STATUS_DISPATCHED,
+            ],
+        ).exists():
+            return Response(
+                {'error': "An active exchange request already exists for this line item."},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        if ReturnRequest.objects.filter(
+            item=item,
+            status__in=[
+                ReturnRequest.STATUS_REQUESTED,
+                ReturnRequest.STATUS_APPROVED,
+                ReturnRequest.STATUS_ITEM_RECEIVED,
+                ReturnRequest.STATUS_REFUNDED,
+            ],
+        ).exists():
+            return Response(
+                {'error': "An active return request already exists for this line item."},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        # 5. Inventory Availability Guard for Replacement Variant
+        if replacement_variant.available_stock < item.quantity:
+            return Response(
+                {'error': "Selected replacement variant does not have sufficient available stock."},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        # 6. Create Exchange Request
+        exchange_req = ExchangeRequest.objects.create(
+            order=order,
+            item=item,
+            user=request.user,
+            replacement_variant=replacement_variant,
+            reason=serializer.validated_data['reason'],
+            customer_notes=serializer.validated_data.get('customer_notes', ''),
+        )
+
+        return Response(
+            ExchangeRequestSerializer(exchange_req).data,
+            status=status.HTTP_201_CREATED,
+        )
+
 
 
