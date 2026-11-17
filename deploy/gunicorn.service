@@ -1,0 +1,22 @@
+[Unit]
+Description=Gunicorn daemon for Sony Feeding Kurtis Backend
+After=network.target
+
+[Service]
+User=www-data
+Group=www-data
+WorkingDirectory=/var/www/sonyfeedingkurtis/sony-backend
+Environment="DJANGO_SETTINGS_MODULE=core.production_settings"
+EnvironmentFile=/var/www/sonyfeedingkurtis/sony-backend/.env
+ExecStart=/var/www/sonyfeedingkurtis/sony-backend/.venv/bin/gunicorn \
+    --config /var/www/sonyfeedingkurtis/sony-backend/deploy/gunicorn_conf.py \
+    core.wsgi:application
+
+Restart=always
+RestartSec=5s
+KillMode=mixed
+TimeoutStopSec=30
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

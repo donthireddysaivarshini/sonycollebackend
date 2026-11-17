@@ -376,3 +376,4 @@ def export_orders_to_excel(queryset) -> bytes:
     excel_bytes = buffer.getvalue()
     buffer.close()
     return excel_bytes
+
