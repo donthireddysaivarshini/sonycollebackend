@@ -176,6 +176,7 @@ class ProductSerializer(serializers.ModelSerializer):
     images = ProductImageSerializer(many=True, read_only=True)
     variants = ProductVariantSerializer(many=True, read_only=True)
     reviews = ProductReviewSerializer(source='customer_reviews', many=True, read_only=True)
+    size_guide_image_url = serializers.SerializerMethodField()
 
     class Meta:
         model = Product
@@ -195,6 +196,8 @@ class ProductSerializer(serializers.ModelSerializer):
             'description',
             'fabric',
             'care_instructions',
+            'size_guide_image_url',
+            'size_guide_text',
             'is_new_arrival',
             'is_best_seller',
             'is_handstock',
@@ -205,6 +208,21 @@ class ProductSerializer(serializers.ModelSerializer):
             'variants',
             'reviews',
         )
+
+    def get_size_guide_image_url(self, obj):
+        img = obj.size_guide_image
+        if not img and obj.category and obj.category.size_guide_image:
+            img = obj.category.size_guide_image
+        if not img:
+            return None
+        request = self.context.get('request')
+        if request:
+            return request.build_absolute_uri(img.url)
+        url = img.url
+        if not url.startswith('http'):
+            clean = url.lstrip('/')
+            return f"/media/{clean}" if not url.startswith('/media/') else url
+        return url
 
 
 class HeroSlideSerializer(serializers.ModelSerializer):

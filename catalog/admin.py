@@ -31,6 +31,18 @@ class CategoryAdmin(admin.ModelAdmin):
     search_fields = ('name', 'slug', 'description')
     prepopulated_fields = {'slug': ('name',)}
     readonly_fields = ('image_preview',)
+    fields = (
+        'name',
+        'slug',
+        'image',
+        'image_preview',
+        'size_guide_image',
+        'tagline',
+        'item_count_label',
+        'description',
+        'display_order',
+        'is_active',
+    )
     ordering = ('display_order', 'name')
 
     def image_preview(self, obj):
@@ -174,6 +186,13 @@ class ProductAdmin(admin.ModelAdmin):
                 'review_count',
             ),
             'classes': ('collapse',),
+        }),
+        ('Size Guide & Custom Measurements', {
+            'fields': (
+                'size_guide_image',
+                'size_guide_text',
+            ),
+            'description': 'Upload a custom size guide chart image or custom measurements for this garment. If left empty, the boutique default interactive sizing chart is used.',
         }),
     )
 

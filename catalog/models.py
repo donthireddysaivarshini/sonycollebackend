@@ -13,6 +13,12 @@ class Category(models.Model):
     name = models.CharField(max_length=100)
     slug = models.SlugField(max_length=120, unique=True)
     image = models.ImageField(upload_to='categories/', blank=True, null=True)
+    size_guide_image = models.ImageField(
+        upload_to='size_guides/categories/',
+        blank=True,
+        null=True,
+        help_text="Default size guide image for all products in this category if product has no specific chart",
+    )
     description = models.TextField(blank=True)
     tagline = models.CharField(max_length=200, blank=True)
     item_count_label = models.CharField(max_length=50, blank=True)
@@ -95,6 +101,17 @@ class Product(models.Model):
     description = models.TextField(blank=True)
     fabric = models.CharField(max_length=150, blank=True)
     care_instructions = models.TextField(blank=True)
+    size_guide_image = models.ImageField(
+        upload_to='size_guides/',
+        blank=True,
+        null=True,
+        help_text="Upload custom size guide chart image for this product",
+    )
+    size_guide_text = models.TextField(
+        blank=True,
+        default='',
+        help_text="Optional measurement notes or guidelines (e.g. 'Model is 5\\'7\" wearing size S')",
+    )
 
     # Homepage Sections Checklist
     is_feeding_collection = models.BooleanField(
