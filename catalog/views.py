@@ -1,15 +1,17 @@
 from django.db.models import Q
-from rest_framework import generics, viewsets
+from rest_framework import generics, viewsets, status
 from rest_framework.views import APIView
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
+from rest_framework.decorators import action
 
-from .models import Category, Product, HomepageSection, HeroSlide, SiteConfig
+from .models import Category, Product, HomepageSection, HeroSlide, SiteConfig, ProductReview
 from .serializers import (
     CategorySerializer,
     ProductSerializer,
     HomepageSectionSerializer,
     HeroSlideSerializer,
+    ProductReviewSerializer,
 )
 
 
@@ -129,6 +131,92 @@ class ProductViewSet(viewsets.ReadOnlyModelViewSet):
             queryset = queryset.order_by('-created_at')
 
         return queryset.distinct()
+
+    @action(detail=True, methods=['get', 'post'], url_path='reviews')
+    def reviews(self, request, slug=None):
+        """
+        Amazon-style Customer Review Endpoint.
+        GET: Returns overall average, total count, star rating breakdown (5,4,3,2,1 star %), and all customer reviews.
+        POST: Only logged-in customers can submit reviews. Calculates verified purchase status and recalculates metrics.
+        """
+        product = self.get_object()
+
+        if request.method == 'POST':
+            if not request.user.is_authenticated:
+                return Response(
+                    {'detail': 'Authentication required. Please log in to review this product.'},
+                    status=status.HTTP_401_UNAUTHORIZED,
+                )
+
+            rating_raw = request.data.get('rating')
+            headline = str(request.data.get('headline', '')).strip()
+            comment = str(request.data.get('comment', '')).strip()
+
+            try:
+                rating = int(rating_raw)
+                if rating < 1 or rating > 5:
+                    raise ValueError()
+            except (TypeError, ValueError):
+                return Response(
+                    {'error': 'Rating must be an integer between 1 and 5 stars.'},
+                    status=status.HTTP_400_BAD_REQUEST,
+                )
+
+            if not comment:
+                return Response(
+                    {'error': 'Please provide a review comment describing your experience.'},
+                    status=status.HTTP_400_BAD_REQUEST,
+                )
+
+            # Check if user previously purchased this product in a paid order
+            from orders.models import OrderItem
+            has_purchased = OrderItem.objects.filter(
+                order__user=request.user,
+                order__payment_status='Paid',
+                product=product,
+            ).exists()
+
+            user_name = f"{getattr(request.user, 'first_name', '')} {getattr(request.user, 'last_name', '')}".strip()
+            if not user_name:
+                user_name = request.user.email.split('@')[0] if getattr(request.user, 'email', None) else 'Customer'
+
+            review, _ = ProductReview.objects.update_or_create(
+                product=product,
+                user=request.user,
+                defaults={
+                    'user_name': user_name,
+                    'rating': rating,
+                    'headline': headline,
+                    'comment': comment,
+                    'verified_purchase': has_purchased,
+                    'is_approved': True,
+                },
+            )
+            review.recalculate_product_metrics()
+            product.refresh_from_db(fields=['rating', 'review_count'])
+
+        # Compute Amazon-style breakdown
+        approved_reviews = product.customer_reviews.filter(is_approved=True).order_by('-created_at')
+        total_count = approved_reviews.count()
+
+        distribution = {}
+        for star in range(5, 0, -1):
+            count = approved_reviews.filter(rating=star).count()
+            pct = round((count / total_count * 100)) if total_count > 0 else 0
+            distribution[str(star)] = {
+                'stars': star,
+                'count': count,
+                'percentage': pct,
+            }
+
+        return Response({
+            'product_id': product.id,
+            'product_title': product.title,
+            'average_rating': float(product.rating),
+            'total_reviews': total_count,
+            'distribution': distribution,
+            'reviews': ProductReviewSerializer(approved_reviews, many=True).data,
+        })
 
 
 class HomepageSectionListView(generics.ListAPIView):

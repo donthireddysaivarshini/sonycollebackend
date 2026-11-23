@@ -9,6 +9,7 @@ from .models import (
     HomepageSection,
     HomepageSectionItem,
     HeroSlide,
+    ProductReview,
 )
 
 
@@ -126,6 +127,25 @@ class CategoryBriefSerializer(serializers.ModelSerializer):
         fields = ('id', 'name', 'slug')
 
 
+class ProductReviewSerializer(serializers.ModelSerializer):
+    """
+    Amazon-style Customer Review & Rating Serializer.
+    """
+
+    class Meta:
+        model = ProductReview
+        fields = (
+            'id',
+            'user_name',
+            'rating',
+            'headline',
+            'comment',
+            'verified_purchase',
+            'created_at',
+        )
+        read_only_fields = ('id', 'user_name', 'verified_purchase', 'created_at')
+
+
 class ProductSerializer(serializers.ModelSerializer):
     """
     Serializes Product to match the DjangoProductResponse DTO expected by
@@ -143,6 +163,7 @@ class ProductSerializer(serializers.ModelSerializer):
     discount_percentage = serializers.IntegerField(read_only=True)
     images = ProductImageSerializer(many=True, read_only=True)
     variants = ProductVariantSerializer(many=True, read_only=True)
+    reviews = ProductReviewSerializer(source='customer_reviews', many=True, read_only=True)
 
     class Meta:
         model = Product
@@ -170,6 +191,7 @@ class ProductSerializer(serializers.ModelSerializer):
             'is_kidswear_collection',
             'images',
             'variants',
+            'reviews',
         )
 
 

@@ -1,5 +1,7 @@
 from django.db import models
+from django.conf import settings
 from django.core.exceptions import ValidationError
+from django.core.validators import MinValueValidator, MaxValueValidator
 from decimal import Decimal
 
 
@@ -477,6 +479,77 @@ class HeroSlide(models.Model):
 
     def __str__(self):
         return f"{self.title} (Order: {self.display_order})"
+
+
+class ProductReview(models.Model):
+    """
+    Amazon-style Customer Review & Rating entity.
+    Only logged-in customers can submit reviews.
+    Checks historical paid order items for Verified Buyer status.
+    Automatically recalculates Product average rating and review_count.
+    """
+
+    product = models.ForeignKey(
+        Product,
+        on_delete=models.CASCADE,
+        related_name='customer_reviews',
+    )
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name='product_reviews',
+    )
+    user_name = models.CharField(max_length=150, blank=True)
+    rating = models.PositiveSmallIntegerField(
+        default=5,
+        validators=[MinValueValidator(1), MaxValueValidator(5)],
+        help_text="1 to 5 star rating",
+    )
+    headline = models.CharField(max_length=255, blank=True)
+    comment = models.TextField()
+    verified_purchase = models.BooleanField(default=False)
+    is_approved = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = 'Product Review'
+        verbose_name_plural = 'Product Reviews'
+        ordering = ['-created_at']
+        unique_together = ('product', 'user')
+
+    def __str__(self):
+        return f"{self.rating}★ review by {self.user_name or self.user.email} on {self.product.title}"
+
+    def save(self, *args, **kwargs):
+        if not self.user_name:
+            full = f"{getattr(self.user, 'first_name', '')} {getattr(self.user, 'last_name', '')}".strip()
+            self.user_name = full or (self.user.email.split('@')[0] if self.user.email else 'Verified Customer')
+        super().save(*args, **kwargs)
+        self.recalculate_product_metrics()
+
+    def delete(self, *args, **kwargs):
+        product = self.product
+        super().delete(*args, **kwargs)
+        ProductReview.recalculate_metrics_for_product(product)
+
+    def recalculate_product_metrics(self):
+        ProductReview.recalculate_metrics_for_product(self.product)
+
+    @classmethod
+    def recalculate_metrics_for_product(cls, product):
+        approved = cls.objects.filter(product=product, is_approved=True)
+        count = approved.count()
+        if count > 0:
+            from django.db.models import Avg
+            avg_val = approved.aggregate(Avg('rating'))['rating__avg'] or 5.0
+            product.rating = Decimal(str(round(avg_val, 2)))
+            product.review_count = count
+        else:
+            product.rating = Decimal('4.80')
+            product.review_count = 0
+        product.save(update_fields=['rating', 'review_count'])
+
 
 
 

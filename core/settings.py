@@ -180,6 +180,7 @@ JAZZMIN_SETTINGS = {
         'accounts.SavedAddress': 'fas fa-address-book',
         'catalog.Category': 'fas fa-tags',
         'catalog.Product': 'fas fa-tshirt',
+        'catalog.ProductReview': 'fas fa-star',
         'catalog.HeroSlide': 'fas fa-images',
         'catalog.Color': 'fas fa-palette',
         'catalog.Size': 'fas fa-ruler',

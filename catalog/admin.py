@@ -11,6 +11,7 @@ from .models import (
     HomepageSectionItem,
     SiteConfig,
     HeroSlide,
+    ProductReview,
 )
 
 
@@ -248,6 +249,50 @@ class SiteConfigAdmin(admin.ModelAdmin):
 
     def has_delete_permission(self, request, obj=None):
         return False
+
+
+@admin.register(ProductReview)
+class ProductReviewAdmin(admin.ModelAdmin):
+    list_per_page = 25
+    list_display = (
+        'product',
+        'user_name',
+        'star_rating_display',
+        'headline',
+        'verified_purchase_badge',
+        'is_approved',
+        'created_at',
+    )
+    list_editable = ('is_approved',)
+    list_filter = ('rating', 'verified_purchase', 'is_approved', 'created_at')
+    search_fields = ('product__title', 'user_name', 'user__email', 'headline', 'comment')
+    actions = ['approve_reviews', 'reject_reviews']
+
+    def star_rating_display(self, obj):
+        stars = '★' * obj.rating + '☆' * (5 - obj.rating)
+        return format_html('<span style="color: #F59E0B; font-weight: bold; font-size: 13px;">{}</span> ({})', stars, obj.rating)
+    star_rating_display.short_description = 'Rating'
+
+    def verified_purchase_badge(self, obj):
+        if obj.verified_purchase:
+            return format_html('<span style="background-color: #10B981; color: white; padding: 2px 6px; border-radius: 4px; font-size: 10px; font-weight: bold;">✓ Verified</span>')
+        return format_html('<span style="color: #9CA3AF; font-size: 11px;">Standard</span>')
+    verified_purchase_badge.short_description = 'Buyer Type'
+
+    @admin.action(description="Approve selected customer reviews")
+    def approve_reviews(self, request, queryset):
+        count = queryset.update(is_approved=True)
+        for obj in queryset:
+            obj.recalculate_product_metrics()
+        self.message_user(request, f"{count} review(s) approved and product ratings updated.")
+
+    @admin.action(description="Reject selected customer reviews")
+    def reject_reviews(self, request, queryset):
+        count = queryset.update(is_approved=False)
+        for obj in queryset:
+            obj.recalculate_product_metrics()
+        self.message_user(request, f"{count} review(s) rejected and product ratings updated.")
+
 
 
 
