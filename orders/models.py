@@ -134,8 +134,8 @@ class Order(models.Model):
 
     @property
     def is_cancellable(self) -> bool:
-        """Customers may cancel an order only prior to warehouse dispatch."""
-        return self.order_status in ('Ordered', 'Processing')
+        """Customers may cancel an order only prior to warehouse dispatch (before shipping)."""
+        return str(self.order_status).strip().lower() in ('ordered', 'processing')
 
     @property
     def items_count(self) -> int:

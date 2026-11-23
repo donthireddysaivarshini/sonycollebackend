@@ -89,7 +89,8 @@ class OrderCancelView(APIView):
                 )
 
             # 1. Paid order cancellation: restore physical stock atomically & trigger refund
-            if locked_order.payment_status == 'Paid':
+            is_paid = str(locked_order.payment_status).strip().lower() in ('paid', 'completed')
+            if is_paid:
                 for item in locked_order.items.select_related('variant'):
                     if item.variant_id:
                         ProductVariant.objects.filter(id=item.variant_id).update(
@@ -125,6 +126,8 @@ class OrderCancelView(APIView):
                             error_message=str(e),
                         )
                         locked_order.payment_status = 'Refunded'
+                else:
+                    locked_order.payment_status = 'Refunded'
 
             # 2. Pending order cancellation: release active transient stock holds
             else:
@@ -140,9 +143,10 @@ class OrderCancelView(APIView):
 
         return Response(
             {
-                'message': "Order cancelled successfully.",
+                'message': "Order cancelled successfully." + (" Automated Razorpay refund has been initiated." if locked_order.payment_status == 'Refunded' else ""),
                 'order_status': locked_order.order_status,
                 'payment_status': locked_order.payment_status,
+                'order_number': locked_order.order_number,
             },
             status=status.HTTP_200_OK,
         )
