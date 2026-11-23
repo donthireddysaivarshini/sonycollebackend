@@ -26,7 +26,7 @@ def create_razorpay_order(amount_paise: int, receipt: str, currency: str = "INR"
     Simulates response if running in test environment or with placeholder credentials.
     """
     key_id = getattr(settings, 'RAZORPAY_KEY_ID', '')
-    if key_id.startswith('rzp_test_placeholder') or getattr(settings, 'RAZORPAY_MOCK_DISPATCH', False):
+    if key_id.startswith('rzp_test_placeholder') or 'your_razorpay_key' in key_id or getattr(settings, 'RAZORPAY_MOCK_DISPATCH', False):
         return {
             'id': f"order_sim_{receipt}",
             'amount': amount_paise,
@@ -98,7 +98,7 @@ def dispatch_razorpay_refund(
     Simulates response if running in test environment or with placeholder credentials.
     """
     key_id = getattr(settings, 'RAZORPAY_KEY_ID', '')
-    if key_id.startswith('rzp_test_placeholder') or getattr(settings, 'RAZORPAY_MOCK_DISPATCH', False):
+    if key_id.startswith('rzp_test_placeholder') or 'your_razorpay_key' in key_id or getattr(settings, 'RAZORPAY_MOCK_DISPATCH', False):
         return {
             'id': f"rfnd_sim_{idempotency_key[:12]}",
             'payment_id': payment_id,

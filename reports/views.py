@@ -1,3 +1,4 @@
+from django.core.files.base import ContentFile
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from rest_framework import status
@@ -11,15 +12,18 @@ from .services import generate_invoice_pdf, get_or_create_invoice_for_order
 
 class OrderInvoiceDownloadView(APIView):
     """
-    Download GST Tax Invoice PDF for a customer order.
+    Download Order Invoice PDF for an order.
     GET /api/orders/<order_number>/invoice/
-    Requires customer authentication and ownership of the order.
+    Allows customer ownership or store staff access.
     """
 
     permission_classes = [IsAuthenticated]
 
     def get(self, request, order_number):
-        order = get_object_or_404(Order, order_number=order_number, user=request.user)
+        if request.user.is_staff:
+            order = get_object_or_404(Order, order_number=order_number)
+        else:
+            order = get_object_or_404(Order, order_number=order_number, user=request.user)
 
         # Invoices can be downloaded once order is confirmed/paid or COD placed
         if order.payment_status not in ('Paid', 'Pending') and order.order_status == 'Cancelled':
@@ -29,10 +33,16 @@ class OrderInvoiceDownloadView(APIView):
             )
 
         invoice = get_or_create_invoice_for_order(order)
-        pdf_bytes = invoice.pdf_file.read() if invoice.pdf_file else generate_invoice_pdf(order)
+        # Always generate fresh PDF with latest formatting, images and currency symbols
+        pdf_bytes = generate_invoice_pdf(order)
+        if invoice:
+            try:
+                invoice.pdf_file.save(f"invoice_{order.order_number}.pdf", ContentFile(pdf_bytes), save=True)
+            except Exception:
+                pass
 
         response = HttpResponse(pdf_bytes, content_type='application/pdf')
-        filename = f"tax_invoice_{order.order_number}.pdf"
+        filename = f"order_invoice_{order.order_number}.pdf"
         response['Content-Disposition'] = f'attachment; filename="{filename}"'
-        response['X-Invoice-Number'] = invoice.invoice_number
+        response['X-Invoice-Number'] = invoice.invoice_number if invoice else f"INV-{order.order_number}"
         return response

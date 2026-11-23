@@ -81,6 +81,7 @@ class Order(models.Model):
     # Authoritative Financial Snapshot
     subtotal = models.DecimalField(max_digits=10, decimal_places=2)
     discount = models.DecimalField(max_digits=10, decimal_places=2, default=Decimal('0.00'))
+    coupon_code = models.CharField(max_length=50, blank=True, default='')
     shipping_fee = models.DecimalField(max_digits=10, decimal_places=2, default=Decimal('0.00'))
     total_amount = models.DecimalField(max_digits=10, decimal_places=2)
 
@@ -307,8 +308,8 @@ class ReturnRequest(models.Model):
 
 class ExchangeRequest(models.Model):
     """
-    Formal customer exchange request initiated after delivery.
-    Specifies desired replacement variant, subject to admin approval and stock availability.
+    Formal customer exchange request initiated after delivery for damaged goods.
+    Specifies damage reason, proof photo/video upload, and generates single-use exchange coupon on approval.
     """
 
     STATUS_REQUESTED = 'Requested'
@@ -321,6 +322,11 @@ class ExchangeRequest(models.Model):
         (STATUS_APPROVED, 'Approved'),
         (STATUS_REJECTED, 'Rejected'),
         (STATUS_DISPATCHED, 'Item Dispatched'),
+    )
+
+    REASON_CHOICES = (
+        ('damaged', 'Received damaged product'),
+        ('other', 'Other'),
     )
 
     order = models.ForeignKey(
@@ -340,10 +346,29 @@ class ExchangeRequest(models.Model):
     )
     replacement_variant = models.ForeignKey(
         'catalog.ProductVariant',
-        on_delete=models.PROTECT,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
         related_name='exchange_requests',
     )
-    reason = models.CharField(max_length=100)
+    reason = models.CharField(
+        max_length=50,
+        choices=REASON_CHOICES,
+        default='damaged',
+    )
+    other_reason = models.TextField(blank=True, default='')
+    proof_file = models.FileField(
+        upload_to='exchanges/',
+        blank=True,
+        null=True,
+        help_text="Mandatory photo or unboxing video showing the damage",
+    )
+    exchange_code = models.CharField(
+        max_length=50,
+        blank=True,
+        default='',
+        help_text="Single-use store credit code generated upon admin approval",
+    )
     customer_notes = models.TextField(blank=True)
     admin_notes = models.TextField(blank=True)
     status = models.CharField(
@@ -361,6 +386,123 @@ class ExchangeRequest(models.Model):
         ordering = ['-created_at']
 
     def __str__(self):
-        return f"Exchange #{self.id} for {self.item.product_name} -> {self.replacement_variant.sku} ({self.order.order_number}) - {self.status}"
+        return f"Exchange #{self.id} for {self.item.product_name} ({self.order.order_number}) - {self.status}"
+
+
+class Coupon(models.Model):
+    """
+    Promotional discounts, boutique marketing coupons, and customer exchange credit codes.
+    Aligns with Shruthis reference architecture and standard eCommerce practice.
+    """
+
+    DISCOUNT_TYPE_CHOICES = (
+        ('percentage', 'Percentage (%)'),
+        ('fixed', 'Fixed Amount (₹)'),
+    )
+
+    code = models.CharField(
+        max_length=50,
+        unique=True,
+        db_index=True,
+        help_text="Coupon or exchange code entered at checkout (e.g. WELCOME10, EXCHANGE500)",
+    )
+    discount_type = models.CharField(
+        max_length=20,
+        choices=DISCOUNT_TYPE_CHOICES,
+        default='fixed',
+    )
+    value = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        help_text="Discount value: percentage number (e.g. 10 for 10%) or flat rupee amount (e.g. 150)",
+    )
+    min_order_value = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=Decimal('0.00'),
+        help_text="Minimum subtotal required to apply this coupon (₹)",
+    )
+    max_discount_amount = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        null=True,
+        blank=True,
+        help_text="Maximum discount cap for percentage coupons (optional)",
+    )
+    valid_from = models.DateTimeField(
+        help_text="Start date & time of validity",
+    )
+    valid_to = models.DateTimeField(
+        help_text="Expiry date & time of validity",
+    )
+    active = models.BooleanField(
+        default=True,
+        help_text="Toggle to temporarily disable without deleting",
+    )
+    usage_limit = models.PositiveIntegerField(
+        default=100,
+        help_text="Maximum number of times this coupon can be redeemed across all customers",
+    )
+    uses_count = models.PositiveIntegerField(
+        default=0,
+        help_text="Number of times this coupon has been applied in completed checkouts",
+    )
+    is_exchange_code = models.BooleanField(
+        default=False,
+        help_text="Designates this code as a customer exchange store credit voucher",
+    )
+    exchange_request = models.ForeignKey(
+        'ExchangeRequest',
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='issued_coupons',
+        help_text="Optional link to customer exchange request if generated as store credit",
+    )
+    description = models.CharField(
+        max_length=255,
+        blank=True,
+        default='',
+        help_text="Internal notes or customer-facing promo description",
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = 'Coupon'
+        verbose_name_plural = 'Coupons'
+        ordering = ['-created_at']
+
+    def __str__(self):
+        type_str = f"{self.value}%" if self.discount_type == 'percentage' else f"₹{self.value}"
+        exchange_str = " [Exchange Credit]" if self.is_exchange_code else ""
+        return f"{self.code} ({type_str} off){exchange_str}"
+
+    def calculate_discount(self, order_total: Decimal) -> Decimal:
+        """
+        Calculate applicable discount given a cart subtotal.
+        """
+        if self.discount_type == 'percentage':
+            disc = (order_total * self.value) / Decimal('100.00')
+            if self.max_discount_amount and disc > self.max_discount_amount:
+                disc = self.max_discount_amount
+        else:
+            disc = self.value
+        return min(disc, order_total)
+
+    def is_valid_for(self, order_total: Decimal) -> tuple[bool, str]:
+        now = timezone.now()
+        if not self.active:
+            return False, "This coupon is currently inactive."
+        if now < self.valid_from:
+            return False, "This coupon is not yet valid."
+        if now > self.valid_to:
+            return False, "This coupon has expired."
+        if self.uses_count >= self.usage_limit:
+            return False, "Coupon usage limit has been reached."
+        if order_total < self.min_order_value:
+            return False, f"Minimum order value of ₹{self.min_order_value:.0f} required to apply this coupon."
+        return True, "Valid"
+
 
 

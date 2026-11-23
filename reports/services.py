@@ -1,6 +1,8 @@
 import io
+import os
 from decimal import Decimal
 
+from django.conf import settings
 from django.core.files.base import ContentFile
 from django.utils import timezone
 from openpyxl import Workbook
@@ -8,7 +10,7 @@ from openpyxl.styles import Alignment, Border, Font, PatternFill, Side
 from reportlab.lib import colors
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
-from reportlab.platypus import HRFlowable, Paragraph, SimpleDocTemplate, Spacer, Table, TableStyle
+from reportlab.platypus import HRFlowable, Image as RLImage, Paragraph, SimpleDocTemplate, Spacer, Table, TableStyle
 
 from catalog.models import SiteConfig
 from .models import Invoice, generate_invoice_number
@@ -85,24 +87,25 @@ def generate_invoice_pdf(order) -> bytes:
     )
 
     site_config = SiteConfig.get_solo()
-    gstin = site_config.gstin or 'URP (Unregistered Person / Pending Registration)'
     registered_address = site_config.registered_address or 'Sony Collections, Hyderabad, Telangana, India'
 
-    # 1. Header: Company Info and Invoice Meta
+    # 1. Header: Company Info and Order Invoice Meta
     header_data = [
         [
             Paragraph(
-                f"<b>SONY FEEDING KURTIS</b><br/>"
+                f"<b><font size=14 color='#552058'>SONY COLLECTIONS</font></b><br/>"
+                f"<font size=8.5 color='#374151'><b>Sony Feeding Kurtis Boutique</b></font><br/>"
                 f"<font size=8 color='#4B5563'>{registered_address}</font><br/>"
-                f"<font size=8 color='#4B5563'><b>GSTIN:</b> {gstin}</font>",
+                f"<font size=8 color='#4B5563'>Email: sonycollections00@gmail.com | Phone: +91 70931 35162</font>",
                 cell_normal,
             ),
             Paragraph(
-                f"<font size=16 color='#BE185D'><b>TAX INVOICE</b></font><br/>"
+                f"<font size=16 color='#552058'><b>ORDER INVOICE</b></font><br/>"
                 f"<font size=8.5><b>Invoice No:</b> INV-{order.order_number}<br/>"
                 f"<b>Order No:</b> {order.order_number}<br/>"
-                f"<b>Date:</b> {order.created_at.strftime('%d-%b-%Y')}<br/>"
-                f"<b>Payment:</b> {order.payment_method.upper()} ({order.payment_status})</font>",
+                f"<b>Order Date:</b> {order.created_at.strftime('%d-%b-%Y')}<br/>"
+                f"<b>Payment Mode:</b> {order.payment_method.upper()}<br/>"
+                f"<b>Payment Status:</b> <font color='{'#10B981' if order.payment_status == 'Paid' else '#F59E0B'}'><b>{order.payment_status}</b></font></font>",
                 cell_normal,
             ),
         ]
@@ -125,7 +128,7 @@ def generate_invoice_pdf(order) -> bytes:
     coords_data = [
         [
             Paragraph("<b>BILLED & SHIPPED TO:</b>", cell_bold),
-            Paragraph("<b>DISPATCH / TRACKING DETAILS:</b>", cell_bold),
+            Paragraph("<b>DELIVERY & DISPATCH:</b>", cell_bold),
         ],
         [
             Paragraph(
@@ -137,9 +140,9 @@ def generate_invoice_pdf(order) -> bytes:
                 cell_normal,
             ),
             Paragraph(
-                f"<b>Status:</b> {order.order_status}<br/>"
-                f"<b>Carrier:</b> {order.carrier_name or 'Standard Courier'}<br/>"
-                f"<b>Tracking No:</b> {order.tracking_number or 'Assigned upon dispatch'}",
+                f"<b>Order Status:</b> {order.order_status}<br/>"
+                f"<b>Delivery Carrier:</b> {order.carrier_name or 'Standard Courier'}<br/>"
+                f"<b>Tracking Number:</b> {order.tracking_number or 'Assigned upon dispatch'}",
                 cell_normal,
             ),
         ],
@@ -154,11 +157,12 @@ def generate_invoice_pdf(order) -> bytes:
     story.append(coords_table)
     story.append(Spacer(1, 14))
 
-    # 3. Line Items Table
+    # 3. Line Items Table (with product thumbnail & Rs. currency symbol)
     items_header = [
         Paragraph("<b>#</b>", cell_bold),
+        Paragraph("<b>Image</b>", cell_bold),
         Paragraph("<b>Item Description</b>", cell_bold),
-        Paragraph("<b>Type</b>", cell_bold),
+        Paragraph("<b>Garment Type</b>", cell_bold),
         Paragraph("<b>SKU</b>", cell_bold),
         Paragraph("<b>Qty</b>", cell_bold),
         Paragraph("<b>Unit Price</b>", cell_bold),
@@ -168,55 +172,73 @@ def generate_invoice_pdf(order) -> bytes:
     items_table_data = [items_header]
 
     for idx, item in enumerate(order.items.all(), start=1):
-        # Pink marker for Feeding garments
-        type_str = f"<font color='#EC4899'><b>{item.clothing_type}</b></font>" if item.clothing_type == 'Feeding' else item.clothing_type
+        type_str = f"<font color='#552058'><b>{item.clothing_type}</b></font>" if item.clothing_type == 'Feeding' else item.clothing_type
         desc = f"<b>{item.product_name}</b><br/><font size=7.5 color='#6B7280'>Color: {item.color} | Size: {item.size}</font>"
+
+        # Resolve thumbnail image flowable
+        img_flowable = Paragraph("-", cell_normal)
+        if item.product_image:
+            img_rel = str(item.product_image).replace('/media/', '').lstrip('/')
+            img_abs = os.path.join(settings.MEDIA_ROOT, img_rel)
+            if os.path.isfile(img_abs):
+                try:
+                    img_flowable = RLImage(img_abs, width=32, height=38)
+                except Exception:
+                    img_flowable = Paragraph("-", cell_normal)
+
+        unit_val = item.unit_price if item.unit_price is not None else Decimal('0.00')
+        line_val = item.line_total if item.line_total is not None else Decimal('0.00')
+
         items_table_data.append([
             Paragraph(str(idx), cell_normal),
+            img_flowable,
             Paragraph(desc, cell_normal),
             Paragraph(type_str, cell_normal),
             Paragraph(item.product_sku, cell_normal),
             Paragraph(str(item.quantity), cell_normal),
-            Paragraph(f"INR {item.unit_price:.2f}", cell_normal),
-            Paragraph(f"INR {item.line_total:.2f}", cell_normal),
+            Paragraph(f"Rs. {unit_val:,.2f}", cell_normal),
+            Paragraph(f"Rs. {line_val:,.2f}", cell_normal),
         ])
 
-    items_table = Table(items_table_data, colWidths=[24, 209, 70, 75, 30, 55, 60])
+    items_table = Table(items_table_data, colWidths=[20, 42, 175, 68, 75, 24, 55, 64])
     items_table.setStyle(
         TableStyle([
-            ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor('#F3F4F6')),
+            ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor('#FAF5FC')),
             ('ALIGN', (0, 0), (0, -1), 'CENTER'),
-            ('ALIGN', (4, 0), (-1, -1), 'RIGHT'),
+            ('ALIGN', (1, 1), (1, -1), 'CENTER'),
+            ('ALIGN', (5, 0), (-1, -1), 'RIGHT'),
             ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
             ('GRID', (0, 0), (-1, -1), 0.5, colors.HexColor('#E5E7EB')),
-            ('TOPPADDING', (0, 0), (-1, -1), 6),
-            ('BOTTOMPADDING', (0, 0), (-1, -1), 6),
+            ('TOPPADDING', (0, 0), (-1, -1), 5),
+            ('BOTTOMPADDING', (0, 0), (-1, -1), 5),
         ])
     )
     story.append(items_table)
     story.append(Spacer(1, 12))
 
-    # 4. Financial Calculation Summary Table
-    tax_info = "Included in price"
-    if site_config.tax_percentage:
-        tax_pct = site_config.tax_percentage
-        tax_val = (order.subtotal * (Decimal(tax_pct) / Decimal('100'))).quantize(Decimal('0.01'))
-        tax_info = f"INR {tax_val:.2f} ({tax_pct}%)"
+    # 4. Order Summary Table (clean Indian Rs. format)
+    shipping_str = "FREE" if order.shipping_fee == Decimal('0.00') else f"Rs. {order.shipping_fee:,.2f}"
+    subtotal_val = order.subtotal if order.subtotal is not None else Decimal('0.00')
+    total_val = order.total_amount if order.total_amount is not None else Decimal('0.00')
 
     summary_data = [
-        ["", "Subtotal:", f"INR {order.subtotal:.2f}"],
-        ["", "Discount:", f"- INR {order.discount:.2f}"],
-        ["", "Delivery Shipping:", f"INR {order.shipping_fee:.2f}"],
-        ["", "GST Tax:", tax_info],
-        ["", "Grand Total (INR):", f"INR {order.total_amount:.2f}"],
+        ["", "Items Subtotal:", f"Rs. {subtotal_val:,.2f}"],
     ]
-    summary_table = Table(summary_data, colWidths=[303, 120, 100])
+    if order.discount and order.discount > Decimal('0.00'):
+        coupon_label = f"Coupon / Discount ({order.coupon_code}):" if getattr(order, 'coupon_code', None) else "Coupon / Discount:"
+        summary_data.append(["", coupon_label, f"- Rs. {order.discount:,.2f}"])
+    summary_data.extend([
+        ["", "Shipping & Delivery:", shipping_str],
+        ["", "Total Amount Payable:", f"Rs. {total_val:,.2f}"],
+    ])
+
+    summary_table = Table(summary_data, colWidths=[294, 134, 95])
     summary_table.setStyle(
         TableStyle([
             ('ALIGN', (1, 0), (-1, -1), 'RIGHT'),
-            ('FONTNAME', (1, 4), (-1, 4), 'Helvetica-Bold'),
-            ('TEXTCOLOR', (1, 4), (-1, 4), colors.HexColor('#BE185D')),
-            ('FONTSIZE', (1, 4), (-1, 4), 10),
+            ('FONTNAME', (1, -1), (-1, -1), 'Helvetica-Bold'),
+            ('TEXTCOLOR', (1, -1), (-1, -1), colors.HexColor('#552058')),
+            ('FONTSIZE', (1, -1), (-1, -1), 11),
             ('BOTTOMPADDING', (0, 0), (-1, -1), 3),
         ])
     )
@@ -226,9 +248,9 @@ def generate_invoice_pdf(order) -> bytes:
     # 5. Declarations & Footer
     story.append(HRFlowable(width="100%", thickness=0.5, color=colors.HexColor('#E5E7EB'), spaceAfter=8))
     story.append(Paragraph(
-        "Declaration: This is a computer-generated tax invoice and requires no physical signature.<br/>"
-        "All disputes are subject to the exclusive jurisdiction of the courts in Hyderabad, Telangana.<br/>"
-        "Thank you for choosing Sony Feeding Kurtis! For customer support, email info@sonyfeedingkurtis.com",
+        "Thank you for shopping with Sony Collections! Handcrafted with love in India.<br/>"
+        "This is an official computer-generated Order Invoice.<br/>"
+        "Customer Support: sonycollections00@gmail.com | Phone/WhatsApp: +91 70931 35162 | Daily 8:00 AM - 11:00 PM",
         footer_style,
     ))
 

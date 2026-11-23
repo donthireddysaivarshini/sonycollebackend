@@ -55,7 +55,9 @@ class PaymentTransactionAdmin(admin.ModelAdmin):
     status_badge.short_description = 'Status'
 
 
-@admin.register(RefundRecord)
+# RefundRecord is intentionally omitted from admin registration because store policy is strictly
+# NO RETURNS, NO COD, NO REFUNDS (damaged item exchanges only).
+# class RefundRecordAdmin is retained without @admin.register for testing and integrity.
 class RefundRecordAdmin(admin.ModelAdmin):
     list_display = [
         'id',

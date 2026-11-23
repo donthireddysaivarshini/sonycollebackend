@@ -4,14 +4,14 @@ from django.db import transaction
 from django.db.models import F
 from django.shortcuts import get_object_or_404
 from rest_framework import generics, status
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from accounts.models import SavedAddress
 from catalog.models import ProductVariant, SiteConfig
 from cart.models import Cart, CartItem, StockReservation
-from .models import Order, OrderItem, ReturnRequest, ExchangeRequest
+from .models import Order, OrderItem, ReturnRequest, ExchangeRequest, Coupon
 from .serializers import (
     OrderCreateSerializer,
     OrderSerializer,
@@ -278,6 +278,48 @@ class OrderCreateView(APIView):
         return Response(OrderSerializer(order).data, status=status.HTTP_201_CREATED)
 
 
+class CouponValidateView(APIView):
+    """
+    Validate coupon or exchange store credit code against cart subtotal.
+    POST /api/orders/coupons/validate/
+    Aligns with Shruthis reference architecture and standard boutique checkout practice.
+    """
+
+    permission_classes = [AllowAny]
+
+    def post(self, request):
+        code = request.data.get('code', '').strip().upper()
+        if not code:
+            return Response({'error': 'Coupon or exchange code is required.'}, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            order_total = Decimal(str(request.data.get('order_total', 0)))
+        except Exception:
+            return Response({'error': 'Invalid order subtotal provided.'}, status=status.HTTP_400_BAD_REQUEST)
+
+        coupon = Coupon.objects.filter(code=code).first()
+        if not coupon:
+            return Response({'error': 'Invalid coupon or exchange code.'}, status=status.HTTP_404_NOT_FOUND)
+
+        is_valid, msg = coupon.is_valid_for(order_total)
+        if not is_valid:
+            return Response({'error': msg}, status=status.HTTP_400_BAD_REQUEST)
+
+        discount = coupon.calculate_discount(order_total)
+        type_str = f"{coupon.value:.0f}% off" if coupon.discount_type == 'percentage' else f"₹{coupon.value:.0f} off"
+        category_name = "Exchange store credit" if coupon.is_exchange_code else "Coupon"
+
+        return Response({
+            'valid': True,
+            'code': coupon.code,
+            'discount': float(discount),
+            'discount_type': coupon.discount_type,
+            'value': float(coupon.value),
+            'is_exchange_code': coupon.is_exchange_code,
+            'message': f"{category_name} {coupon.code} applied! ({type_str} - You save ₹{discount:.0f})",
+        }, status=status.HTTP_200_OK)
+
+
 class OrderCheckoutView(APIView):
     """
     Initiate checkout: validates inventory, locks variants, establishes 15m StockReservation,
@@ -308,31 +350,43 @@ class OrderCheckoutView(APIView):
             )
 
         # Resolve delivery address
-        address_id = validated_data.get('address_id')
+        address_id_raw = validated_data.get('address_id')
         address_obj = validated_data.get('address')
+        saved_addr = None
 
-        if address_id:
-            saved_addr = get_object_or_404(SavedAddress, id=address_id, user=user)
-            first_name = saved_addr.recipient_name.split()[0] if saved_addr.recipient_name else user.first_name
-            last_name = " ".join(saved_addr.recipient_name.split()[1:]) if saved_addr.recipient_name and len(saved_addr.recipient_name.split()) > 1 else user.last_name
-            phone = saved_addr.phone
+        if address_id_raw:
+            try:
+                aid = int(address_id_raw)
+                saved_addr = SavedAddress.objects.filter(id=aid, user=user).first()
+            except (ValueError, TypeError):
+                saved_addr = None
+
+        if saved_addr:
+            recipient = saved_addr.recipient_name or user.get_full_name() or 'Customer'
+            parts = recipient.split()
+            first_name = parts[0]
+            last_name = " ".join(parts[1:]) if len(parts) > 1 else ''
+            phone = saved_addr.phone or user.phone or ''
             shipping_address = saved_addr.address_line1
-            apartment = saved_addr.address_line2
+            apartment = saved_addr.address_line2 or ''
             landmark = saved_addr.landmark or ''
             city = saved_addr.city
             state = saved_addr.state
             zip_code = saved_addr.pincode
-        else:
-            full_name = address_obj.get('fullName') or address_obj.get('full_name') or user.get_full_name()
-            first_name = full_name.split()[0] if full_name else user.first_name
-            last_name = " ".join(full_name.split()[1:]) if full_name and len(full_name.split()) > 1 else user.last_name
-            phone = address_obj.get('phone', user.phone or '')
-            shipping_address = address_obj.get('houseFlat') or address_obj.get('house_flat') or address_obj.get('address', '')
-            apartment = address_obj.get('streetArea') or address_obj.get('street_area') or address_obj.get('apartment', '')
+        elif address_obj:
+            full_name = address_obj.get('fullName') or address_obj.get('full_name') or address_obj.get('recipient_name') or user.get_full_name() or 'Customer'
+            parts = full_name.split()
+            first_name = parts[0]
+            last_name = " ".join(parts[1:]) if len(parts) > 1 else ''
+            phone = address_obj.get('phone') or user.phone or ''
+            shipping_address = address_obj.get('houseFlat') or address_obj.get('house_flat') or address_obj.get('shipping_address') or address_obj.get('address_line1', '')
+            apartment = address_obj.get('streetArea') or address_obj.get('street_area') or address_obj.get('apartment') or address_obj.get('address_line2', '')
             landmark = address_obj.get('landmark', '')
             city = address_obj.get('city', '')
             state = address_obj.get('state', '')
             zip_code = address_obj.get('pincode') or address_obj.get('zip_code', '')
+        else:
+            return Response({'error': "Please provide a valid delivery address."}, status=status.HTTP_400_BAD_REQUEST)
 
         # Resolve items
         items_payload = validated_data.get('items')
@@ -341,10 +395,84 @@ class OrderCheckoutView(APIView):
 
         if items_payload:
             for itm in items_payload:
-                try:
-                    variant = ProductVariant.objects.select_related('product', 'color', 'size').get(id=itm['variant_id'])
-                except ProductVariant.DoesNotExist:
-                    return Response({'error': f"Variant ID {itm['variant_id']} not found."}, status=status.HTTP_400_BAD_REQUEST)
+                variant = None
+                raw_vid = itm.get('variant_id')
+                sku = str(itm.get('sku') or '').strip()
+                pid = itm.get('product_id')
+                pslug = str(itm.get('product_slug') or '').strip()
+                ptitle = str(itm.get('product_title') or '').strip()
+                ctype = str(itm.get('clothing_type') or '').strip()
+                color_name = str(itm.get('color') or '').strip()
+                size_name = str(itm.get('size') or '').strip()
+
+                # 1. By numeric variant_id
+                if raw_vid:
+                    try:
+                        vid = int(raw_vid)
+                        variant = ProductVariant.objects.select_related('product', 'color', 'size').filter(id=vid).first()
+                    except (ValueError, TypeError):
+                        pass
+
+                # 2. By SKU exact match
+                if not variant and sku:
+                    variant = ProductVariant.objects.select_related('product', 'color', 'size').filter(sku__iexact=sku).first()
+
+                # 3. If raw_vid was a string SKU from static fallback
+                if not variant and raw_vid and isinstance(raw_vid, str):
+                    variant = ProductVariant.objects.select_related('product', 'color', 'size').filter(sku__iexact=raw_vid).first()
+
+                # 4. Partial SKU match (case-insensitive)
+                if not variant and sku:
+                    variant = ProductVariant.objects.select_related('product', 'color', 'size').filter(sku__icontains=sku).first()
+
+                # 5. Semantic lookup: Product + Clothing Type + Color + Size
+                if not variant:
+                    qs = ProductVariant.objects.select_related('product', 'color', 'size')
+                    if pslug:
+                        qs = qs.filter(product__slug=pslug)
+                    elif ptitle:
+                        qs = qs.filter(product__title__icontains=ptitle)
+                    elif pid:
+                        try:
+                            qs = qs.filter(product_id=int(pid))
+                        except (ValueError, TypeError):
+                            pass
+
+                    if ctype:
+                        clean_type = 'Feeding' if 'feeding' in ctype.lower() and 'non' not in ctype.lower() else ('Non-Feeding' if 'non' in ctype.lower() else ctype)
+                        qs_type = qs.filter(clothing_type__iexact=clean_type)
+                        if qs_type.exists():
+                            qs = qs_type
+
+                    if color_name:
+                        qs_color = qs.filter(color__name__icontains=color_name)
+                        if qs_color.exists():
+                            qs = qs_color
+
+                    if size_name:
+                        qs_size = qs.filter(size__name__iexact=size_name)
+                        if qs_size.exists():
+                            qs = qs_size
+
+                    variant = qs.first()
+
+                # 6. Fallback to any active variant of that product
+                if not variant and (pslug or ptitle or pid):
+                    p_qs = ProductVariant.objects.select_related('product', 'color', 'size')
+                    if pslug:
+                        p_qs = p_qs.filter(product__slug=pslug)
+                    elif ptitle:
+                        p_qs = p_qs.filter(product__title__icontains=ptitle)
+                    elif pid:
+                        try:
+                            p_qs = p_qs.filter(product_id=int(pid))
+                        except (ValueError, TypeError):
+                            pass
+                    variant = p_qs.filter(stock__gt=0).first() or p_qs.first()
+
+                if not variant:
+                    return Response({'error': f"Product variant '{sku or raw_vid or ptitle}' not found in inventory."}, status=status.HTTP_400_BAD_REQUEST)
+
                 resolved_items.append({'variant': variant, 'quantity': itm['quantity']})
         else:
             user_cart = Cart.objects.filter(user=user).first()
@@ -355,21 +483,47 @@ class OrderCheckoutView(APIView):
                 resolved_items.append({'variant': cart_item.variant, 'quantity': cart_item.quantity})
 
         subtotal = sum((entry['variant'].final_price * entry['quantity'] for entry in resolved_items), Decimal('0.00'))
-        shipping_fee = Decimal('0.00')
+        payment_method = 'razorpay'
+
+        site_config = SiteConfig.get_solo()
+        free_threshold = site_config.free_shipping_threshold if site_config.free_shipping_threshold is not None else Decimal('1499.00')
+        base_shipping = site_config.shipping_fee if site_config.shipping_fee is not None else Decimal('99.00')
+        shipping_fee = Decimal('0.00') if subtotal >= free_threshold else base_shipping
         discount = Decimal('0.00')
-        total_amount = subtotal + shipping_fee - discount
+        coupon_code = validated_data.get('coupon_code', '').strip().upper()
+        valid_coupon = None
+
+        if coupon_code:
+            try:
+                coupon = Coupon.objects.filter(code=coupon_code).first()
+                if not coupon:
+                    return Response({'error': 'Invalid coupon or exchange code.'}, status=status.HTTP_400_BAD_REQUEST)
+                is_valid, msg = coupon.is_valid_for(subtotal)
+                if not is_valid:
+                    return Response({'error': msg}, status=status.HTTP_400_BAD_REQUEST)
+                discount = coupon.calculate_discount(subtotal)
+                valid_coupon = coupon
+            except Exception:
+                return Response({'error': 'Invalid coupon or exchange code.'}, status=status.HTTP_400_BAD_REQUEST)
+
+        total_amount = max(Decimal('0.00'), subtotal + shipping_fee - discount)
 
         with transaction.atomic():
             # Validate available stock under row lock
             for entry in resolved_items:
                 v = ProductVariant.objects.select_for_update().get(id=entry['variant'].id)
                 q = entry['quantity']
-                if not v.product.is_active or v.available_stock < q:
+                if not v.product.is_active:
+                    return Response({'error': f"Product '{v.product.title}' is currently unavailable."}, status=status.HTTP_400_BAD_REQUEST)
+                if v.available_stock < q:
                     return Response(
-                        {'error': f"Only {v.available_stock} item(s) available for selected variant."},
+                        {'error': f"Only {v.available_stock} item(s) available for selected variant: {v.product.title} ({v.clothing_type}, {v.color.name}, {v.size.name})."},
                         status=status.HTTP_400_BAD_REQUEST,
                     )
                 entry['variant'] = v
+
+            if valid_coupon:
+                Coupon.objects.filter(id=valid_coupon.id).update(uses_count=F('uses_count') + 1)
 
             order = Order.objects.create(
                 user=user,
@@ -385,6 +539,7 @@ class OrderCheckoutView(APIView):
                 zip_code=zip_code,
                 subtotal=subtotal,
                 discount=discount,
+                coupon_code=valid_coupon.code if valid_coupon else '',
                 shipping_fee=shipping_fee,
                 total_amount=total_amount,
                 payment_method=payment_method,
@@ -660,10 +815,20 @@ class OrderExchangeRequestView(APIView):
         serializer.is_valid(raise_exception=True)
 
         item_id = serializer.validated_data['item_id']
-        replacement_variant_id = serializer.validated_data['replacement_variant_id']
-
         item = get_object_or_404(OrderItem, id=item_id, order=order)
-        replacement_variant = get_object_or_404(ProductVariant, id=replacement_variant_id)
+
+        # Proof photo/video is strictly mandatory for damaged product exchange
+        proof_file = request.FILES.get('proof_file')
+        if not proof_file and not request.data.get('proof_file'):
+            return Response(
+                {'error': "A photo or unboxing video showing the damaged product is required to submit an exchange request."},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        replacement_variant_id = serializer.validated_data.get('replacement_variant_id')
+        replacement_variant = None
+        if replacement_variant_id:
+            replacement_variant = ProductVariant.objects.filter(id=replacement_variant_id).first()
 
         # 4. Duplicate Guards
         if ExchangeRequest.objects.filter(
@@ -679,39 +844,20 @@ class OrderExchangeRequestView(APIView):
                 status=status.HTTP_400_BAD_REQUEST,
             )
 
-        if ReturnRequest.objects.filter(
-            item=item,
-            status__in=[
-                ReturnRequest.STATUS_REQUESTED,
-                ReturnRequest.STATUS_APPROVED,
-                ReturnRequest.STATUS_ITEM_RECEIVED,
-                ReturnRequest.STATUS_REFUNDED,
-            ],
-        ).exists():
-            return Response(
-                {'error': "An active return request already exists for this line item."},
-                status=status.HTTP_400_BAD_REQUEST,
-            )
-
-        # 5. Inventory Availability Guard for Replacement Variant
-        if replacement_variant.available_stock < item.quantity:
-            return Response(
-                {'error': "Selected replacement variant does not have sufficient available stock."},
-                status=status.HTTP_400_BAD_REQUEST,
-            )
-
-        # 6. Create Exchange Request
+        # 5. Create Exchange Request
         exchange_req = ExchangeRequest.objects.create(
             order=order,
             item=item,
             user=request.user,
             replacement_variant=replacement_variant,
-            reason=serializer.validated_data['reason'],
+            reason=serializer.validated_data.get('reason', 'damaged'),
+            other_reason=serializer.validated_data.get('other_reason', ''),
+            proof_file=proof_file,
             customer_notes=serializer.validated_data.get('customer_notes', ''),
         )
 
         return Response(
-            ExchangeRequestSerializer(exchange_req).data,
+            ExchangeRequestSerializer(exchange_req, context={'request': request}).data,
             status=status.HTTP_201_CREATED,
         )
 

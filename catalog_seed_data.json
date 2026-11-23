@@ -1,0 +1,6568 @@
+{
+  "products": [
+    {
+      "id": "prod-1",
+      "title": "Nayantara Magenta & Ombre Dupatta Kurti Set",
+      "slug": "nayantara-rose-flared-maxi-dupatta-set",
+      "skuPrefix": "SFK-MAX-01",
+      "category": "kurti-dupatta",
+      "categoryName": "Kurti + Dupatta",
+      "price": 1399,
+      "originalPrice": null,
+      "images": [
+        "/images/kurti-dupatta/magenta-ombre-kurti-dupatta.jpg",
+        "/images/kurti-dupatta/navy-zari-kurti-dupatta.jpg"
+      ],
+      "feedingConfig": "both",
+      "supportedClothingTypes": [
+        "Feeding",
+        "Non-Feeding"
+      ],
+      "availableColors": [
+        {
+          "id": "rose",
+          "name": "Rani Magenta",
+          "hex": "#B5174D"
+        },
+        {
+          "id": "wine",
+          "name": "Royal Wine",
+          "hex": "#7A2832"
+        },
+        {
+          "id": "teal",
+          "name": "Peacock Teal",
+          "hex": "#205E61"
+        }
+      ],
+      "availableSizes": [
+        "S",
+        "M",
+        "L",
+        "XL",
+        "XXL"
+      ],
+      "variants": [
+        {
+          "id": "SFK-MAX-01-FD-rose-S",
+          "sku": "SFK-MAX-01-FD-ROSE-S",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "rose",
+            "name": "Rani Magenta",
+            "hex": "#B5174D"
+          },
+          "size": "S",
+          "price": 1399,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-MAX-01-FD-rose-M",
+          "sku": "SFK-MAX-01-FD-ROSE-M",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "rose",
+            "name": "Rani Magenta",
+            "hex": "#B5174D"
+          },
+          "size": "M",
+          "price": 1399,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-MAX-01-FD-rose-L",
+          "sku": "SFK-MAX-01-FD-ROSE-L",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "rose",
+            "name": "Rani Magenta",
+            "hex": "#B5174D"
+          },
+          "size": "L",
+          "price": 1399,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-MAX-01-FD-rose-XL",
+          "sku": "SFK-MAX-01-FD-ROSE-XL",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "rose",
+            "name": "Rani Magenta",
+            "hex": "#B5174D"
+          },
+          "size": "XL",
+          "price": 1399,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-MAX-01-FD-rose-XXL",
+          "sku": "SFK-MAX-01-FD-ROSE-XXL",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "rose",
+            "name": "Rani Magenta",
+            "hex": "#B5174D"
+          },
+          "size": "XXL",
+          "price": 1399,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-MAX-01-FD-wine-S",
+          "sku": "SFK-MAX-01-FD-WINE-S",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "wine",
+            "name": "Royal Wine",
+            "hex": "#7A2832"
+          },
+          "size": "S",
+          "price": 1399,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-MAX-01-FD-wine-M",
+          "sku": "SFK-MAX-01-FD-WINE-M",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "wine",
+            "name": "Royal Wine",
+            "hex": "#7A2832"
+          },
+          "size": "M",
+          "price": 1399,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-MAX-01-FD-wine-L",
+          "sku": "SFK-MAX-01-FD-WINE-L",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "wine",
+            "name": "Royal Wine",
+            "hex": "#7A2832"
+          },
+          "size": "L",
+          "price": 1399,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-MAX-01-FD-wine-XL",
+          "sku": "SFK-MAX-01-FD-WINE-XL",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "wine",
+            "name": "Royal Wine",
+            "hex": "#7A2832"
+          },
+          "size": "XL",
+          "price": 1399,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-MAX-01-FD-wine-XXL",
+          "sku": "SFK-MAX-01-FD-WINE-XXL",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "wine",
+            "name": "Royal Wine",
+            "hex": "#7A2832"
+          },
+          "size": "XXL",
+          "price": 1399,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-MAX-01-FD-teal-S",
+          "sku": "SFK-MAX-01-FD-TEAL-S",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "teal",
+            "name": "Peacock Teal",
+            "hex": "#205E61"
+          },
+          "size": "S",
+          "price": 1399,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-MAX-01-FD-teal-M",
+          "sku": "SFK-MAX-01-FD-TEAL-M",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "teal",
+            "name": "Peacock Teal",
+            "hex": "#205E61"
+          },
+          "size": "M",
+          "price": 1399,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-MAX-01-FD-teal-L",
+          "sku": "SFK-MAX-01-FD-TEAL-L",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "teal",
+            "name": "Peacock Teal",
+            "hex": "#205E61"
+          },
+          "size": "L",
+          "price": 1399,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-MAX-01-FD-teal-XL",
+          "sku": "SFK-MAX-01-FD-TEAL-XL",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "teal",
+            "name": "Peacock Teal",
+            "hex": "#205E61"
+          },
+          "size": "XL",
+          "price": 1399,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-MAX-01-FD-teal-XXL",
+          "sku": "SFK-MAX-01-FD-TEAL-XXL",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "teal",
+            "name": "Peacock Teal",
+            "hex": "#205E61"
+          },
+          "size": "XXL",
+          "price": 1399,
+          "originalPrice": null,
+          "stock": 0,
+          "inStock": false
+        },
+        {
+          "id": "SFK-MAX-01-NF-rose-S",
+          "sku": "SFK-MAX-01-NF-ROSE-S",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "rose",
+            "name": "Rani Magenta",
+            "hex": "#B5174D"
+          },
+          "size": "S",
+          "price": 1399,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-MAX-01-NF-rose-M",
+          "sku": "SFK-MAX-01-NF-ROSE-M",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "rose",
+            "name": "Rani Magenta",
+            "hex": "#B5174D"
+          },
+          "size": "M",
+          "price": 1399,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-MAX-01-NF-rose-L",
+          "sku": "SFK-MAX-01-NF-ROSE-L",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "rose",
+            "name": "Rani Magenta",
+            "hex": "#B5174D"
+          },
+          "size": "L",
+          "price": 1399,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-MAX-01-NF-rose-XL",
+          "sku": "SFK-MAX-01-NF-ROSE-XL",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "rose",
+            "name": "Rani Magenta",
+            "hex": "#B5174D"
+          },
+          "size": "XL",
+          "price": 1399,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-MAX-01-NF-rose-XXL",
+          "sku": "SFK-MAX-01-NF-ROSE-XXL",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "rose",
+            "name": "Rani Magenta",
+            "hex": "#B5174D"
+          },
+          "size": "XXL",
+          "price": 1399,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-MAX-01-NF-wine-S",
+          "sku": "SFK-MAX-01-NF-WINE-S",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "wine",
+            "name": "Royal Wine",
+            "hex": "#7A2832"
+          },
+          "size": "S",
+          "price": 1399,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-MAX-01-NF-wine-M",
+          "sku": "SFK-MAX-01-NF-WINE-M",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "wine",
+            "name": "Royal Wine",
+            "hex": "#7A2832"
+          },
+          "size": "M",
+          "price": 1399,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-MAX-01-NF-wine-L",
+          "sku": "SFK-MAX-01-NF-WINE-L",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "wine",
+            "name": "Royal Wine",
+            "hex": "#7A2832"
+          },
+          "size": "L",
+          "price": 1399,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-MAX-01-NF-wine-XL",
+          "sku": "SFK-MAX-01-NF-WINE-XL",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "wine",
+            "name": "Royal Wine",
+            "hex": "#7A2832"
+          },
+          "size": "XL",
+          "price": 1399,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-MAX-01-NF-wine-XXL",
+          "sku": "SFK-MAX-01-NF-WINE-XXL",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "wine",
+            "name": "Royal Wine",
+            "hex": "#7A2832"
+          },
+          "size": "XXL",
+          "price": 1399,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-MAX-01-NF-teal-S",
+          "sku": "SFK-MAX-01-NF-TEAL-S",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "teal",
+            "name": "Peacock Teal",
+            "hex": "#205E61"
+          },
+          "size": "S",
+          "price": 1399,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-MAX-01-NF-teal-M",
+          "sku": "SFK-MAX-01-NF-TEAL-M",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "teal",
+            "name": "Peacock Teal",
+            "hex": "#205E61"
+          },
+          "size": "M",
+          "price": 1399,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-MAX-01-NF-teal-L",
+          "sku": "SFK-MAX-01-NF-TEAL-L",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "teal",
+            "name": "Peacock Teal",
+            "hex": "#205E61"
+          },
+          "size": "L",
+          "price": 1399,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-MAX-01-NF-teal-XL",
+          "sku": "SFK-MAX-01-NF-TEAL-XL",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "teal",
+            "name": "Peacock Teal",
+            "hex": "#205E61"
+          },
+          "size": "XL",
+          "price": 1399,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-MAX-01-NF-teal-XXL",
+          "sku": "SFK-MAX-01-NF-TEAL-XXL",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "teal",
+            "name": "Peacock Teal",
+            "hex": "#205E61"
+          },
+          "size": "XXL",
+          "price": 1399,
+          "originalPrice": null,
+          "stock": 0,
+          "inStock": false
+        }
+      ],
+      "description": "Layered georgette flared kurti set highlighted with a hand-beaded scoop neckline and an airy ombre tangerine-coral dupatta finished with mirror-work lace.",
+      "fabric": "Georgette with Embellished Dupatta",
+      "careInstructions": [
+        "Dry clean first wash recommended",
+        "Gentle cold hand wash thereafter",
+        "Medium warm iron"
+      ],
+      "feedingDetails": {
+        "zipType": "Concealed dual-side nursing access",
+        "zipPlacement": "Discreet side openings",
+        "description": "Concealed vertical openings designed for practical nursing access."
+      },
+      "isFeatured": true,
+      "isHandstock": true
+    },
+    {
+      "id": "prod-2",
+      "title": "Kalyani Peacock-Teal Zari-Border Tiered Feeding Frock",
+      "slug": "kalyani-tiered-gathered-feeding-frock",
+      "skuPrefix": "SFK-FRK-02",
+      "category": "frocks",
+      "categoryName": "Frocks",
+      "price": 1149,
+      "originalPrice": null,
+      "images": [
+        "/images/frocks/teal-zari-tiered-frock.jpg",
+        "/images/frocks/terracotta-tiered-frock.jpg"
+      ],
+      "feedingConfig": "feeding-only",
+      "supportedClothingTypes": [
+        "Feeding"
+      ],
+      "availableColors": [
+        {
+          "id": "sage",
+          "name": "Peacock Emerald Teal",
+          "hex": "#0B4A42"
+        },
+        {
+          "id": "blush",
+          "name": "Terracotta Rust",
+          "hex": "#B33A22"
+        },
+        {
+          "id": "navy",
+          "name": "Midnight Navy",
+          "hex": "#1F2937"
+        }
+      ],
+      "availableSizes": [
+        "S",
+        "M",
+        "L",
+        "XL",
+        "XXL"
+      ],
+      "variants": [
+        {
+          "id": "SFK-FRK-02-FD-sage-S",
+          "sku": "SFK-FRK-02-FD-SAGE-S",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "sage",
+            "name": "Peacock Emerald Teal",
+            "hex": "#0B4A42"
+          },
+          "size": "S",
+          "price": 1149,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-FRK-02-FD-sage-M",
+          "sku": "SFK-FRK-02-FD-SAGE-M",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "sage",
+            "name": "Peacock Emerald Teal",
+            "hex": "#0B4A42"
+          },
+          "size": "M",
+          "price": 1149,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-FRK-02-FD-sage-L",
+          "sku": "SFK-FRK-02-FD-SAGE-L",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "sage",
+            "name": "Peacock Emerald Teal",
+            "hex": "#0B4A42"
+          },
+          "size": "L",
+          "price": 1149,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-FRK-02-FD-sage-XL",
+          "sku": "SFK-FRK-02-FD-SAGE-XL",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "sage",
+            "name": "Peacock Emerald Teal",
+            "hex": "#0B4A42"
+          },
+          "size": "XL",
+          "price": 1149,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-FRK-02-FD-sage-XXL",
+          "sku": "SFK-FRK-02-FD-SAGE-XXL",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "sage",
+            "name": "Peacock Emerald Teal",
+            "hex": "#0B4A42"
+          },
+          "size": "XXL",
+          "price": 1149,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-FRK-02-FD-blush-S",
+          "sku": "SFK-FRK-02-FD-BLUSH-S",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "blush",
+            "name": "Terracotta Rust",
+            "hex": "#B33A22"
+          },
+          "size": "S",
+          "price": 1149,
+          "originalPrice": null,
+          "stock": 0,
+          "inStock": false
+        },
+        {
+          "id": "SFK-FRK-02-FD-blush-M",
+          "sku": "SFK-FRK-02-FD-BLUSH-M",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "blush",
+            "name": "Terracotta Rust",
+            "hex": "#B33A22"
+          },
+          "size": "M",
+          "price": 1149,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-FRK-02-FD-blush-L",
+          "sku": "SFK-FRK-02-FD-BLUSH-L",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "blush",
+            "name": "Terracotta Rust",
+            "hex": "#B33A22"
+          },
+          "size": "L",
+          "price": 1149,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-FRK-02-FD-blush-XL",
+          "sku": "SFK-FRK-02-FD-BLUSH-XL",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "blush",
+            "name": "Terracotta Rust",
+            "hex": "#B33A22"
+          },
+          "size": "XL",
+          "price": 1149,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-FRK-02-FD-blush-XXL",
+          "sku": "SFK-FRK-02-FD-BLUSH-XXL",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "blush",
+            "name": "Terracotta Rust",
+            "hex": "#B33A22"
+          },
+          "size": "XXL",
+          "price": 1149,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-FRK-02-FD-navy-S",
+          "sku": "SFK-FRK-02-FD-NAVY-S",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "navy",
+            "name": "Midnight Navy",
+            "hex": "#1F2937"
+          },
+          "size": "S",
+          "price": 1149,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-FRK-02-FD-navy-M",
+          "sku": "SFK-FRK-02-FD-NAVY-M",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "navy",
+            "name": "Midnight Navy",
+            "hex": "#1F2937"
+          },
+          "size": "M",
+          "price": 1149,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-FRK-02-FD-navy-L",
+          "sku": "SFK-FRK-02-FD-NAVY-L",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "navy",
+            "name": "Midnight Navy",
+            "hex": "#1F2937"
+          },
+          "size": "L",
+          "price": 1149,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-FRK-02-FD-navy-XL",
+          "sku": "SFK-FRK-02-FD-NAVY-XL",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "navy",
+            "name": "Midnight Navy",
+            "hex": "#1F2937"
+          },
+          "size": "XL",
+          "price": 1149,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-FRK-02-FD-navy-XXL",
+          "sku": "SFK-FRK-02-FD-NAVY-XXL",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "navy",
+            "name": "Midnight Navy",
+            "hex": "#1F2937"
+          },
+          "size": "XXL",
+          "price": 1149,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        }
+      ],
+      "description": "Peacock-teal silk-cotton tiered frock with front mock button placket, puffed half sleeves, and woven antique gold zari border. Dedicated feeding design.",
+      "fabric": "Silk-Cotton with Zari Border",
+      "careInstructions": [
+        "Dry clean first wash recommended",
+        "Dry in shade",
+        "Warm iron"
+      ],
+      "feedingDetails": {
+        "zipType": "Concealed dual nursing zippers",
+        "zipPlacement": "Discreet side torso openings",
+        "description": "Dedicated nursing access integrated cleanly into the gathered frock design."
+      },
+      "isFeatured": true,
+      "isHandstock": true
+    },
+    {
+      "id": "prod-3",
+      "title": "Ira Crimson Botanical-Print Linen Co-ord Set",
+      "slug": "ira-indigo-hand-block-chanderi-co-ord-set",
+      "skuPrefix": "SFK-CRD-03",
+      "category": "co-ord-sets",
+      "categoryName": "Co-ord Sets",
+      "price": 1499,
+      "originalPrice": null,
+      "images": [
+        "/images/co-ords/crimson-botanical-coord.jpg",
+        "/images/co-ords/wine-floral-coord.jpg"
+      ],
+      "feedingConfig": "none",
+      "supportedClothingTypes": [],
+      "availableColors": [
+        {
+          "id": "indigo",
+          "name": "Crimson Leaf Print",
+          "hex": "#A41D35"
+        },
+        {
+          "id": "rust",
+          "name": "Wine Floral",
+          "hex": "#68192A"
+        }
+      ],
+      "availableSizes": [
+        "S",
+        "M",
+        "L",
+        "XL",
+        "XXL"
+      ],
+      "variants": [
+        {
+          "id": "SFK-CRD-03-STD-indigo-S",
+          "sku": "SFK-CRD-03-STD-INDIGO-S",
+          "clothingType": null,
+          "color": {
+            "id": "indigo",
+            "name": "Crimson Leaf Print",
+            "hex": "#A41D35"
+          },
+          "size": "S",
+          "price": 1499,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-CRD-03-STD-indigo-M",
+          "sku": "SFK-CRD-03-STD-INDIGO-M",
+          "clothingType": null,
+          "color": {
+            "id": "indigo",
+            "name": "Crimson Leaf Print",
+            "hex": "#A41D35"
+          },
+          "size": "M",
+          "price": 1499,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-CRD-03-STD-indigo-L",
+          "sku": "SFK-CRD-03-STD-INDIGO-L",
+          "clothingType": null,
+          "color": {
+            "id": "indigo",
+            "name": "Crimson Leaf Print",
+            "hex": "#A41D35"
+          },
+          "size": "L",
+          "price": 1499,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-CRD-03-STD-indigo-XL",
+          "sku": "SFK-CRD-03-STD-INDIGO-XL",
+          "clothingType": null,
+          "color": {
+            "id": "indigo",
+            "name": "Crimson Leaf Print",
+            "hex": "#A41D35"
+          },
+          "size": "XL",
+          "price": 1499,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-CRD-03-STD-indigo-XXL",
+          "sku": "SFK-CRD-03-STD-INDIGO-XXL",
+          "clothingType": null,
+          "color": {
+            "id": "indigo",
+            "name": "Crimson Leaf Print",
+            "hex": "#A41D35"
+          },
+          "size": "XXL",
+          "price": 1499,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-CRD-03-STD-rust-S",
+          "sku": "SFK-CRD-03-STD-RUST-S",
+          "clothingType": null,
+          "color": {
+            "id": "rust",
+            "name": "Wine Floral",
+            "hex": "#68192A"
+          },
+          "size": "S",
+          "price": 1499,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-CRD-03-STD-rust-M",
+          "sku": "SFK-CRD-03-STD-RUST-M",
+          "clothingType": null,
+          "color": {
+            "id": "rust",
+            "name": "Wine Floral",
+            "hex": "#68192A"
+          },
+          "size": "M",
+          "price": 1499,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-CRD-03-STD-rust-L",
+          "sku": "SFK-CRD-03-STD-RUST-L",
+          "clothingType": null,
+          "color": {
+            "id": "rust",
+            "name": "Wine Floral",
+            "hex": "#68192A"
+          },
+          "size": "L",
+          "price": 1499,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-CRD-03-STD-rust-XL",
+          "sku": "SFK-CRD-03-STD-RUST-XL",
+          "clothingType": null,
+          "color": {
+            "id": "rust",
+            "name": "Wine Floral",
+            "hex": "#68192A"
+          },
+          "size": "XL",
+          "price": 1499,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-CRD-03-STD-rust-XXL",
+          "sku": "SFK-CRD-03-STD-RUST-XXL",
+          "clothingType": null,
+          "color": {
+            "id": "rust",
+            "name": "Wine Floral",
+            "hex": "#68192A"
+          },
+          "size": "XXL",
+          "price": 1499,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        }
+      ],
+      "description": "Band-collar notched V-neck tunic and relaxed wide-leg trousers in crimson botanical foliage print. Standard everyday ethnic co-ord set.",
+      "fabric": "Breathable Cotton-Linen Blend",
+      "careInstructions": [
+        "Dry clean recommended for initial washes",
+        "Cool iron inside out"
+      ],
+      "isNewArrival": true
+    },
+    {
+      "id": "prod-4",
+      "title": "Madhavi Indigo Block-Print 3-Piece Palazzo Set",
+      "slug": "madhavi-heritage-3-piece-anarkali-festive-set",
+      "skuPrefix": "SFK-3PC-04",
+      "category": "3-piece-dresses",
+      "categoryName": "3-Piece Dresses",
+      "price": 1899,
+      "originalPrice": null,
+      "images": [
+        "/images/3pc-sets/indigo-blockprint-3pc-set.jpg",
+        "/images/3pc-sets/maroon-ajrakh-3pc-set.jpg"
+      ],
+      "feedingConfig": "both",
+      "supportedClothingTypes": [
+        "Feeding",
+        "Non-Feeding"
+      ],
+      "availableColors": [
+        {
+          "id": "emerald",
+          "name": "Deep Indigo",
+          "hex": "#1E2D4C"
+        },
+        {
+          "id": "ruby",
+          "name": "Royal Maroon",
+          "hex": "#6D1B28"
+        },
+        {
+          "id": "mustard",
+          "name": "Midnight Blue",
+          "hex": "#162038"
+        }
+      ],
+      "availableSizes": [
+        "S",
+        "M",
+        "L",
+        "XL",
+        "XXL"
+      ],
+      "variants": [
+        {
+          "id": "SFK-3PC-04-FD-emerald-S",
+          "sku": "SFK-3PC-04-FD-EMERALD-S",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "emerald",
+            "name": "Deep Indigo",
+            "hex": "#1E2D4C"
+          },
+          "size": "S",
+          "price": 1899,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-3PC-04-FD-emerald-M",
+          "sku": "SFK-3PC-04-FD-EMERALD-M",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "emerald",
+            "name": "Deep Indigo",
+            "hex": "#1E2D4C"
+          },
+          "size": "M",
+          "price": 1899,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-3PC-04-FD-emerald-L",
+          "sku": "SFK-3PC-04-FD-EMERALD-L",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "emerald",
+            "name": "Deep Indigo",
+            "hex": "#1E2D4C"
+          },
+          "size": "L",
+          "price": 1899,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-3PC-04-FD-emerald-XL",
+          "sku": "SFK-3PC-04-FD-EMERALD-XL",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "emerald",
+            "name": "Deep Indigo",
+            "hex": "#1E2D4C"
+          },
+          "size": "XL",
+          "price": 1899,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-3PC-04-FD-emerald-XXL",
+          "sku": "SFK-3PC-04-FD-EMERALD-XXL",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "emerald",
+            "name": "Deep Indigo",
+            "hex": "#1E2D4C"
+          },
+          "size": "XXL",
+          "price": 1899,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-3PC-04-FD-ruby-S",
+          "sku": "SFK-3PC-04-FD-RUBY-S",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "ruby",
+            "name": "Royal Maroon",
+            "hex": "#6D1B28"
+          },
+          "size": "S",
+          "price": 1899,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-3PC-04-FD-ruby-M",
+          "sku": "SFK-3PC-04-FD-RUBY-M",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "ruby",
+            "name": "Royal Maroon",
+            "hex": "#6D1B28"
+          },
+          "size": "M",
+          "price": 1899,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-3PC-04-FD-ruby-L",
+          "sku": "SFK-3PC-04-FD-RUBY-L",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "ruby",
+            "name": "Royal Maroon",
+            "hex": "#6D1B28"
+          },
+          "size": "L",
+          "price": 1899,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-3PC-04-FD-ruby-XL",
+          "sku": "SFK-3PC-04-FD-RUBY-XL",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "ruby",
+            "name": "Royal Maroon",
+            "hex": "#6D1B28"
+          },
+          "size": "XL",
+          "price": 1899,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-3PC-04-FD-ruby-XXL",
+          "sku": "SFK-3PC-04-FD-RUBY-XXL",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "ruby",
+            "name": "Royal Maroon",
+            "hex": "#6D1B28"
+          },
+          "size": "XXL",
+          "price": 1899,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-3PC-04-FD-mustard-S",
+          "sku": "SFK-3PC-04-FD-MUSTARD-S",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "mustard",
+            "name": "Midnight Blue",
+            "hex": "#162038"
+          },
+          "size": "S",
+          "price": 1899,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-3PC-04-FD-mustard-M",
+          "sku": "SFK-3PC-04-FD-MUSTARD-M",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "mustard",
+            "name": "Midnight Blue",
+            "hex": "#162038"
+          },
+          "size": "M",
+          "price": 1899,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-3PC-04-FD-mustard-L",
+          "sku": "SFK-3PC-04-FD-MUSTARD-L",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "mustard",
+            "name": "Midnight Blue",
+            "hex": "#162038"
+          },
+          "size": "L",
+          "price": 1899,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-3PC-04-FD-mustard-XL",
+          "sku": "SFK-3PC-04-FD-MUSTARD-XL",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "mustard",
+            "name": "Midnight Blue",
+            "hex": "#162038"
+          },
+          "size": "XL",
+          "price": 1899,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-3PC-04-FD-mustard-XXL",
+          "sku": "SFK-3PC-04-FD-MUSTARD-XXL",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "mustard",
+            "name": "Midnight Blue",
+            "hex": "#162038"
+          },
+          "size": "XXL",
+          "price": 1899,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-3PC-04-NF-emerald-S",
+          "sku": "SFK-3PC-04-NF-EMERALD-S",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "emerald",
+            "name": "Deep Indigo",
+            "hex": "#1E2D4C"
+          },
+          "size": "S",
+          "price": 1899,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-3PC-04-NF-emerald-M",
+          "sku": "SFK-3PC-04-NF-EMERALD-M",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "emerald",
+            "name": "Deep Indigo",
+            "hex": "#1E2D4C"
+          },
+          "size": "M",
+          "price": 1899,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-3PC-04-NF-emerald-L",
+          "sku": "SFK-3PC-04-NF-EMERALD-L",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "emerald",
+            "name": "Deep Indigo",
+            "hex": "#1E2D4C"
+          },
+          "size": "L",
+          "price": 1899,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-3PC-04-NF-emerald-XL",
+          "sku": "SFK-3PC-04-NF-EMERALD-XL",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "emerald",
+            "name": "Deep Indigo",
+            "hex": "#1E2D4C"
+          },
+          "size": "XL",
+          "price": 1899,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-3PC-04-NF-emerald-XXL",
+          "sku": "SFK-3PC-04-NF-EMERALD-XXL",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "emerald",
+            "name": "Deep Indigo",
+            "hex": "#1E2D4C"
+          },
+          "size": "XXL",
+          "price": 1899,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-3PC-04-NF-ruby-S",
+          "sku": "SFK-3PC-04-NF-RUBY-S",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "ruby",
+            "name": "Royal Maroon",
+            "hex": "#6D1B28"
+          },
+          "size": "S",
+          "price": 1899,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-3PC-04-NF-ruby-M",
+          "sku": "SFK-3PC-04-NF-RUBY-M",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "ruby",
+            "name": "Royal Maroon",
+            "hex": "#6D1B28"
+          },
+          "size": "M",
+          "price": 1899,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-3PC-04-NF-ruby-L",
+          "sku": "SFK-3PC-04-NF-RUBY-L",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "ruby",
+            "name": "Royal Maroon",
+            "hex": "#6D1B28"
+          },
+          "size": "L",
+          "price": 1899,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-3PC-04-NF-ruby-XL",
+          "sku": "SFK-3PC-04-NF-RUBY-XL",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "ruby",
+            "name": "Royal Maroon",
+            "hex": "#6D1B28"
+          },
+          "size": "XL",
+          "price": 1899,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-3PC-04-NF-ruby-XXL",
+          "sku": "SFK-3PC-04-NF-RUBY-XXL",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "ruby",
+            "name": "Royal Maroon",
+            "hex": "#6D1B28"
+          },
+          "size": "XXL",
+          "price": 1899,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-3PC-04-NF-mustard-S",
+          "sku": "SFK-3PC-04-NF-MUSTARD-S",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "mustard",
+            "name": "Midnight Blue",
+            "hex": "#162038"
+          },
+          "size": "S",
+          "price": 1899,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-3PC-04-NF-mustard-M",
+          "sku": "SFK-3PC-04-NF-MUSTARD-M",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "mustard",
+            "name": "Midnight Blue",
+            "hex": "#162038"
+          },
+          "size": "M",
+          "price": 1899,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-3PC-04-NF-mustard-L",
+          "sku": "SFK-3PC-04-NF-MUSTARD-L",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "mustard",
+            "name": "Midnight Blue",
+            "hex": "#162038"
+          },
+          "size": "L",
+          "price": 1899,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-3PC-04-NF-mustard-XL",
+          "sku": "SFK-3PC-04-NF-MUSTARD-XL",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "mustard",
+            "name": "Midnight Blue",
+            "hex": "#162038"
+          },
+          "size": "XL",
+          "price": 1899,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-3PC-04-NF-mustard-XXL",
+          "sku": "SFK-3PC-04-NF-MUSTARD-XXL",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "mustard",
+            "name": "Midnight Blue",
+            "hex": "#162038"
+          },
+          "size": "XXL",
+          "price": 1899,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        }
+      ],
+      "description": "Sleeveless indigo straight kurti paired with relaxed wide-leg palazzo trousers and an artisanal hand-block printed tassel dupatta. Available with discreet feeding zippers.",
+      "fabric": "Cotton Slub with Block-Print Dupatta",
+      "careInstructions": [
+        "Dry clean only",
+        "Store in cloth bag"
+      ],
+      "feedingDetails": {
+        "zipType": "Concealed vertical dual-side zips",
+        "zipPlacement": "Integrated along side seams",
+        "description": "Allows feeding without disrupting the silhouette."
+      },
+      "isFeatured": true,
+      "isHandstock": true
+    },
+    {
+      "id": "prod-5",
+      "title": "Aadhya Georgette Festive Partywear Gown",
+      "slug": "aadhya-georgette-festive-partywear-gown",
+      "skuPrefix": "SFK-PTY-05",
+      "category": "partywear-dresses",
+      "categoryName": "Partywear Dresses",
+      "price": 1699,
+      "originalPrice": null,
+      "images": [
+        "/images/dresses/maroon-anarkali.jpg",
+        "/images/dresses/mauve-anarkali.jpg"
+      ],
+      "feedingConfig": "both",
+      "supportedClothingTypes": [
+        "Feeding",
+        "Non-Feeding"
+      ],
+      "availableColors": [
+        {
+          "id": "plum",
+          "name": "Royal Plum",
+          "hex": "#4A154B"
+        },
+        {
+          "id": "champagne",
+          "name": "Champagne",
+          "hex": "#D4AF37"
+        }
+      ],
+      "availableSizes": [
+        "S",
+        "M",
+        "L",
+        "XL",
+        "XXL"
+      ],
+      "variants": [
+        {
+          "id": "SFK-PTY-05-FD-plum-S",
+          "sku": "SFK-PTY-05-FD-PLUM-S",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "plum",
+            "name": "Royal Plum",
+            "hex": "#4A154B"
+          },
+          "size": "S",
+          "price": 1699,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-05-FD-plum-M",
+          "sku": "SFK-PTY-05-FD-PLUM-M",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "plum",
+            "name": "Royal Plum",
+            "hex": "#4A154B"
+          },
+          "size": "M",
+          "price": 1699,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-05-FD-plum-L",
+          "sku": "SFK-PTY-05-FD-PLUM-L",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "plum",
+            "name": "Royal Plum",
+            "hex": "#4A154B"
+          },
+          "size": "L",
+          "price": 1699,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-05-FD-plum-XL",
+          "sku": "SFK-PTY-05-FD-PLUM-XL",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "plum",
+            "name": "Royal Plum",
+            "hex": "#4A154B"
+          },
+          "size": "XL",
+          "price": 1699,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-05-FD-plum-XXL",
+          "sku": "SFK-PTY-05-FD-PLUM-XXL",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "plum",
+            "name": "Royal Plum",
+            "hex": "#4A154B"
+          },
+          "size": "XXL",
+          "price": 1699,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-05-FD-champagne-S",
+          "sku": "SFK-PTY-05-FD-CHAMPAGNE-S",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "champagne",
+            "name": "Champagne",
+            "hex": "#D4AF37"
+          },
+          "size": "S",
+          "price": 1699,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-05-FD-champagne-M",
+          "sku": "SFK-PTY-05-FD-CHAMPAGNE-M",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "champagne",
+            "name": "Champagne",
+            "hex": "#D4AF37"
+          },
+          "size": "M",
+          "price": 1699,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-05-FD-champagne-L",
+          "sku": "SFK-PTY-05-FD-CHAMPAGNE-L",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "champagne",
+            "name": "Champagne",
+            "hex": "#D4AF37"
+          },
+          "size": "L",
+          "price": 1699,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-05-FD-champagne-XL",
+          "sku": "SFK-PTY-05-FD-CHAMPAGNE-XL",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "champagne",
+            "name": "Champagne",
+            "hex": "#D4AF37"
+          },
+          "size": "XL",
+          "price": 1699,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-05-FD-champagne-XXL",
+          "sku": "SFK-PTY-05-FD-CHAMPAGNE-XXL",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "champagne",
+            "name": "Champagne",
+            "hex": "#D4AF37"
+          },
+          "size": "XXL",
+          "price": 1699,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-05-NF-plum-S",
+          "sku": "SFK-PTY-05-NF-PLUM-S",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "plum",
+            "name": "Royal Plum",
+            "hex": "#4A154B"
+          },
+          "size": "S",
+          "price": 1699,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-05-NF-plum-M",
+          "sku": "SFK-PTY-05-NF-PLUM-M",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "plum",
+            "name": "Royal Plum",
+            "hex": "#4A154B"
+          },
+          "size": "M",
+          "price": 1699,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-05-NF-plum-L",
+          "sku": "SFK-PTY-05-NF-PLUM-L",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "plum",
+            "name": "Royal Plum",
+            "hex": "#4A154B"
+          },
+          "size": "L",
+          "price": 1699,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-05-NF-plum-XL",
+          "sku": "SFK-PTY-05-NF-PLUM-XL",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "plum",
+            "name": "Royal Plum",
+            "hex": "#4A154B"
+          },
+          "size": "XL",
+          "price": 1699,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-05-NF-plum-XXL",
+          "sku": "SFK-PTY-05-NF-PLUM-XXL",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "plum",
+            "name": "Royal Plum",
+            "hex": "#4A154B"
+          },
+          "size": "XXL",
+          "price": 1699,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-05-NF-champagne-S",
+          "sku": "SFK-PTY-05-NF-CHAMPAGNE-S",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "champagne",
+            "name": "Champagne",
+            "hex": "#D4AF37"
+          },
+          "size": "S",
+          "price": 1699,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-05-NF-champagne-M",
+          "sku": "SFK-PTY-05-NF-CHAMPAGNE-M",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "champagne",
+            "name": "Champagne",
+            "hex": "#D4AF37"
+          },
+          "size": "M",
+          "price": 1699,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-05-NF-champagne-L",
+          "sku": "SFK-PTY-05-NF-CHAMPAGNE-L",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "champagne",
+            "name": "Champagne",
+            "hex": "#D4AF37"
+          },
+          "size": "L",
+          "price": 1699,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-05-NF-champagne-XL",
+          "sku": "SFK-PTY-05-NF-CHAMPAGNE-XL",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "champagne",
+            "name": "Champagne",
+            "hex": "#D4AF37"
+          },
+          "size": "XL",
+          "price": 1699,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-05-NF-champagne-XXL",
+          "sku": "SFK-PTY-05-NF-CHAMPAGNE-XXL",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "champagne",
+            "name": "Champagne",
+            "hex": "#D4AF37"
+          },
+          "size": "XXL",
+          "price": 1699,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        }
+      ],
+      "description": "Flared partywear gown adorned with tonal embroidery. Available in both Feeding and Non-Feeding options.",
+      "fabric": "Georgette with Inner Lining",
+      "careInstructions": [
+        "Specialist dry clean only"
+      ],
+      "feedingDetails": {
+        "zipType": "Concealed dual-side zippers",
+        "zipPlacement": "Integrated discreetly into side seams",
+        "description": "Hidden nursing openings tailored into festive partywear gown."
+      },
+      "isFeatured": true,
+      "isHandstock": true
+    },
+    {
+      "id": "prod-6",
+      "title": "Kanchivaram Checked Emerald & Crimson Pattu Saree",
+      "slug": "kanchivaram-touch-traditional-silk-saree",
+      "skuPrefix": "SFK-SAR-06",
+      "category": "sarees",
+      "categoryName": "Sarees",
+      "price": 1599,
+      "originalPrice": null,
+      "images": [
+        "/images/sarees/emerald-checked-kanchivaram-saree.jpg",
+        "/images/sarees/bottle-green-maroon-zari-saree.jpg"
+      ],
+      "feedingConfig": "none",
+      "supportedClothingTypes": [],
+      "availableColors": [
+        {
+          "id": "emerald-crimson",
+          "name": "Emerald Green & Crimson",
+          "hex": "#0B462B"
+        },
+        {
+          "id": "bottle-maroon",
+          "name": "Bottle Green & Maroon",
+          "hex": "#173E2D"
+        }
+      ],
+      "availableSizes": [
+        "Free Size"
+      ],
+      "variants": [
+        {
+          "id": "SFK-SAR-06-STD-emerald-crimson-Free Size",
+          "sku": "SFK-SAR-06-STD-EMERALD-CRIMSON-Free Size",
+          "clothingType": null,
+          "color": {
+            "id": "emerald-crimson",
+            "name": "Emerald Green & Crimson",
+            "hex": "#0B462B"
+          },
+          "size": "Free Size",
+          "price": 1599,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-SAR-06-STD-bottle-maroon-Free Size",
+          "sku": "SFK-SAR-06-STD-BOTTLE-MAROON-Free Size",
+          "clothingType": null,
+          "color": {
+            "id": "bottle-maroon",
+            "name": "Bottle Green & Maroon",
+            "hex": "#173E2D"
+          },
+          "size": "Free Size",
+          "price": 1599,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        }
+      ],
+      "description": "Traditional Kanchivaram checked silk saree in emerald green woven with golden zari checks and a grand crimson-gold contrast pallu. Includes unstitched contrast blouse piece.",
+      "fabric": "Kanchivaram Pure Silk Blend",
+      "careInstructions": [
+        "Dry clean recommended",
+        "Iron on reverse on silk setting"
+      ],
+      "isHandstock": true
+    },
+    {
+      "id": "prod-8",
+      "title": "Avani Mom & Child Cotton Twinning Frock",
+      "slug": "avani-mom-child-cotton-twinning-frock",
+      "skuPrefix": "SFK-KID-08",
+      "category": "kids-collections",
+      "categoryName": "Kids Collections",
+      "price": 999,
+      "originalPrice": null,
+      "images": [
+        "/images/kidswear/yellow-embroidered-frock.jpg",
+        "/images/kidswear/ikat-blue-frock.jpg"
+      ],
+      "feedingConfig": "feeding-only",
+      "supportedClothingTypes": [
+        "Feeding"
+      ],
+      "availableColors": [
+        {
+          "id": "yellow",
+          "name": "Sunflower Yellow",
+          "hex": "#EAB308"
+        },
+        {
+          "id": "powder-blue",
+          "name": "Powder Blue",
+          "hex": "#93C5FD"
+        }
+      ],
+      "availableSizes": [
+        "S",
+        "M",
+        "L",
+        "XL",
+        "XXL"
+      ],
+      "variants": [
+        {
+          "id": "SFK-KID-08-FD-yellow-S",
+          "sku": "SFK-KID-08-FD-YELLOW-S",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "yellow",
+            "name": "Sunflower Yellow",
+            "hex": "#EAB308"
+          },
+          "size": "S",
+          "price": 999,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-KID-08-FD-yellow-M",
+          "sku": "SFK-KID-08-FD-YELLOW-M",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "yellow",
+            "name": "Sunflower Yellow",
+            "hex": "#EAB308"
+          },
+          "size": "M",
+          "price": 999,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-KID-08-FD-yellow-L",
+          "sku": "SFK-KID-08-FD-YELLOW-L",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "yellow",
+            "name": "Sunflower Yellow",
+            "hex": "#EAB308"
+          },
+          "size": "L",
+          "price": 999,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-KID-08-FD-yellow-XL",
+          "sku": "SFK-KID-08-FD-YELLOW-XL",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "yellow",
+            "name": "Sunflower Yellow",
+            "hex": "#EAB308"
+          },
+          "size": "XL",
+          "price": 999,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-KID-08-FD-yellow-XXL",
+          "sku": "SFK-KID-08-FD-YELLOW-XXL",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "yellow",
+            "name": "Sunflower Yellow",
+            "hex": "#EAB308"
+          },
+          "size": "XXL",
+          "price": 999,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-KID-08-FD-powder-blue-S",
+          "sku": "SFK-KID-08-FD-POWDER-BLUE-S",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "powder-blue",
+            "name": "Powder Blue",
+            "hex": "#93C5FD"
+          },
+          "size": "S",
+          "price": 999,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-KID-08-FD-powder-blue-M",
+          "sku": "SFK-KID-08-FD-POWDER-BLUE-M",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "powder-blue",
+            "name": "Powder Blue",
+            "hex": "#93C5FD"
+          },
+          "size": "M",
+          "price": 999,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-KID-08-FD-powder-blue-L",
+          "sku": "SFK-KID-08-FD-POWDER-BLUE-L",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "powder-blue",
+            "name": "Powder Blue",
+            "hex": "#93C5FD"
+          },
+          "size": "L",
+          "price": 999,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-KID-08-FD-powder-blue-XL",
+          "sku": "SFK-KID-08-FD-POWDER-BLUE-XL",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "powder-blue",
+            "name": "Powder Blue",
+            "hex": "#93C5FD"
+          },
+          "size": "XL",
+          "price": 999,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-KID-08-FD-powder-blue-XXL",
+          "sku": "SFK-KID-08-FD-POWDER-BLUE-XXL",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "powder-blue",
+            "name": "Powder Blue",
+            "hex": "#93C5FD"
+          },
+          "size": "XXL",
+          "price": 999,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        }
+      ],
+      "description": "Matching dress set crafted in breathable cotton. The mother outfit includes twin concealed side nursing zippers.",
+      "fabric": "Soft Cambric Cotton",
+      "careInstructions": [
+        "Machine wash gentle",
+        "Warm iron"
+      ],
+      "feedingDetails": {
+        "zipType": "Concealed nursing zippers",
+        "zipPlacement": "Dual side seam openings",
+        "description": "Mother outfit includes discreet side nursing access."
+      },
+      "isNewArrival": true,
+      "isHandstock": true
+    },
+    {
+      "id": "prod-9",
+      "title": "Ananya Terracotta Ruffle-Shoulder Tiered Frock",
+      "slug": "ananya-block-print-tiered-maxi-frock",
+      "skuPrefix": "SFK-FRK-09",
+      "category": "frocks",
+      "categoryName": "Frocks",
+      "price": 1299,
+      "originalPrice": null,
+      "images": [
+        "/images/frocks/terracotta-tiered-frock.jpg",
+        "/images/frocks/teal-zari-tiered-frock.jpg"
+      ],
+      "feedingConfig": "both",
+      "supportedClothingTypes": [
+        "Feeding",
+        "Non-Feeding"
+      ],
+      "availableColors": [
+        {
+          "id": "terracotta",
+          "name": "Terracotta Rust",
+          "hex": "#B33A22"
+        },
+        {
+          "id": "olive",
+          "name": "Peacock Emerald Teal",
+          "hex": "#0B4A42"
+        }
+      ],
+      "availableSizes": [
+        "S",
+        "M",
+        "L",
+        "XL",
+        "XXL"
+      ],
+      "variants": [
+        {
+          "id": "SFK-FRK-09-FD-terracotta-S",
+          "sku": "SFK-FRK-09-FD-TERRACOTTA-S",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "terracotta",
+            "name": "Terracotta Rust",
+            "hex": "#B33A22"
+          },
+          "size": "S",
+          "price": 1299,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-FRK-09-FD-terracotta-M",
+          "sku": "SFK-FRK-09-FD-TERRACOTTA-M",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "terracotta",
+            "name": "Terracotta Rust",
+            "hex": "#B33A22"
+          },
+          "size": "M",
+          "price": 1299,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-FRK-09-FD-terracotta-L",
+          "sku": "SFK-FRK-09-FD-TERRACOTTA-L",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "terracotta",
+            "name": "Terracotta Rust",
+            "hex": "#B33A22"
+          },
+          "size": "L",
+          "price": 1299,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-FRK-09-FD-terracotta-XL",
+          "sku": "SFK-FRK-09-FD-TERRACOTTA-XL",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "terracotta",
+            "name": "Terracotta Rust",
+            "hex": "#B33A22"
+          },
+          "size": "XL",
+          "price": 1299,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-FRK-09-FD-terracotta-XXL",
+          "sku": "SFK-FRK-09-FD-TERRACOTTA-XXL",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "terracotta",
+            "name": "Terracotta Rust",
+            "hex": "#B33A22"
+          },
+          "size": "XXL",
+          "price": 1299,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-FRK-09-FD-olive-S",
+          "sku": "SFK-FRK-09-FD-OLIVE-S",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "olive",
+            "name": "Peacock Emerald Teal",
+            "hex": "#0B4A42"
+          },
+          "size": "S",
+          "price": 1299,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-FRK-09-FD-olive-M",
+          "sku": "SFK-FRK-09-FD-OLIVE-M",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "olive",
+            "name": "Peacock Emerald Teal",
+            "hex": "#0B4A42"
+          },
+          "size": "M",
+          "price": 1299,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-FRK-09-FD-olive-L",
+          "sku": "SFK-FRK-09-FD-OLIVE-L",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "olive",
+            "name": "Peacock Emerald Teal",
+            "hex": "#0B4A42"
+          },
+          "size": "L",
+          "price": 1299,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-FRK-09-FD-olive-XL",
+          "sku": "SFK-FRK-09-FD-OLIVE-XL",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "olive",
+            "name": "Peacock Emerald Teal",
+            "hex": "#0B4A42"
+          },
+          "size": "XL",
+          "price": 1299,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-FRK-09-FD-olive-XXL",
+          "sku": "SFK-FRK-09-FD-OLIVE-XXL",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "olive",
+            "name": "Peacock Emerald Teal",
+            "hex": "#0B4A42"
+          },
+          "size": "XXL",
+          "price": 1299,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-FRK-09-NF-terracotta-S",
+          "sku": "SFK-FRK-09-NF-TERRACOTTA-S",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "terracotta",
+            "name": "Terracotta Rust",
+            "hex": "#B33A22"
+          },
+          "size": "S",
+          "price": 1299,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-FRK-09-NF-terracotta-M",
+          "sku": "SFK-FRK-09-NF-TERRACOTTA-M",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "terracotta",
+            "name": "Terracotta Rust",
+            "hex": "#B33A22"
+          },
+          "size": "M",
+          "price": 1299,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-FRK-09-NF-terracotta-L",
+          "sku": "SFK-FRK-09-NF-TERRACOTTA-L",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "terracotta",
+            "name": "Terracotta Rust",
+            "hex": "#B33A22"
+          },
+          "size": "L",
+          "price": 1299,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-FRK-09-NF-terracotta-XL",
+          "sku": "SFK-FRK-09-NF-TERRACOTTA-XL",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "terracotta",
+            "name": "Terracotta Rust",
+            "hex": "#B33A22"
+          },
+          "size": "XL",
+          "price": 1299,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-FRK-09-NF-terracotta-XXL",
+          "sku": "SFK-FRK-09-NF-TERRACOTTA-XXL",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "terracotta",
+            "name": "Terracotta Rust",
+            "hex": "#B33A22"
+          },
+          "size": "XXL",
+          "price": 1299,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-FRK-09-NF-olive-S",
+          "sku": "SFK-FRK-09-NF-OLIVE-S",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "olive",
+            "name": "Peacock Emerald Teal",
+            "hex": "#0B4A42"
+          },
+          "size": "S",
+          "price": 1299,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-FRK-09-NF-olive-M",
+          "sku": "SFK-FRK-09-NF-OLIVE-M",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "olive",
+            "name": "Peacock Emerald Teal",
+            "hex": "#0B4A42"
+          },
+          "size": "M",
+          "price": 1299,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-FRK-09-NF-olive-L",
+          "sku": "SFK-FRK-09-NF-OLIVE-L",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "olive",
+            "name": "Peacock Emerald Teal",
+            "hex": "#0B4A42"
+          },
+          "size": "L",
+          "price": 1299,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-FRK-09-NF-olive-XL",
+          "sku": "SFK-FRK-09-NF-OLIVE-XL",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "olive",
+            "name": "Peacock Emerald Teal",
+            "hex": "#0B4A42"
+          },
+          "size": "XL",
+          "price": 1299,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-FRK-09-NF-olive-XXL",
+          "sku": "SFK-FRK-09-NF-OLIVE-XXL",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "olive",
+            "name": "Peacock Emerald Teal",
+            "hex": "#0B4A42"
+          },
+          "size": "XXL",
+          "price": 1299,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        }
+      ],
+      "description": "Breezy terracotta georgette tiered long frock accented with delicate ruffle straps and subtle hand-embroidered bodice motifs. Available in Feeding or regular fit.",
+      "fabric": "Georgette with Soft Mulmul Lining",
+      "careInstructions": [
+        "Hand wash cold separately",
+        "Dry in shade",
+        "Warm iron"
+      ],
+      "feedingDetails": {
+        "zipType": "Concealed dual-side nursing access",
+        "zipPlacement": "Left and right side openings",
+        "description": "Discreet feeding feature designed for nursing access."
+      },
+      "isNewArrival": true
+    },
+    {
+      "id": "prod-10",
+      "title": "Vaidehi Wine Floral-Hem Tunic & Palazzo Co-ord Set",
+      "slug": "vaidehi-linen-tunic-pant-co-ord-set",
+      "skuPrefix": "SFK-CRD-10",
+      "category": "co-ord-sets",
+      "categoryName": "Co-ord Sets",
+      "price": 1599,
+      "originalPrice": null,
+      "images": [
+        "/images/co-ords/wine-floral-coord.jpg",
+        "/images/co-ords/crimson-botanical-coord.jpg"
+      ],
+      "feedingConfig": "both",
+      "supportedClothingTypes": [
+        "Feeding",
+        "Non-Feeding"
+      ],
+      "availableColors": [
+        {
+          "id": "beige",
+          "name": "Wine Floral",
+          "hex": "#68192A"
+        },
+        {
+          "id": "slate",
+          "name": "Crimson Botanical",
+          "hex": "#A41D35"
+        }
+      ],
+      "availableSizes": [
+        "S",
+        "M",
+        "L",
+        "XL",
+        "XXL"
+      ],
+      "variants": [
+        {
+          "id": "SFK-CRD-10-FD-beige-S",
+          "sku": "SFK-CRD-10-FD-BEIGE-S",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "beige",
+            "name": "Wine Floral",
+            "hex": "#68192A"
+          },
+          "size": "S",
+          "price": 1599,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-CRD-10-FD-beige-M",
+          "sku": "SFK-CRD-10-FD-BEIGE-M",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "beige",
+            "name": "Wine Floral",
+            "hex": "#68192A"
+          },
+          "size": "M",
+          "price": 1599,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-CRD-10-FD-beige-L",
+          "sku": "SFK-CRD-10-FD-BEIGE-L",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "beige",
+            "name": "Wine Floral",
+            "hex": "#68192A"
+          },
+          "size": "L",
+          "price": 1599,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-CRD-10-FD-beige-XL",
+          "sku": "SFK-CRD-10-FD-BEIGE-XL",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "beige",
+            "name": "Wine Floral",
+            "hex": "#68192A"
+          },
+          "size": "XL",
+          "price": 1599,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-CRD-10-FD-beige-XXL",
+          "sku": "SFK-CRD-10-FD-BEIGE-XXL",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "beige",
+            "name": "Wine Floral",
+            "hex": "#68192A"
+          },
+          "size": "XXL",
+          "price": 1599,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-CRD-10-FD-slate-S",
+          "sku": "SFK-CRD-10-FD-SLATE-S",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "slate",
+            "name": "Crimson Botanical",
+            "hex": "#A41D35"
+          },
+          "size": "S",
+          "price": 1599,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-CRD-10-FD-slate-M",
+          "sku": "SFK-CRD-10-FD-SLATE-M",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "slate",
+            "name": "Crimson Botanical",
+            "hex": "#A41D35"
+          },
+          "size": "M",
+          "price": 1599,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-CRD-10-FD-slate-L",
+          "sku": "SFK-CRD-10-FD-SLATE-L",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "slate",
+            "name": "Crimson Botanical",
+            "hex": "#A41D35"
+          },
+          "size": "L",
+          "price": 1599,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-CRD-10-FD-slate-XL",
+          "sku": "SFK-CRD-10-FD-SLATE-XL",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "slate",
+            "name": "Crimson Botanical",
+            "hex": "#A41D35"
+          },
+          "size": "XL",
+          "price": 1599,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-CRD-10-FD-slate-XXL",
+          "sku": "SFK-CRD-10-FD-SLATE-XXL",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "slate",
+            "name": "Crimson Botanical",
+            "hex": "#A41D35"
+          },
+          "size": "XXL",
+          "price": 1599,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-CRD-10-NF-beige-S",
+          "sku": "SFK-CRD-10-NF-BEIGE-S",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "beige",
+            "name": "Wine Floral",
+            "hex": "#68192A"
+          },
+          "size": "S",
+          "price": 1599,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-CRD-10-NF-beige-M",
+          "sku": "SFK-CRD-10-NF-BEIGE-M",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "beige",
+            "name": "Wine Floral",
+            "hex": "#68192A"
+          },
+          "size": "M",
+          "price": 1599,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-CRD-10-NF-beige-L",
+          "sku": "SFK-CRD-10-NF-BEIGE-L",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "beige",
+            "name": "Wine Floral",
+            "hex": "#68192A"
+          },
+          "size": "L",
+          "price": 1599,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-CRD-10-NF-beige-XL",
+          "sku": "SFK-CRD-10-NF-BEIGE-XL",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "beige",
+            "name": "Wine Floral",
+            "hex": "#68192A"
+          },
+          "size": "XL",
+          "price": 1599,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-CRD-10-NF-beige-XXL",
+          "sku": "SFK-CRD-10-NF-BEIGE-XXL",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "beige",
+            "name": "Wine Floral",
+            "hex": "#68192A"
+          },
+          "size": "XXL",
+          "price": 1599,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-CRD-10-NF-slate-S",
+          "sku": "SFK-CRD-10-NF-SLATE-S",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "slate",
+            "name": "Crimson Botanical",
+            "hex": "#A41D35"
+          },
+          "size": "S",
+          "price": 1599,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-CRD-10-NF-slate-M",
+          "sku": "SFK-CRD-10-NF-SLATE-M",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "slate",
+            "name": "Crimson Botanical",
+            "hex": "#A41D35"
+          },
+          "size": "M",
+          "price": 1599,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-CRD-10-NF-slate-L",
+          "sku": "SFK-CRD-10-NF-SLATE-L",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "slate",
+            "name": "Crimson Botanical",
+            "hex": "#A41D35"
+          },
+          "size": "L",
+          "price": 1599,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-CRD-10-NF-slate-XL",
+          "sku": "SFK-CRD-10-NF-SLATE-XL",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "slate",
+            "name": "Crimson Botanical",
+            "hex": "#A41D35"
+          },
+          "size": "XL",
+          "price": 1599,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-CRD-10-NF-slate-XXL",
+          "sku": "SFK-CRD-10-NF-SLATE-XXL",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "slate",
+            "name": "Crimson Botanical",
+            "hex": "#A41D35"
+          },
+          "size": "XXL",
+          "price": 1599,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        }
+      ],
+      "description": "Deep wine tunic and flared palazzo co-ord set detailed with soft blush-pink floral motifs along the hem and sleeves.",
+      "fabric": "Linen Cotton Blend",
+      "careInstructions": [
+        "Gentle cycle wash",
+        "Do not bleach",
+        "Warm iron when slightly damp"
+      ],
+      "feedingDetails": {
+        "zipType": "Concealed vertical side zippers",
+        "zipPlacement": "Integrated into side seams",
+        "description": "Seamless integration into tunic styling."
+      },
+      "isFeatured": true,
+      "isHandstock": true
+    },
+    {
+      "id": "prod-11",
+      "title": "Gayathri Midnight Navy Zari-Weave Kurti & Dupatta",
+      "slug": "gayathri-rayon-slub-anarkali-kurti-dupatta",
+      "skuPrefix": "SFK-KRT-11",
+      "category": "kurti-dupatta",
+      "categoryName": "Kurti + Dupatta",
+      "price": 1249,
+      "originalPrice": null,
+      "images": [
+        "/images/kurti-dupatta/navy-zari-kurti-dupatta.jpg",
+        "/images/kurti-dupatta/magenta-ombre-kurti-dupatta.jpg"
+      ],
+      "feedingConfig": "feeding-only",
+      "supportedClothingTypes": [
+        "Feeding"
+      ],
+      "availableColors": [
+        {
+          "id": "navy-zari",
+          "name": "Midnight Navy & Gold Zari",
+          "hex": "#1B2845"
+        },
+        {
+          "id": "forest",
+          "name": "Deep Forest Green",
+          "hex": "#1C3B2B"
+        }
+      ],
+      "availableSizes": [
+        "S",
+        "M",
+        "L",
+        "XL",
+        "XXL"
+      ],
+      "variants": [
+        {
+          "id": "SFK-KRT-11-FD-navy-zari-S",
+          "sku": "SFK-KRT-11-FD-NAVY-ZARI-S",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "navy-zari",
+            "name": "Midnight Navy & Gold Zari",
+            "hex": "#1B2845"
+          },
+          "size": "S",
+          "price": 1249,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-KRT-11-FD-navy-zari-M",
+          "sku": "SFK-KRT-11-FD-NAVY-ZARI-M",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "navy-zari",
+            "name": "Midnight Navy & Gold Zari",
+            "hex": "#1B2845"
+          },
+          "size": "M",
+          "price": 1249,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-KRT-11-FD-navy-zari-L",
+          "sku": "SFK-KRT-11-FD-NAVY-ZARI-L",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "navy-zari",
+            "name": "Midnight Navy & Gold Zari",
+            "hex": "#1B2845"
+          },
+          "size": "L",
+          "price": 1249,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-KRT-11-FD-navy-zari-XL",
+          "sku": "SFK-KRT-11-FD-NAVY-ZARI-XL",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "navy-zari",
+            "name": "Midnight Navy & Gold Zari",
+            "hex": "#1B2845"
+          },
+          "size": "XL",
+          "price": 1249,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-KRT-11-FD-navy-zari-XXL",
+          "sku": "SFK-KRT-11-FD-NAVY-ZARI-XXL",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "navy-zari",
+            "name": "Midnight Navy & Gold Zari",
+            "hex": "#1B2845"
+          },
+          "size": "XXL",
+          "price": 1249,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-KRT-11-FD-forest-S",
+          "sku": "SFK-KRT-11-FD-FOREST-S",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "forest",
+            "name": "Deep Forest Green",
+            "hex": "#1C3B2B"
+          },
+          "size": "S",
+          "price": 1249,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-KRT-11-FD-forest-M",
+          "sku": "SFK-KRT-11-FD-FOREST-M",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "forest",
+            "name": "Deep Forest Green",
+            "hex": "#1C3B2B"
+          },
+          "size": "M",
+          "price": 1249,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-KRT-11-FD-forest-L",
+          "sku": "SFK-KRT-11-FD-FOREST-L",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "forest",
+            "name": "Deep Forest Green",
+            "hex": "#1C3B2B"
+          },
+          "size": "L",
+          "price": 1249,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-KRT-11-FD-forest-XL",
+          "sku": "SFK-KRT-11-FD-FOREST-XL",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "forest",
+            "name": "Deep Forest Green",
+            "hex": "#1C3B2B"
+          },
+          "size": "XL",
+          "price": 1249,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-KRT-11-FD-forest-XXL",
+          "sku": "SFK-KRT-11-FD-FOREST-XXL",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "forest",
+            "name": "Deep Forest Green",
+            "hex": "#1C3B2B"
+          },
+          "size": "XXL",
+          "price": 1249,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        }
+      ],
+      "description": "Handloom-textured midnight navy straight kurti woven with tiny antique gold motifs and paired with a matching zari-border dupatta. Dedicated feeding construction.",
+      "fabric": "Handloom Cotton-Silk with Zari Dupatta",
+      "careInstructions": [
+        "Gentle cold wash",
+        "Medium iron"
+      ],
+      "feedingDetails": {
+        "zipType": "Concealed dual-side nursing zips",
+        "zipPlacement": "Left and right vertical side seams",
+        "description": "Dedicated nursing access integrated cleanly into straight-cut kurti."
+      },
+      "isNewArrival": true
+    },
+    {
+      "id": "prod-12",
+      "title": "Sharanya Maroon Ajrakh Yoke 3-Piece Kurti Set",
+      "slug": "sharanya-silk-chanderi-3-piece-ensemble",
+      "skuPrefix": "SFK-3PC-12",
+      "category": "3-piece-dresses",
+      "categoryName": "3-Piece Dresses",
+      "price": 2199,
+      "originalPrice": null,
+      "images": [
+        "/images/3pc-sets/maroon-ajrakh-3pc-set.jpg",
+        "/images/3pc-sets/indigo-blockprint-3pc-set.jpg"
+      ],
+      "feedingConfig": "both",
+      "supportedClothingTypes": [
+        "Feeding",
+        "Non-Feeding"
+      ],
+      "availableColors": [
+        {
+          "id": "maroon-ajrakh",
+          "name": "Maroon & Black Ajrakh",
+          "hex": "#6D1B28"
+        },
+        {
+          "id": "deep-indigo",
+          "name": "Deep Indigo",
+          "hex": "#1E2D4C"
+        }
+      ],
+      "availableSizes": [
+        "S",
+        "M",
+        "L",
+        "XL",
+        "XXL"
+      ],
+      "variants": [
+        {
+          "id": "SFK-3PC-12-FD-maroon-ajrakh-S",
+          "sku": "SFK-3PC-12-FD-MAROON-AJRAKH-S",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "maroon-ajrakh",
+            "name": "Maroon & Black Ajrakh",
+            "hex": "#6D1B28"
+          },
+          "size": "S",
+          "price": 2199,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-3PC-12-FD-maroon-ajrakh-M",
+          "sku": "SFK-3PC-12-FD-MAROON-AJRAKH-M",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "maroon-ajrakh",
+            "name": "Maroon & Black Ajrakh",
+            "hex": "#6D1B28"
+          },
+          "size": "M",
+          "price": 2199,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-3PC-12-FD-maroon-ajrakh-L",
+          "sku": "SFK-3PC-12-FD-MAROON-AJRAKH-L",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "maroon-ajrakh",
+            "name": "Maroon & Black Ajrakh",
+            "hex": "#6D1B28"
+          },
+          "size": "L",
+          "price": 2199,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-3PC-12-FD-maroon-ajrakh-XL",
+          "sku": "SFK-3PC-12-FD-MAROON-AJRAKH-XL",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "maroon-ajrakh",
+            "name": "Maroon & Black Ajrakh",
+            "hex": "#6D1B28"
+          },
+          "size": "XL",
+          "price": 2199,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-3PC-12-FD-maroon-ajrakh-XXL",
+          "sku": "SFK-3PC-12-FD-MAROON-AJRAKH-XXL",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "maroon-ajrakh",
+            "name": "Maroon & Black Ajrakh",
+            "hex": "#6D1B28"
+          },
+          "size": "XXL",
+          "price": 2199,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-3PC-12-FD-deep-indigo-S",
+          "sku": "SFK-3PC-12-FD-DEEP-INDIGO-S",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "deep-indigo",
+            "name": "Deep Indigo",
+            "hex": "#1E2D4C"
+          },
+          "size": "S",
+          "price": 2199,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-3PC-12-FD-deep-indigo-M",
+          "sku": "SFK-3PC-12-FD-DEEP-INDIGO-M",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "deep-indigo",
+            "name": "Deep Indigo",
+            "hex": "#1E2D4C"
+          },
+          "size": "M",
+          "price": 2199,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-3PC-12-FD-deep-indigo-L",
+          "sku": "SFK-3PC-12-FD-DEEP-INDIGO-L",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "deep-indigo",
+            "name": "Deep Indigo",
+            "hex": "#1E2D4C"
+          },
+          "size": "L",
+          "price": 2199,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-3PC-12-FD-deep-indigo-XL",
+          "sku": "SFK-3PC-12-FD-DEEP-INDIGO-XL",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "deep-indigo",
+            "name": "Deep Indigo",
+            "hex": "#1E2D4C"
+          },
+          "size": "XL",
+          "price": 2199,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-3PC-12-FD-deep-indigo-XXL",
+          "sku": "SFK-3PC-12-FD-DEEP-INDIGO-XXL",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "deep-indigo",
+            "name": "Deep Indigo",
+            "hex": "#1E2D4C"
+          },
+          "size": "XXL",
+          "price": 2199,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-3PC-12-NF-maroon-ajrakh-S",
+          "sku": "SFK-3PC-12-NF-MAROON-AJRAKH-S",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "maroon-ajrakh",
+            "name": "Maroon & Black Ajrakh",
+            "hex": "#6D1B28"
+          },
+          "size": "S",
+          "price": 2199,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-3PC-12-NF-maroon-ajrakh-M",
+          "sku": "SFK-3PC-12-NF-MAROON-AJRAKH-M",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "maroon-ajrakh",
+            "name": "Maroon & Black Ajrakh",
+            "hex": "#6D1B28"
+          },
+          "size": "M",
+          "price": 2199,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-3PC-12-NF-maroon-ajrakh-L",
+          "sku": "SFK-3PC-12-NF-MAROON-AJRAKH-L",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "maroon-ajrakh",
+            "name": "Maroon & Black Ajrakh",
+            "hex": "#6D1B28"
+          },
+          "size": "L",
+          "price": 2199,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-3PC-12-NF-maroon-ajrakh-XL",
+          "sku": "SFK-3PC-12-NF-MAROON-AJRAKH-XL",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "maroon-ajrakh",
+            "name": "Maroon & Black Ajrakh",
+            "hex": "#6D1B28"
+          },
+          "size": "XL",
+          "price": 2199,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-3PC-12-NF-maroon-ajrakh-XXL",
+          "sku": "SFK-3PC-12-NF-MAROON-AJRAKH-XXL",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "maroon-ajrakh",
+            "name": "Maroon & Black Ajrakh",
+            "hex": "#6D1B28"
+          },
+          "size": "XXL",
+          "price": 2199,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-3PC-12-NF-deep-indigo-S",
+          "sku": "SFK-3PC-12-NF-DEEP-INDIGO-S",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "deep-indigo",
+            "name": "Deep Indigo",
+            "hex": "#1E2D4C"
+          },
+          "size": "S",
+          "price": 2199,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-3PC-12-NF-deep-indigo-M",
+          "sku": "SFK-3PC-12-NF-DEEP-INDIGO-M",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "deep-indigo",
+            "name": "Deep Indigo",
+            "hex": "#1E2D4C"
+          },
+          "size": "M",
+          "price": 2199,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-3PC-12-NF-deep-indigo-L",
+          "sku": "SFK-3PC-12-NF-DEEP-INDIGO-L",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "deep-indigo",
+            "name": "Deep Indigo",
+            "hex": "#1E2D4C"
+          },
+          "size": "L",
+          "price": 2199,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-3PC-12-NF-deep-indigo-XL",
+          "sku": "SFK-3PC-12-NF-DEEP-INDIGO-XL",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "deep-indigo",
+            "name": "Deep Indigo",
+            "hex": "#1E2D4C"
+          },
+          "size": "XL",
+          "price": 2199,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-3PC-12-NF-deep-indigo-XXL",
+          "sku": "SFK-3PC-12-NF-DEEP-INDIGO-XXL",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "deep-indigo",
+            "name": "Deep Indigo",
+            "hex": "#1E2D4C"
+          },
+          "size": "XXL",
+          "price": 2199,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        }
+      ],
+      "description": "Royal maroon A-line straight kurti framed with hand-block Ajrakh yoke & cuff trim, matching straight trousers, and a black-and-maroon Ajrakh dupatta.",
+      "fabric": "Modal Cotton with Ajrakh Dupatta",
+      "careInstructions": [
+        "Dry clean only"
+      ],
+      "feedingDetails": {
+        "zipType": "Concealed dual-side zippers",
+        "zipPlacement": "Discreet side placement",
+        "description": "Discreet vertical nursing access designed for festive 3-piece set."
+      },
+      "isFeatured": true,
+      "isNewArrival": true
+    },
+    {
+      "id": "prod-13",
+      "title": "Tarini Embroidered Tissue Festive Maxi Gown",
+      "slug": "tarini-embroidered-tissue-festive-maxi-gown",
+      "skuPrefix": "SFK-PTY-13",
+      "category": "partywear-dresses",
+      "categoryName": "Partywear Dresses",
+      "price": 2499,
+      "originalPrice": null,
+      "images": [
+        "/images/dresses/ruby-floral-frock.jpg",
+        "/images/dresses/rust-kalamkari-frock.jpg"
+      ],
+      "feedingConfig": "both",
+      "supportedClothingTypes": [
+        "Feeding",
+        "Non-Feeding"
+      ],
+      "availableColors": [
+        {
+          "id": "copper",
+          "name": "Antique Copper",
+          "hex": "#9C5134"
+        },
+        {
+          "id": "ivory-gold",
+          "name": "Ivory Gold",
+          "hex": "#D6C7A1"
+        }
+      ],
+      "availableSizes": [
+        "S",
+        "M",
+        "L",
+        "XL",
+        "XXL"
+      ],
+      "variants": [
+        {
+          "id": "SFK-PTY-13-FD-copper-S",
+          "sku": "SFK-PTY-13-FD-COPPER-S",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "copper",
+            "name": "Antique Copper",
+            "hex": "#9C5134"
+          },
+          "size": "S",
+          "price": 2499,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-13-FD-copper-M",
+          "sku": "SFK-PTY-13-FD-COPPER-M",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "copper",
+            "name": "Antique Copper",
+            "hex": "#9C5134"
+          },
+          "size": "M",
+          "price": 2499,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-13-FD-copper-L",
+          "sku": "SFK-PTY-13-FD-COPPER-L",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "copper",
+            "name": "Antique Copper",
+            "hex": "#9C5134"
+          },
+          "size": "L",
+          "price": 2499,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-13-FD-copper-XL",
+          "sku": "SFK-PTY-13-FD-COPPER-XL",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "copper",
+            "name": "Antique Copper",
+            "hex": "#9C5134"
+          },
+          "size": "XL",
+          "price": 2499,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-13-FD-copper-XXL",
+          "sku": "SFK-PTY-13-FD-COPPER-XXL",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "copper",
+            "name": "Antique Copper",
+            "hex": "#9C5134"
+          },
+          "size": "XXL",
+          "price": 2499,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-13-FD-ivory-gold-S",
+          "sku": "SFK-PTY-13-FD-IVORY-GOLD-S",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "ivory-gold",
+            "name": "Ivory Gold",
+            "hex": "#D6C7A1"
+          },
+          "size": "S",
+          "price": 2499,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-13-FD-ivory-gold-M",
+          "sku": "SFK-PTY-13-FD-IVORY-GOLD-M",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "ivory-gold",
+            "name": "Ivory Gold",
+            "hex": "#D6C7A1"
+          },
+          "size": "M",
+          "price": 2499,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-13-FD-ivory-gold-L",
+          "sku": "SFK-PTY-13-FD-IVORY-GOLD-L",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "ivory-gold",
+            "name": "Ivory Gold",
+            "hex": "#D6C7A1"
+          },
+          "size": "L",
+          "price": 2499,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-13-FD-ivory-gold-XL",
+          "sku": "SFK-PTY-13-FD-IVORY-GOLD-XL",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "ivory-gold",
+            "name": "Ivory Gold",
+            "hex": "#D6C7A1"
+          },
+          "size": "XL",
+          "price": 2499,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-13-FD-ivory-gold-XXL",
+          "sku": "SFK-PTY-13-FD-IVORY-GOLD-XXL",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "ivory-gold",
+            "name": "Ivory Gold",
+            "hex": "#D6C7A1"
+          },
+          "size": "XXL",
+          "price": 2499,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-13-NF-copper-S",
+          "sku": "SFK-PTY-13-NF-COPPER-S",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "copper",
+            "name": "Antique Copper",
+            "hex": "#9C5134"
+          },
+          "size": "S",
+          "price": 2499,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-13-NF-copper-M",
+          "sku": "SFK-PTY-13-NF-COPPER-M",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "copper",
+            "name": "Antique Copper",
+            "hex": "#9C5134"
+          },
+          "size": "M",
+          "price": 2499,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-13-NF-copper-L",
+          "sku": "SFK-PTY-13-NF-COPPER-L",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "copper",
+            "name": "Antique Copper",
+            "hex": "#9C5134"
+          },
+          "size": "L",
+          "price": 2499,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-13-NF-copper-XL",
+          "sku": "SFK-PTY-13-NF-COPPER-XL",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "copper",
+            "name": "Antique Copper",
+            "hex": "#9C5134"
+          },
+          "size": "XL",
+          "price": 2499,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-13-NF-copper-XXL",
+          "sku": "SFK-PTY-13-NF-COPPER-XXL",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "copper",
+            "name": "Antique Copper",
+            "hex": "#9C5134"
+          },
+          "size": "XXL",
+          "price": 2499,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-13-NF-ivory-gold-S",
+          "sku": "SFK-PTY-13-NF-IVORY-GOLD-S",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "ivory-gold",
+            "name": "Ivory Gold",
+            "hex": "#D6C7A1"
+          },
+          "size": "S",
+          "price": 2499,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-13-NF-ivory-gold-M",
+          "sku": "SFK-PTY-13-NF-IVORY-GOLD-M",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "ivory-gold",
+            "name": "Ivory Gold",
+            "hex": "#D6C7A1"
+          },
+          "size": "M",
+          "price": 2499,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-13-NF-ivory-gold-L",
+          "sku": "SFK-PTY-13-NF-IVORY-GOLD-L",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "ivory-gold",
+            "name": "Ivory Gold",
+            "hex": "#D6C7A1"
+          },
+          "size": "L",
+          "price": 2499,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-13-NF-ivory-gold-XL",
+          "sku": "SFK-PTY-13-NF-IVORY-GOLD-XL",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "ivory-gold",
+            "name": "Ivory Gold",
+            "hex": "#D6C7A1"
+          },
+          "size": "XL",
+          "price": 2499,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-13-NF-ivory-gold-XXL",
+          "sku": "SFK-PTY-13-NF-IVORY-GOLD-XXL",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "ivory-gold",
+            "name": "Ivory Gold",
+            "hex": "#D6C7A1"
+          },
+          "size": "XXL",
+          "price": 2499,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        }
+      ],
+      "description": "Floor-sweeping partywear gown crafted in shimmering tissue georgette, accented with thread work and santoon inner lining.",
+      "fabric": "Georgette with Inner Lining",
+      "careInstructions": [
+        "Dry clean only"
+      ],
+      "feedingDetails": {
+        "zipType": "Concealed dual-side vertical zippers",
+        "zipPlacement": "Integrated into side seams",
+        "description": "Discreet side access for nursing mothers."
+      },
+      "isNewArrival": true
+    },
+    {
+      "id": "prod-14",
+      "title": "Vasundhara Bottle-Green & Maroon Zari Border Saree",
+      "slug": "vasundhara-handloom-linen-zari-border-saree",
+      "skuPrefix": "SFK-SAR-14",
+      "category": "sarees",
+      "categoryName": "Sarees",
+      "price": 1899,
+      "originalPrice": null,
+      "images": [
+        "/images/sarees/bottle-green-maroon-zari-saree.jpg",
+        "/images/sarees/emerald-checked-kanchivaram-saree.jpg"
+      ],
+      "feedingConfig": "none",
+      "supportedClothingTypes": [],
+      "availableColors": [
+        {
+          "id": "bottle-maroon",
+          "name": "Bottle Green & Maroon",
+          "hex": "#173E2D"
+        },
+        {
+          "id": "deep-burgundy",
+          "name": "Antique Burgundy Border",
+          "hex": "#691D2A"
+        }
+      ],
+      "availableSizes": [
+        "Free Size"
+      ],
+      "variants": [
+        {
+          "id": "SFK-SAR-14-STD-bottle-maroon-Free Size",
+          "sku": "SFK-SAR-14-STD-BOTTLE-MAROON-Free Size",
+          "clothingType": null,
+          "color": {
+            "id": "bottle-maroon",
+            "name": "Bottle Green & Maroon",
+            "hex": "#173E2D"
+          },
+          "size": "Free Size",
+          "price": 1899,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-SAR-14-STD-deep-burgundy-Free Size",
+          "sku": "SFK-SAR-14-STD-DEEP-BURGUNDY-Free Size",
+          "clothingType": null,
+          "color": {
+            "id": "deep-burgundy",
+            "name": "Antique Burgundy Border",
+            "hex": "#691D2A"
+          },
+          "size": "Free Size",
+          "price": 1899,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        }
+      ],
+      "description": "Handloom cotton-silk saree in deep bottle green paired with woven copper-maroon temple zari borders and delicate tasseled pallu. Includes unstitched maroon contrast blouse piece.",
+      "fabric": "Handloom Cotton-Silk with Zari Border",
+      "careInstructions": [
+        "Dry clean for initial washes",
+        "Gentle cold hand wash"
+      ]
+    },
+    {
+      "id": "prod-16",
+      "title": "Aarohi Pure Cotton Festive Toddler Frock",
+      "slug": "aarohi-pure-cotton-festive-toddler-frock",
+      "skuPrefix": "SFK-KID-16",
+      "category": "kids-collections",
+      "categoryName": "Kids Collections",
+      "price": 849,
+      "originalPrice": null,
+      "images": [
+        "/images/kidswear/ikat-blue-frock.jpg",
+        "/images/kidswear/yellow-embroidered-frock.jpg"
+      ],
+      "feedingConfig": "none",
+      "supportedClothingTypes": [],
+      "availableColors": [
+        {
+          "id": "rani-pink",
+          "name": "Rani Pink",
+          "hex": "#D63384"
+        },
+        {
+          "id": "mint",
+          "name": "Mint Green",
+          "hex": "#6EE7B7"
+        }
+      ],
+      "availableSizes": [
+        "S",
+        "M",
+        "L"
+      ],
+      "variants": [
+        {
+          "id": "SFK-KID-16-STD-rani-pink-S",
+          "sku": "SFK-KID-16-STD-RANI-PINK-S",
+          "clothingType": null,
+          "color": {
+            "id": "rani-pink",
+            "name": "Rani Pink",
+            "hex": "#D63384"
+          },
+          "size": "S",
+          "price": 849,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-KID-16-STD-rani-pink-M",
+          "sku": "SFK-KID-16-STD-RANI-PINK-M",
+          "clothingType": null,
+          "color": {
+            "id": "rani-pink",
+            "name": "Rani Pink",
+            "hex": "#D63384"
+          },
+          "size": "M",
+          "price": 849,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-KID-16-STD-rani-pink-L",
+          "sku": "SFK-KID-16-STD-RANI-PINK-L",
+          "clothingType": null,
+          "color": {
+            "id": "rani-pink",
+            "name": "Rani Pink",
+            "hex": "#D63384"
+          },
+          "size": "L",
+          "price": 849,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-KID-16-STD-mint-S",
+          "sku": "SFK-KID-16-STD-MINT-S",
+          "clothingType": null,
+          "color": {
+            "id": "mint",
+            "name": "Mint Green",
+            "hex": "#6EE7B7"
+          },
+          "size": "S",
+          "price": 849,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-KID-16-STD-mint-M",
+          "sku": "SFK-KID-16-STD-MINT-M",
+          "clothingType": null,
+          "color": {
+            "id": "mint",
+            "name": "Mint Green",
+            "hex": "#6EE7B7"
+          },
+          "size": "M",
+          "price": 849,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-KID-16-STD-mint-L",
+          "sku": "SFK-KID-16-STD-MINT-L",
+          "clothingType": null,
+          "color": {
+            "id": "mint",
+            "name": "Mint Green",
+            "hex": "#6EE7B7"
+          },
+          "size": "L",
+          "price": 849,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        }
+      ],
+      "description": "Gentle, breathable cotton frock designed for little ones with soft lining and back zipper closure. Standard kids ethnic wear.",
+      "fabric": "Soft Cambric Cotton",
+      "careInstructions": [
+        "Machine wash gentle in cold water",
+        "Warm iron"
+      ]
+    },
+    {
+      "id": "prod-17",
+      "title": "Meenakshi Wine-Maroon Banarasi Tissue Silk Saree",
+      "slug": "meenakshi-banarasi-brocade-bridal-silk-saree",
+      "skuPrefix": "SFK-SAR-17",
+      "category": "sarees",
+      "categoryName": "Sarees",
+      "price": 2299,
+      "originalPrice": null,
+      "images": [
+        "/images/sarees/wine-banarasi-tissue-saree.jpg",
+        "/images/sarees/crimson-magenta-butti-saree.jpg"
+      ],
+      "feedingConfig": "none",
+      "supportedClothingTypes": [],
+      "availableColors": [
+        {
+          "id": "wine-gold",
+          "name": "Deep Wine & Antique Gold",
+          "hex": "#4C1520"
+        },
+        {
+          "id": "crimson-gold",
+          "name": "Crimson & Gold Zari",
+          "hex": "#8B0029"
+        }
+      ],
+      "availableSizes": [
+        "Free Size"
+      ],
+      "variants": [
+        {
+          "id": "SFK-SAR-17-STD-wine-gold-Free Size",
+          "sku": "SFK-SAR-17-STD-WINE-GOLD-Free Size",
+          "clothingType": null,
+          "color": {
+            "id": "wine-gold",
+            "name": "Deep Wine & Antique Gold",
+            "hex": "#4C1520"
+          },
+          "size": "Free Size",
+          "price": 2299,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-SAR-17-STD-crimson-gold-Free Size",
+          "sku": "SFK-SAR-17-STD-CRIMSON-GOLD-Free Size",
+          "clothingType": null,
+          "color": {
+            "id": "crimson-gold",
+            "name": "Crimson & Gold Zari",
+            "hex": "#8B0029"
+          },
+          "size": "Free Size",
+          "price": 2299,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        }
+      ],
+      "description": "Opulent deep wine-maroon Banarasi tissue silk saree finished with luminous antique-gold woven borders and a grand bridal zari pallu. Includes matching unstitched blouse piece.",
+      "fabric": "Banarasi Tissue Silk",
+      "careInstructions": [
+        "Dry clean only",
+        "Store wrapped in muslin cloth"
+      ],
+      "isFeatured": true
+    },
+    {
+      "id": "prod-18",
+      "title": "Padmini Crimson Zari-Butti Banarasi Chanderi Saree",
+      "slug": "padmini-pure-chanderi-tissue-pattu-saree",
+      "skuPrefix": "SFK-SAR-18",
+      "category": "sarees",
+      "categoryName": "Sarees",
+      "price": 1999,
+      "originalPrice": null,
+      "images": [
+        "/images/sarees/crimson-magenta-butti-saree.jpg",
+        "/images/sarees/wine-banarasi-tissue-saree.jpg"
+      ],
+      "feedingConfig": "none",
+      "supportedClothingTypes": [],
+      "availableColors": [
+        {
+          "id": "crimson-butti",
+          "name": "Crimson Magenta & Gold",
+          "hex": "#A61C3C"
+        },
+        {
+          "id": "rose-gold",
+          "name": "Rose Mauve & Gold",
+          "hex": "#8E4B63"
+        }
+      ],
+      "availableSizes": [
+        "Free Size"
+      ],
+      "variants": [
+        {
+          "id": "SFK-SAR-18-STD-crimson-butti-Free Size",
+          "sku": "SFK-SAR-18-STD-CRIMSON-BUTTI-Free Size",
+          "clothingType": null,
+          "color": {
+            "id": "crimson-butti",
+            "name": "Crimson Magenta & Gold",
+            "hex": "#A61C3C"
+          },
+          "size": "Free Size",
+          "price": 1999,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-SAR-18-STD-rose-gold-Free Size",
+          "sku": "SFK-SAR-18-STD-ROSE-GOLD-Free Size",
+          "clothingType": null,
+          "color": {
+            "id": "rose-gold",
+            "name": "Rose Mauve & Gold",
+            "hex": "#8E4B63"
+          },
+          "size": "Free Size",
+          "price": 1999,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        }
+      ],
+      "description": "Festive crimson-magenta Banarasi Chanderi saree sprinkled with delicate golden zari polka buttis, a traditional woven border, and tasseled zari pallu.",
+      "fabric": "Banarasi Chanderi Silk Blend",
+      "careInstructions": [
+        "Dry clean recommended",
+        "Cool iron reverse"
+      ],
+      "isNewArrival": true
+    },
+    {
+      "id": "prod-19",
+      "title": "Janaki Traditional Silk Pattu Pavadai Set",
+      "slug": "janaki-traditional-silk-pattu-pavadai-set",
+      "skuPrefix": "SFK-KID-19",
+      "category": "kids-collections",
+      "categoryName": "Kids Collections",
+      "price": 1099,
+      "originalPrice": null,
+      "images": [
+        "/images/kidswear/green-pattu-pavadai.jpg",
+        "/images/kidswear/maroon-pattu-frock.jpg"
+      ],
+      "feedingConfig": "none",
+      "supportedClothingTypes": [],
+      "availableColors": [
+        {
+          "id": "peacock-green",
+          "name": "Peacock Green & Purple",
+          "hex": "#0A5C36"
+        },
+        {
+          "id": "rani-gold",
+          "name": "Rani Pink & Gold",
+          "hex": "#C2185B"
+        }
+      ],
+      "availableSizes": [
+        "S",
+        "M",
+        "L"
+      ],
+      "variants": [
+        {
+          "id": "SFK-KID-19-STD-peacock-green-S",
+          "sku": "SFK-KID-19-STD-PEACOCK-GREEN-S",
+          "clothingType": null,
+          "color": {
+            "id": "peacock-green",
+            "name": "Peacock Green & Purple",
+            "hex": "#0A5C36"
+          },
+          "size": "S",
+          "price": 1099,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-KID-19-STD-peacock-green-M",
+          "sku": "SFK-KID-19-STD-PEACOCK-GREEN-M",
+          "clothingType": null,
+          "color": {
+            "id": "peacock-green",
+            "name": "Peacock Green & Purple",
+            "hex": "#0A5C36"
+          },
+          "size": "M",
+          "price": 1099,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-KID-19-STD-peacock-green-L",
+          "sku": "SFK-KID-19-STD-PEACOCK-GREEN-L",
+          "clothingType": null,
+          "color": {
+            "id": "peacock-green",
+            "name": "Peacock Green & Purple",
+            "hex": "#0A5C36"
+          },
+          "size": "L",
+          "price": 1099,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-KID-19-STD-rani-gold-S",
+          "sku": "SFK-KID-19-STD-RANI-GOLD-S",
+          "clothingType": null,
+          "color": {
+            "id": "rani-gold",
+            "name": "Rani Pink & Gold",
+            "hex": "#C2185B"
+          },
+          "size": "S",
+          "price": 1099,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-KID-19-STD-rani-gold-M",
+          "sku": "SFK-KID-19-STD-RANI-GOLD-M",
+          "clothingType": null,
+          "color": {
+            "id": "rani-gold",
+            "name": "Rani Pink & Gold",
+            "hex": "#C2185B"
+          },
+          "size": "M",
+          "price": 1099,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-KID-19-STD-rani-gold-L",
+          "sku": "SFK-KID-19-STD-RANI-GOLD-L",
+          "clothingType": null,
+          "color": {
+            "id": "rani-gold",
+            "name": "Rani Pink & Gold",
+            "hex": "#C2185B"
+          },
+          "size": "L",
+          "price": 1099,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        }
+      ],
+      "description": "Traditional South Indian Pattu Pavadai lehenga and blouse set tailored for festive family occasions with soft lining.",
+      "fabric": "Art Silk with Cotton Lining",
+      "careInstructions": [
+        "Dry clean first wash",
+        "Gentle hand wash cold"
+      ],
+      "isFeatured": true
+    },
+    {
+      "id": "prod-20",
+      "title": "Vedika Maroon Scallop Temple-Border Pattu Frock",
+      "slug": "vedika-maroon-temple-border-pattu-frock",
+      "skuPrefix": "SFK-KID-20",
+      "category": "kids-collections",
+      "categoryName": "Kids Collections",
+      "price": 1199,
+      "originalPrice": null,
+      "images": [
+        "/images/kidswear/maroon-pattu-frock.jpg",
+        "/images/kidswear/green-pattu-pavadai.jpg"
+      ],
+      "feedingConfig": "none",
+      "supportedClothingTypes": [],
+      "availableColors": [
+        {
+          "id": "wine-maroon",
+          "name": "Wine Maroon & Gold",
+          "hex": "#6D1336"
+        },
+        {
+          "id": "bottle-green",
+          "name": "Bottle Green & Zari",
+          "hex": "#134E3A"
+        }
+      ],
+      "availableSizes": [
+        "S",
+        "M",
+        "L"
+      ],
+      "variants": [
+        {
+          "id": "SFK-KID-20-STD-wine-maroon-S",
+          "sku": "SFK-KID-20-STD-WINE-MAROON-S",
+          "clothingType": null,
+          "color": {
+            "id": "wine-maroon",
+            "name": "Wine Maroon & Gold",
+            "hex": "#6D1336"
+          },
+          "size": "S",
+          "price": 1199,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-KID-20-STD-wine-maroon-M",
+          "sku": "SFK-KID-20-STD-WINE-MAROON-M",
+          "clothingType": null,
+          "color": {
+            "id": "wine-maroon",
+            "name": "Wine Maroon & Gold",
+            "hex": "#6D1336"
+          },
+          "size": "M",
+          "price": 1199,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-KID-20-STD-wine-maroon-L",
+          "sku": "SFK-KID-20-STD-WINE-MAROON-L",
+          "clothingType": null,
+          "color": {
+            "id": "wine-maroon",
+            "name": "Wine Maroon & Gold",
+            "hex": "#6D1336"
+          },
+          "size": "L",
+          "price": 1199,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-KID-20-STD-bottle-green-S",
+          "sku": "SFK-KID-20-STD-BOTTLE-GREEN-S",
+          "clothingType": null,
+          "color": {
+            "id": "bottle-green",
+            "name": "Bottle Green & Zari",
+            "hex": "#134E3A"
+          },
+          "size": "S",
+          "price": 1199,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-KID-20-STD-bottle-green-M",
+          "sku": "SFK-KID-20-STD-BOTTLE-GREEN-M",
+          "clothingType": null,
+          "color": {
+            "id": "bottle-green",
+            "name": "Bottle Green & Zari",
+            "hex": "#134E3A"
+          },
+          "size": "M",
+          "price": 1199,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-KID-20-STD-bottle-green-L",
+          "sku": "SFK-KID-20-STD-BOTTLE-GREEN-L",
+          "clothingType": null,
+          "color": {
+            "id": "bottle-green",
+            "name": "Bottle Green & Zari",
+            "hex": "#134E3A"
+          },
+          "size": "L",
+          "price": 1199,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        }
+      ],
+      "description": "Traditional South Indian Pattu long frock featuring a scalloped neckline, tiered flare, and woven elephant zari temple border.",
+      "fabric": "Art Silk with Cotton Lining",
+      "careInstructions": [
+        "Dry clean first wash",
+        "Gentle hand wash cold"
+      ],
+      "isNewArrival": true
+    },
+    {
+      "id": "prod-21",
+      "title": "Meenakshi Royal Plum Silk Angrakha Kurti Set",
+      "slug": "meenakshi-royal-plum-silk-angrakha-set",
+      "skuPrefix": "SFK-KID-21",
+      "category": "kids-collections",
+      "categoryName": "Kids Collections",
+      "price": 1299,
+      "originalPrice": null,
+      "images": [
+        "/images/kidswear/purple-angrakha-set.jpg",
+        "/images/kidswear/maroon-pattu-frock.jpg"
+      ],
+      "feedingConfig": "none",
+      "supportedClothingTypes": [],
+      "availableColors": [
+        {
+          "id": "royal-plum",
+          "name": "Royal Plum",
+          "hex": "#4A154B"
+        },
+        {
+          "id": "deep-wine",
+          "name": "Deep Wine",
+          "hex": "#6D1336"
+        }
+      ],
+      "availableSizes": [
+        "S",
+        "M",
+        "L"
+      ],
+      "variants": [
+        {
+          "id": "SFK-KID-21-STD-royal-plum-S",
+          "sku": "SFK-KID-21-STD-ROYAL-PLUM-S",
+          "clothingType": null,
+          "color": {
+            "id": "royal-plum",
+            "name": "Royal Plum",
+            "hex": "#4A154B"
+          },
+          "size": "S",
+          "price": 1299,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-KID-21-STD-royal-plum-M",
+          "sku": "SFK-KID-21-STD-ROYAL-PLUM-M",
+          "clothingType": null,
+          "color": {
+            "id": "royal-plum",
+            "name": "Royal Plum",
+            "hex": "#4A154B"
+          },
+          "size": "M",
+          "price": 1299,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-KID-21-STD-royal-plum-L",
+          "sku": "SFK-KID-21-STD-ROYAL-PLUM-L",
+          "clothingType": null,
+          "color": {
+            "id": "royal-plum",
+            "name": "Royal Plum",
+            "hex": "#4A154B"
+          },
+          "size": "L",
+          "price": 1299,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-KID-21-STD-deep-wine-S",
+          "sku": "SFK-KID-21-STD-DEEP-WINE-S",
+          "clothingType": null,
+          "color": {
+            "id": "deep-wine",
+            "name": "Deep Wine",
+            "hex": "#6D1336"
+          },
+          "size": "S",
+          "price": 1299,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-KID-21-STD-deep-wine-M",
+          "sku": "SFK-KID-21-STD-DEEP-WINE-M",
+          "clothingType": null,
+          "color": {
+            "id": "deep-wine",
+            "name": "Deep Wine",
+            "hex": "#6D1336"
+          },
+          "size": "M",
+          "price": 1299,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-KID-21-STD-deep-wine-L",
+          "sku": "SFK-KID-21-STD-DEEP-WINE-L",
+          "clothingType": null,
+          "color": {
+            "id": "deep-wine",
+            "name": "Deep Wine",
+            "hex": "#6D1336"
+          },
+          "size": "L",
+          "price": 1299,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        }
+      ],
+      "description": "Festive silk angrakha peplum kurti paired with matching gota-trimmed straight pants and dainty tassel tie detailing.",
+      "fabric": "Silk Blend with Inner Lining",
+      "careInstructions": [
+        "Dry clean recommended",
+        "Cool steam iron"
+      ]
+    },
+    {
+      "id": "prod-22",
+      "title": "Diya Champagne Tissue Organza Kids Party Gown",
+      "slug": "diya-champagne-organza-kids-party-gown",
+      "skuPrefix": "SFK-KID-22",
+      "category": "kids-collections",
+      "categoryName": "Kids Collections",
+      "price": 1399,
+      "originalPrice": null,
+      "images": [
+        "/images/kidswear/golden-organza-gown.jpg",
+        "/images/kidswear/peacock-silk-frock.jpg"
+      ],
+      "feedingConfig": "none",
+      "supportedClothingTypes": [],
+      "availableColors": [
+        {
+          "id": "champagne-gold",
+          "name": "Champagne Gold",
+          "hex": "#C69254"
+        },
+        {
+          "id": "soft-peach",
+          "name": "Soft Peach",
+          "hex": "#E6B8A2"
+        }
+      ],
+      "availableSizes": [
+        "S",
+        "M",
+        "L"
+      ],
+      "variants": [
+        {
+          "id": "SFK-KID-22-STD-champagne-gold-S",
+          "sku": "SFK-KID-22-STD-CHAMPAGNE-GOLD-S",
+          "clothingType": null,
+          "color": {
+            "id": "champagne-gold",
+            "name": "Champagne Gold",
+            "hex": "#C69254"
+          },
+          "size": "S",
+          "price": 1399,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-KID-22-STD-champagne-gold-M",
+          "sku": "SFK-KID-22-STD-CHAMPAGNE-GOLD-M",
+          "clothingType": null,
+          "color": {
+            "id": "champagne-gold",
+            "name": "Champagne Gold",
+            "hex": "#C69254"
+          },
+          "size": "M",
+          "price": 1399,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-KID-22-STD-champagne-gold-L",
+          "sku": "SFK-KID-22-STD-CHAMPAGNE-GOLD-L",
+          "clothingType": null,
+          "color": {
+            "id": "champagne-gold",
+            "name": "Champagne Gold",
+            "hex": "#C69254"
+          },
+          "size": "L",
+          "price": 1399,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-KID-22-STD-soft-peach-S",
+          "sku": "SFK-KID-22-STD-SOFT-PEACH-S",
+          "clothingType": null,
+          "color": {
+            "id": "soft-peach",
+            "name": "Soft Peach",
+            "hex": "#E6B8A2"
+          },
+          "size": "S",
+          "price": 1399,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-KID-22-STD-soft-peach-M",
+          "sku": "SFK-KID-22-STD-SOFT-PEACH-M",
+          "clothingType": null,
+          "color": {
+            "id": "soft-peach",
+            "name": "Soft Peach",
+            "hex": "#E6B8A2"
+          },
+          "size": "M",
+          "price": 1399,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-KID-22-STD-soft-peach-L",
+          "sku": "SFK-KID-22-STD-SOFT-PEACH-L",
+          "clothingType": null,
+          "color": {
+            "id": "soft-peach",
+            "name": "Soft Peach",
+            "hex": "#E6B8A2"
+          },
+          "size": "L",
+          "price": 1399,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        }
+      ],
+      "description": "Shimmering organza tissue floor-length festive gown with embroidered neckline, soft inner lining, and sheer zari-bordered dupatta.",
+      "fabric": "Georgette with Inner Lining",
+      "careInstructions": [
+        "Dry clean only",
+        "Store hanging or folded gently"
+      ],
+      "isFeatured": true
+    },
+    {
+      "id": "prod-23",
+      "title": "Kavya Peacock Blue Ruffled Silk Kids Frock",
+      "slug": "kavya-peacock-blue-ruffled-silk-kids-frock",
+      "skuPrefix": "SFK-KID-23",
+      "category": "kids-collections",
+      "categoryName": "Kids Collections",
+      "price": 1049,
+      "originalPrice": null,
+      "images": [
+        "/images/kidswear/peacock-silk-frock.jpg",
+        "/images/kidswear/golden-organza-gown.jpg"
+      ],
+      "feedingConfig": "none",
+      "supportedClothingTypes": [],
+      "availableColors": [
+        {
+          "id": "peacock-emerald",
+          "name": "Peacock Blue & Emerald",
+          "hex": "#0A5470"
+        },
+        {
+          "id": "royal-teal",
+          "name": "Royal Teal",
+          "hex": "#115E59"
+        }
+      ],
+      "availableSizes": [
+        "S",
+        "M",
+        "L"
+      ],
+      "variants": [
+        {
+          "id": "SFK-KID-23-STD-peacock-emerald-S",
+          "sku": "SFK-KID-23-STD-PEACOCK-EMERALD-S",
+          "clothingType": null,
+          "color": {
+            "id": "peacock-emerald",
+            "name": "Peacock Blue & Emerald",
+            "hex": "#0A5470"
+          },
+          "size": "S",
+          "price": 1049,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-KID-23-STD-peacock-emerald-M",
+          "sku": "SFK-KID-23-STD-PEACOCK-EMERALD-M",
+          "clothingType": null,
+          "color": {
+            "id": "peacock-emerald",
+            "name": "Peacock Blue & Emerald",
+            "hex": "#0A5470"
+          },
+          "size": "M",
+          "price": 1049,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-KID-23-STD-peacock-emerald-L",
+          "sku": "SFK-KID-23-STD-PEACOCK-EMERALD-L",
+          "clothingType": null,
+          "color": {
+            "id": "peacock-emerald",
+            "name": "Peacock Blue & Emerald",
+            "hex": "#0A5470"
+          },
+          "size": "L",
+          "price": 1049,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-KID-23-STD-royal-teal-S",
+          "sku": "SFK-KID-23-STD-ROYAL-TEAL-S",
+          "clothingType": null,
+          "color": {
+            "id": "royal-teal",
+            "name": "Royal Teal",
+            "hex": "#115E59"
+          },
+          "size": "S",
+          "price": 1049,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-KID-23-STD-royal-teal-M",
+          "sku": "SFK-KID-23-STD-ROYAL-TEAL-M",
+          "clothingType": null,
+          "color": {
+            "id": "royal-teal",
+            "name": "Royal Teal",
+            "hex": "#115E59"
+          },
+          "size": "M",
+          "price": 1049,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-KID-23-STD-royal-teal-L",
+          "sku": "SFK-KID-23-STD-ROYAL-TEAL-L",
+          "clothingType": null,
+          "color": {
+            "id": "royal-teal",
+            "name": "Royal Teal",
+            "hex": "#115E59"
+          },
+          "size": "L",
+          "price": 1049,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        }
+      ],
+      "description": "Sleeveless festive silk frock crafted in rich peacock blue with subtle metallic motifs and a layered emerald green ruffle hem.",
+      "fabric": "Silk Blend with Inner Lining",
+      "careInstructions": [
+        "Dry clean first wash",
+        "Cool iron on reverse"
+      ]
+    },
+    {
+      "id": "prod-24",
+      "title": "Arundhati Rose-Mauve & Forest Green Kanjeevaram Saree",
+      "slug": "arundhati-rose-mauve-forest-green-kanjeevaram-saree",
+      "skuPrefix": "SFK-SAR-24",
+      "category": "sarees",
+      "categoryName": "Sarees",
+      "price": 2149,
+      "originalPrice": null,
+      "images": [
+        "/images/sarees/rose-mauve-kanjeevaram-saree.jpg",
+        "/images/sarees/emerald-checked-kanchivaram-saree.jpg"
+      ],
+      "feedingConfig": "none",
+      "supportedClothingTypes": [],
+      "availableColors": [
+        {
+          "id": "rose-forest",
+          "name": "Rose Mauve & Forest Green",
+          "hex": "#8E4B63"
+        },
+        {
+          "id": "antique-gold",
+          "name": "Forest Green & Gold Zari",
+          "hex": "#1B4332"
+        }
+      ],
+      "availableSizes": [
+        "Free Size"
+      ],
+      "variants": [
+        {
+          "id": "SFK-SAR-24-STD-rose-forest-Free Size",
+          "sku": "SFK-SAR-24-STD-ROSE-FOREST-Free Size",
+          "clothingType": null,
+          "color": {
+            "id": "rose-forest",
+            "name": "Rose Mauve & Forest Green",
+            "hex": "#8E4B63"
+          },
+          "size": "Free Size",
+          "price": 2149,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-SAR-24-STD-antique-gold-Free Size",
+          "sku": "SFK-SAR-24-STD-ANTIQUE-GOLD-Free Size",
+          "clothingType": null,
+          "color": {
+            "id": "antique-gold",
+            "name": "Forest Green & Gold Zari",
+            "hex": "#1B4332"
+          },
+          "size": "Free Size",
+          "price": 2149,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        }
+      ],
+      "description": "Lustrous rose-mauve soft Kanjeevaram silk saree woven with gold scalloped temple borders and an heirloom forest-green peacock-motif zari pallu. Includes contrast green brocade blouse piece.",
+      "fabric": "Soft Kanjeevaram Silk with Zari Pallu",
+      "careInstructions": [
+        "Dry clean recommended",
+        "Iron on reverse on silk setting"
+      ],
+      "isNewArrival": true
+    },
+    {
+      "id": "prod-25",
+      "title": "Nandini Royal Violet Lotus-Pallu Paithani Silk Saree",
+      "slug": "nandini-royal-violet-paithani-silk-saree",
+      "skuPrefix": "SFK-SAR-25",
+      "category": "sarees",
+      "categoryName": "Sarees",
+      "price": 2499,
+      "originalPrice": null,
+      "images": [
+        "/images/sarees/royal-violet-paithani-saree.jpg",
+        "/images/sarees/rose-mauve-kanjeevaram-saree.jpg"
+      ],
+      "feedingConfig": "none",
+      "supportedClothingTypes": [],
+      "availableColors": [
+        {
+          "id": "royal-violet",
+          "name": "Royal Violet & Lavender Zari",
+          "hex": "#4A1C6F"
+        },
+        {
+          "id": "plum-silver",
+          "name": "Plum & Pastel Rose",
+          "hex": "#6D3B7E"
+        }
+      ],
+      "availableSizes": [
+        "Free Size"
+      ],
+      "variants": [
+        {
+          "id": "SFK-SAR-25-STD-royal-violet-Free Size",
+          "sku": "SFK-SAR-25-STD-ROYAL-VIOLET-Free Size",
+          "clothingType": null,
+          "color": {
+            "id": "royal-violet",
+            "name": "Royal Violet & Lavender Zari",
+            "hex": "#4A1C6F"
+          },
+          "size": "Free Size",
+          "price": 2499,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-SAR-25-STD-plum-silver-Free Size",
+          "sku": "SFK-SAR-25-STD-PLUM-SILVER-Free Size",
+          "clothingType": null,
+          "color": {
+            "id": "plum-silver",
+            "name": "Plum & Pastel Rose",
+            "hex": "#6D3B7E"
+          },
+          "size": "Free Size",
+          "price": 2499,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        }
+      ],
+      "description": "Signature royal violet Paithani silk saree adorned with tiny silver-gold zari dots, traditional geometric border, and an artisanal floral Paithani pallu. Includes matching contrast blouse piece.",
+      "fabric": "Artisanal Paithani Silk Blend",
+      "careInstructions": [
+        "Dry clean only",
+        "Store wrapped in muslin cloth"
+      ],
+      "isFeatured": true
+    },
+    {
+      "id": "prod-26",
+      "title": "Chandni Vintage Mauve Zari-Embroidered Anarkali Gown",
+      "slug": "chandni-vintage-mauve-zari-anarkali-gown",
+      "skuPrefix": "SFK-PTY-26",
+      "category": "partywear-dresses",
+      "categoryName": "Partywear Dresses",
+      "price": 2299,
+      "originalPrice": null,
+      "images": [
+        "/images/dresses/mauve-anarkali.jpg",
+        "/images/dresses/maroon-anarkali.jpg"
+      ],
+      "feedingConfig": "both",
+      "supportedClothingTypes": [
+        "Feeding",
+        "Non-Feeding"
+      ],
+      "availableColors": [
+        {
+          "id": "vintage-mauve",
+          "name": "Vintage Mauve Rose",
+          "hex": "#B47B84"
+        },
+        {
+          "id": "deep-maroon",
+          "name": "Deep Maroon",
+          "hex": "#63141F"
+        }
+      ],
+      "availableSizes": [
+        "S",
+        "M",
+        "L",
+        "XL",
+        "XXL"
+      ],
+      "variants": [
+        {
+          "id": "SFK-PTY-26-FD-vintage-mauve-S",
+          "sku": "SFK-PTY-26-FD-VINTAGE-MAUVE-S",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "vintage-mauve",
+            "name": "Vintage Mauve Rose",
+            "hex": "#B47B84"
+          },
+          "size": "S",
+          "price": 2299,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-26-FD-vintage-mauve-M",
+          "sku": "SFK-PTY-26-FD-VINTAGE-MAUVE-M",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "vintage-mauve",
+            "name": "Vintage Mauve Rose",
+            "hex": "#B47B84"
+          },
+          "size": "M",
+          "price": 2299,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-26-FD-vintage-mauve-L",
+          "sku": "SFK-PTY-26-FD-VINTAGE-MAUVE-L",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "vintage-mauve",
+            "name": "Vintage Mauve Rose",
+            "hex": "#B47B84"
+          },
+          "size": "L",
+          "price": 2299,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-26-FD-vintage-mauve-XL",
+          "sku": "SFK-PTY-26-FD-VINTAGE-MAUVE-XL",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "vintage-mauve",
+            "name": "Vintage Mauve Rose",
+            "hex": "#B47B84"
+          },
+          "size": "XL",
+          "price": 2299,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-26-FD-vintage-mauve-XXL",
+          "sku": "SFK-PTY-26-FD-VINTAGE-MAUVE-XXL",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "vintage-mauve",
+            "name": "Vintage Mauve Rose",
+            "hex": "#B47B84"
+          },
+          "size": "XXL",
+          "price": 2299,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-26-FD-deep-maroon-S",
+          "sku": "SFK-PTY-26-FD-DEEP-MAROON-S",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "deep-maroon",
+            "name": "Deep Maroon",
+            "hex": "#63141F"
+          },
+          "size": "S",
+          "price": 2299,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-26-FD-deep-maroon-M",
+          "sku": "SFK-PTY-26-FD-DEEP-MAROON-M",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "deep-maroon",
+            "name": "Deep Maroon",
+            "hex": "#63141F"
+          },
+          "size": "M",
+          "price": 2299,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-26-FD-deep-maroon-L",
+          "sku": "SFK-PTY-26-FD-DEEP-MAROON-L",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "deep-maroon",
+            "name": "Deep Maroon",
+            "hex": "#63141F"
+          },
+          "size": "L",
+          "price": 2299,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-26-FD-deep-maroon-XL",
+          "sku": "SFK-PTY-26-FD-DEEP-MAROON-XL",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "deep-maroon",
+            "name": "Deep Maroon",
+            "hex": "#63141F"
+          },
+          "size": "XL",
+          "price": 2299,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-26-FD-deep-maroon-XXL",
+          "sku": "SFK-PTY-26-FD-DEEP-MAROON-XXL",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "deep-maroon",
+            "name": "Deep Maroon",
+            "hex": "#63141F"
+          },
+          "size": "XXL",
+          "price": 2299,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-26-NF-vintage-mauve-S",
+          "sku": "SFK-PTY-26-NF-VINTAGE-MAUVE-S",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "vintage-mauve",
+            "name": "Vintage Mauve Rose",
+            "hex": "#B47B84"
+          },
+          "size": "S",
+          "price": 2299,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-26-NF-vintage-mauve-M",
+          "sku": "SFK-PTY-26-NF-VINTAGE-MAUVE-M",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "vintage-mauve",
+            "name": "Vintage Mauve Rose",
+            "hex": "#B47B84"
+          },
+          "size": "M",
+          "price": 2299,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-26-NF-vintage-mauve-L",
+          "sku": "SFK-PTY-26-NF-VINTAGE-MAUVE-L",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "vintage-mauve",
+            "name": "Vintage Mauve Rose",
+            "hex": "#B47B84"
+          },
+          "size": "L",
+          "price": 2299,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-26-NF-vintage-mauve-XL",
+          "sku": "SFK-PTY-26-NF-VINTAGE-MAUVE-XL",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "vintage-mauve",
+            "name": "Vintage Mauve Rose",
+            "hex": "#B47B84"
+          },
+          "size": "XL",
+          "price": 2299,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-26-NF-vintage-mauve-XXL",
+          "sku": "SFK-PTY-26-NF-VINTAGE-MAUVE-XXL",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "vintage-mauve",
+            "name": "Vintage Mauve Rose",
+            "hex": "#B47B84"
+          },
+          "size": "XXL",
+          "price": 2299,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-26-NF-deep-maroon-S",
+          "sku": "SFK-PTY-26-NF-DEEP-MAROON-S",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "deep-maroon",
+            "name": "Deep Maroon",
+            "hex": "#63141F"
+          },
+          "size": "S",
+          "price": 2299,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-26-NF-deep-maroon-M",
+          "sku": "SFK-PTY-26-NF-DEEP-MAROON-M",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "deep-maroon",
+            "name": "Deep Maroon",
+            "hex": "#63141F"
+          },
+          "size": "M",
+          "price": 2299,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-26-NF-deep-maroon-L",
+          "sku": "SFK-PTY-26-NF-DEEP-MAROON-L",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "deep-maroon",
+            "name": "Deep Maroon",
+            "hex": "#63141F"
+          },
+          "size": "L",
+          "price": 2299,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-26-NF-deep-maroon-XL",
+          "sku": "SFK-PTY-26-NF-DEEP-MAROON-XL",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "deep-maroon",
+            "name": "Deep Maroon",
+            "hex": "#63141F"
+          },
+          "size": "XL",
+          "price": 2299,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-26-NF-deep-maroon-XXL",
+          "sku": "SFK-PTY-26-NF-DEEP-MAROON-XXL",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "deep-maroon",
+            "name": "Deep Maroon",
+            "hex": "#63141F"
+          },
+          "size": "XXL",
+          "price": 2299,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        }
+      ],
+      "description": "Full-flared vintage mauve silk-cotton anarkali dress finished with heavy antique-gold zari hem embroidery and a sheer tasselled organza dupatta.",
+      "fabric": "Chanderi Silk-Cotton with Zari Hem",
+      "careInstructions": [
+        "Dry clean only",
+        "Cool iron on reverse"
+      ],
+      "feedingDetails": {
+        "zipType": "Concealed dual-side vertical zips",
+        "zipPlacement": "Integrated smoothly into side seams",
+        "description": "Festive flared anarkali styling with discreet nursing access when Feeding option is selected."
+      },
+      "isFeatured": true,
+      "isHandstock": true
+    },
+    {
+      "id": "prod-27",
+      "title": "Anviksha Olive Block-Print Flared Anarkali Dress",
+      "slug": "anviksha-olive-block-print-flared-anarkali-dress",
+      "skuPrefix": "SFK-PTY-27",
+      "category": "partywear-dresses",
+      "categoryName": "Partywear Dresses",
+      "price": 1899,
+      "originalPrice": null,
+      "images": [
+        "/images/dresses/olive-anarkali-set.jpg",
+        "/images/dresses/maroon-anarkali.jpg"
+      ],
+      "feedingConfig": "both",
+      "supportedClothingTypes": [
+        "Feeding",
+        "Non-Feeding"
+      ],
+      "availableColors": [
+        {
+          "id": "olive-moss",
+          "name": "Earthy Olive Green",
+          "hex": "#4F5832"
+        },
+        {
+          "id": "emerald",
+          "name": "Forest Emerald",
+          "hex": "#1B4931"
+        }
+      ],
+      "availableSizes": [
+        "S",
+        "M",
+        "L",
+        "XL",
+        "XXL"
+      ],
+      "variants": [
+        {
+          "id": "SFK-PTY-27-FD-olive-moss-S",
+          "sku": "SFK-PTY-27-FD-OLIVE-MOSS-S",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "olive-moss",
+            "name": "Earthy Olive Green",
+            "hex": "#4F5832"
+          },
+          "size": "S",
+          "price": 1899,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-27-FD-olive-moss-M",
+          "sku": "SFK-PTY-27-FD-OLIVE-MOSS-M",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "olive-moss",
+            "name": "Earthy Olive Green",
+            "hex": "#4F5832"
+          },
+          "size": "M",
+          "price": 1899,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-27-FD-olive-moss-L",
+          "sku": "SFK-PTY-27-FD-OLIVE-MOSS-L",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "olive-moss",
+            "name": "Earthy Olive Green",
+            "hex": "#4F5832"
+          },
+          "size": "L",
+          "price": 1899,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-27-FD-olive-moss-XL",
+          "sku": "SFK-PTY-27-FD-OLIVE-MOSS-XL",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "olive-moss",
+            "name": "Earthy Olive Green",
+            "hex": "#4F5832"
+          },
+          "size": "XL",
+          "price": 1899,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-27-FD-olive-moss-XXL",
+          "sku": "SFK-PTY-27-FD-OLIVE-MOSS-XXL",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "olive-moss",
+            "name": "Earthy Olive Green",
+            "hex": "#4F5832"
+          },
+          "size": "XXL",
+          "price": 1899,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-27-FD-emerald-S",
+          "sku": "SFK-PTY-27-FD-EMERALD-S",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "emerald",
+            "name": "Forest Emerald",
+            "hex": "#1B4931"
+          },
+          "size": "S",
+          "price": 1899,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-27-FD-emerald-M",
+          "sku": "SFK-PTY-27-FD-EMERALD-M",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "emerald",
+            "name": "Forest Emerald",
+            "hex": "#1B4931"
+          },
+          "size": "M",
+          "price": 1899,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-27-FD-emerald-L",
+          "sku": "SFK-PTY-27-FD-EMERALD-L",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "emerald",
+            "name": "Forest Emerald",
+            "hex": "#1B4931"
+          },
+          "size": "L",
+          "price": 1899,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-27-FD-emerald-XL",
+          "sku": "SFK-PTY-27-FD-EMERALD-XL",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "emerald",
+            "name": "Forest Emerald",
+            "hex": "#1B4931"
+          },
+          "size": "XL",
+          "price": 1899,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-27-FD-emerald-XXL",
+          "sku": "SFK-PTY-27-FD-EMERALD-XXL",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "emerald",
+            "name": "Forest Emerald",
+            "hex": "#1B4931"
+          },
+          "size": "XXL",
+          "price": 1899,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-27-NF-olive-moss-S",
+          "sku": "SFK-PTY-27-NF-OLIVE-MOSS-S",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "olive-moss",
+            "name": "Earthy Olive Green",
+            "hex": "#4F5832"
+          },
+          "size": "S",
+          "price": 1899,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-27-NF-olive-moss-M",
+          "sku": "SFK-PTY-27-NF-OLIVE-MOSS-M",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "olive-moss",
+            "name": "Earthy Olive Green",
+            "hex": "#4F5832"
+          },
+          "size": "M",
+          "price": 1899,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-27-NF-olive-moss-L",
+          "sku": "SFK-PTY-27-NF-OLIVE-MOSS-L",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "olive-moss",
+            "name": "Earthy Olive Green",
+            "hex": "#4F5832"
+          },
+          "size": "L",
+          "price": 1899,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-27-NF-olive-moss-XL",
+          "sku": "SFK-PTY-27-NF-OLIVE-MOSS-XL",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "olive-moss",
+            "name": "Earthy Olive Green",
+            "hex": "#4F5832"
+          },
+          "size": "XL",
+          "price": 1899,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-27-NF-olive-moss-XXL",
+          "sku": "SFK-PTY-27-NF-OLIVE-MOSS-XXL",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "olive-moss",
+            "name": "Earthy Olive Green",
+            "hex": "#4F5832"
+          },
+          "size": "XXL",
+          "price": 1899,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-27-NF-emerald-S",
+          "sku": "SFK-PTY-27-NF-EMERALD-S",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "emerald",
+            "name": "Forest Emerald",
+            "hex": "#1B4931"
+          },
+          "size": "S",
+          "price": 1899,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-27-NF-emerald-M",
+          "sku": "SFK-PTY-27-NF-EMERALD-M",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "emerald",
+            "name": "Forest Emerald",
+            "hex": "#1B4931"
+          },
+          "size": "M",
+          "price": 1899,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-27-NF-emerald-L",
+          "sku": "SFK-PTY-27-NF-EMERALD-L",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "emerald",
+            "name": "Forest Emerald",
+            "hex": "#1B4931"
+          },
+          "size": "L",
+          "price": 1899,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-27-NF-emerald-XL",
+          "sku": "SFK-PTY-27-NF-EMERALD-XL",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "emerald",
+            "name": "Forest Emerald",
+            "hex": "#1B4931"
+          },
+          "size": "XL",
+          "price": 1899,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-27-NF-emerald-XXL",
+          "sku": "SFK-PTY-27-NF-EMERALD-XXL",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "emerald",
+            "name": "Forest Emerald",
+            "hex": "#1B4931"
+          },
+          "size": "XXL",
+          "price": 1899,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        }
+      ],
+      "description": "Flowy olive-green hand-block flared anarkali dress finished with sheer printed dupatta and subtle gold border accents. Available in Feeding & Non-Feeding.",
+      "fabric": "Printed Chanderi Silk-Cotton Blend",
+      "careInstructions": [
+        "Dry clean first wash",
+        "Gentle cold hand wash thereafter"
+      ],
+      "feedingDetails": {
+        "zipType": "Concealed vertical dual-side zips",
+        "zipPlacement": "Integrated smoothly into side seams",
+        "description": "Graceful gathered flare with discreet nursing access."
+      },
+      "isNewArrival": true,
+      "isFeatured": true,
+      "isHandstock": true
+    },
+    {
+      "id": "prod-28",
+      "title": "Devika Crimson Floral-Print Tiered Long Dress",
+      "slug": "devika-crimson-floral-tiered-long-frock",
+      "skuPrefix": "SFK-PTY-28",
+      "category": "partywear-dresses",
+      "categoryName": "Partywear Dresses",
+      "price": 1399,
+      "originalPrice": null,
+      "images": [
+        "/images/dresses/crimson-floral-maxi.jpg",
+        "/images/dresses/ruby-floral-frock.jpg"
+      ],
+      "feedingConfig": "both",
+      "supportedClothingTypes": [
+        "Feeding",
+        "Non-Feeding"
+      ],
+      "availableColors": [
+        {
+          "id": "crimson-floral",
+          "name": "Crimson Botanical",
+          "hex": "#A61C3C"
+        },
+        {
+          "id": "rust-bloom",
+          "name": "Rust Kalamkari",
+          "hex": "#8B3A2B"
+        }
+      ],
+      "availableSizes": [
+        "S",
+        "M",
+        "L",
+        "XL",
+        "XXL"
+      ],
+      "variants": [
+        {
+          "id": "SFK-PTY-28-FD-crimson-floral-S",
+          "sku": "SFK-PTY-28-FD-CRIMSON-FLORAL-S",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "crimson-floral",
+            "name": "Crimson Botanical",
+            "hex": "#A61C3C"
+          },
+          "size": "S",
+          "price": 1399,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-28-FD-crimson-floral-M",
+          "sku": "SFK-PTY-28-FD-CRIMSON-FLORAL-M",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "crimson-floral",
+            "name": "Crimson Botanical",
+            "hex": "#A61C3C"
+          },
+          "size": "M",
+          "price": 1399,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-28-FD-crimson-floral-L",
+          "sku": "SFK-PTY-28-FD-CRIMSON-FLORAL-L",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "crimson-floral",
+            "name": "Crimson Botanical",
+            "hex": "#A61C3C"
+          },
+          "size": "L",
+          "price": 1399,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-28-FD-crimson-floral-XL",
+          "sku": "SFK-PTY-28-FD-CRIMSON-FLORAL-XL",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "crimson-floral",
+            "name": "Crimson Botanical",
+            "hex": "#A61C3C"
+          },
+          "size": "XL",
+          "price": 1399,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-28-FD-crimson-floral-XXL",
+          "sku": "SFK-PTY-28-FD-CRIMSON-FLORAL-XXL",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "crimson-floral",
+            "name": "Crimson Botanical",
+            "hex": "#A61C3C"
+          },
+          "size": "XXL",
+          "price": 1399,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-28-FD-rust-bloom-S",
+          "sku": "SFK-PTY-28-FD-RUST-BLOOM-S",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "rust-bloom",
+            "name": "Rust Kalamkari",
+            "hex": "#8B3A2B"
+          },
+          "size": "S",
+          "price": 1399,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-28-FD-rust-bloom-M",
+          "sku": "SFK-PTY-28-FD-RUST-BLOOM-M",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "rust-bloom",
+            "name": "Rust Kalamkari",
+            "hex": "#8B3A2B"
+          },
+          "size": "M",
+          "price": 1399,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-28-FD-rust-bloom-L",
+          "sku": "SFK-PTY-28-FD-RUST-BLOOM-L",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "rust-bloom",
+            "name": "Rust Kalamkari",
+            "hex": "#8B3A2B"
+          },
+          "size": "L",
+          "price": 1399,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-28-FD-rust-bloom-XL",
+          "sku": "SFK-PTY-28-FD-RUST-BLOOM-XL",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "rust-bloom",
+            "name": "Rust Kalamkari",
+            "hex": "#8B3A2B"
+          },
+          "size": "XL",
+          "price": 1399,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-28-FD-rust-bloom-XXL",
+          "sku": "SFK-PTY-28-FD-RUST-BLOOM-XXL",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "rust-bloom",
+            "name": "Rust Kalamkari",
+            "hex": "#8B3A2B"
+          },
+          "size": "XXL",
+          "price": 1399,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-28-NF-crimson-floral-S",
+          "sku": "SFK-PTY-28-NF-CRIMSON-FLORAL-S",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "crimson-floral",
+            "name": "Crimson Botanical",
+            "hex": "#A61C3C"
+          },
+          "size": "S",
+          "price": 1399,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-28-NF-crimson-floral-M",
+          "sku": "SFK-PTY-28-NF-CRIMSON-FLORAL-M",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "crimson-floral",
+            "name": "Crimson Botanical",
+            "hex": "#A61C3C"
+          },
+          "size": "M",
+          "price": 1399,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-28-NF-crimson-floral-L",
+          "sku": "SFK-PTY-28-NF-CRIMSON-FLORAL-L",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "crimson-floral",
+            "name": "Crimson Botanical",
+            "hex": "#A61C3C"
+          },
+          "size": "L",
+          "price": 1399,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-28-NF-crimson-floral-XL",
+          "sku": "SFK-PTY-28-NF-CRIMSON-FLORAL-XL",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "crimson-floral",
+            "name": "Crimson Botanical",
+            "hex": "#A61C3C"
+          },
+          "size": "XL",
+          "price": 1399,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-28-NF-crimson-floral-XXL",
+          "sku": "SFK-PTY-28-NF-CRIMSON-FLORAL-XXL",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "crimson-floral",
+            "name": "Crimson Botanical",
+            "hex": "#A61C3C"
+          },
+          "size": "XXL",
+          "price": 1399,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-28-NF-rust-bloom-S",
+          "sku": "SFK-PTY-28-NF-RUST-BLOOM-S",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "rust-bloom",
+            "name": "Rust Kalamkari",
+            "hex": "#8B3A2B"
+          },
+          "size": "S",
+          "price": 1399,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-28-NF-rust-bloom-M",
+          "sku": "SFK-PTY-28-NF-RUST-BLOOM-M",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "rust-bloom",
+            "name": "Rust Kalamkari",
+            "hex": "#8B3A2B"
+          },
+          "size": "M",
+          "price": 1399,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-28-NF-rust-bloom-L",
+          "sku": "SFK-PTY-28-NF-RUST-BLOOM-L",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "rust-bloom",
+            "name": "Rust Kalamkari",
+            "hex": "#8B3A2B"
+          },
+          "size": "L",
+          "price": 1399,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-28-NF-rust-bloom-XL",
+          "sku": "SFK-PTY-28-NF-RUST-BLOOM-XL",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "rust-bloom",
+            "name": "Rust Kalamkari",
+            "hex": "#8B3A2B"
+          },
+          "size": "XL",
+          "price": 1399,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-28-NF-rust-bloom-XXL",
+          "sku": "SFK-PTY-28-NF-RUST-BLOOM-XXL",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "rust-bloom",
+            "name": "Rust Kalamkari",
+            "hex": "#8B3A2B"
+          },
+          "size": "XXL",
+          "price": 1399,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        }
+      ],
+      "description": "Vibrant crimson floral tiered ethnic maxi dress featuring flared pleats, soft breathable cotton drape, and concealed side nursing zippers when selected.",
+      "fabric": "Pure Mulmul Cotton",
+      "careInstructions": [
+        "Machine wash gentle",
+        "Dry in shade"
+      ],
+      "feedingDetails": {
+        "zipType": "Concealed dual-side vertical zips",
+        "zipPlacement": "Integrated into upper bodice side seams",
+        "description": "Relaxed tiered flare suitable for maternity, feeding, and everyday wear."
+      },
+      "isNewArrival": true
+    },
+    {
+      "id": "prod-29",
+      "title": "Suhani Lavender Heart-Weave Mulmul Feeding Dress",
+      "slug": "suhani-lavender-heart-weave-feeding-dress",
+      "skuPrefix": "SFK-PTY-29",
+      "category": "partywear-dresses",
+      "categoryName": "Partywear Dresses",
+      "price": 1149,
+      "originalPrice": null,
+      "images": [
+        "/images/dresses/lavender-feeding-frock.jpg",
+        "/images/dresses/rust-kalamkari-frock.jpg"
+      ],
+      "feedingConfig": "feeding-only",
+      "supportedClothingTypes": [
+        "Feeding"
+      ],
+      "availableColors": [
+        {
+          "id": "lavender-heart",
+          "name": "Lavender Heart Weave",
+          "hex": "#7E6598"
+        },
+        {
+          "id": "vintage-mauve",
+          "name": "Vintage Mauve",
+          "hex": "#B47B84"
+        }
+      ],
+      "availableSizes": [
+        "S",
+        "M",
+        "L",
+        "XL",
+        "XXL"
+      ],
+      "variants": [
+        {
+          "id": "SFK-PTY-29-FD-lavender-heart-S",
+          "sku": "SFK-PTY-29-FD-LAVENDER-HEART-S",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "lavender-heart",
+            "name": "Lavender Heart Weave",
+            "hex": "#7E6598"
+          },
+          "size": "S",
+          "price": 1149,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-29-FD-lavender-heart-M",
+          "sku": "SFK-PTY-29-FD-LAVENDER-HEART-M",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "lavender-heart",
+            "name": "Lavender Heart Weave",
+            "hex": "#7E6598"
+          },
+          "size": "M",
+          "price": 1149,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-29-FD-lavender-heart-L",
+          "sku": "SFK-PTY-29-FD-LAVENDER-HEART-L",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "lavender-heart",
+            "name": "Lavender Heart Weave",
+            "hex": "#7E6598"
+          },
+          "size": "L",
+          "price": 1149,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-29-FD-lavender-heart-XL",
+          "sku": "SFK-PTY-29-FD-LAVENDER-HEART-XL",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "lavender-heart",
+            "name": "Lavender Heart Weave",
+            "hex": "#7E6598"
+          },
+          "size": "XL",
+          "price": 1149,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-29-FD-lavender-heart-XXL",
+          "sku": "SFK-PTY-29-FD-LAVENDER-HEART-XXL",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "lavender-heart",
+            "name": "Lavender Heart Weave",
+            "hex": "#7E6598"
+          },
+          "size": "XXL",
+          "price": 1149,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-29-FD-vintage-mauve-S",
+          "sku": "SFK-PTY-29-FD-VINTAGE-MAUVE-S",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "vintage-mauve",
+            "name": "Vintage Mauve",
+            "hex": "#B47B84"
+          },
+          "size": "S",
+          "price": 1149,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-29-FD-vintage-mauve-M",
+          "sku": "SFK-PTY-29-FD-VINTAGE-MAUVE-M",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "vintage-mauve",
+            "name": "Vintage Mauve",
+            "hex": "#B47B84"
+          },
+          "size": "M",
+          "price": 1149,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-29-FD-vintage-mauve-L",
+          "sku": "SFK-PTY-29-FD-VINTAGE-MAUVE-L",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "vintage-mauve",
+            "name": "Vintage Mauve",
+            "hex": "#B47B84"
+          },
+          "size": "L",
+          "price": 1149,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-29-FD-vintage-mauve-XL",
+          "sku": "SFK-PTY-29-FD-VINTAGE-MAUVE-XL",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "vintage-mauve",
+            "name": "Vintage Mauve",
+            "hex": "#B47B84"
+          },
+          "size": "XL",
+          "price": 1149,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-29-FD-vintage-mauve-XXL",
+          "sku": "SFK-PTY-29-FD-VINTAGE-MAUVE-XXL",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "vintage-mauve",
+            "name": "Vintage Mauve",
+            "hex": "#B47B84"
+          },
+          "size": "XXL",
+          "price": 1149,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        }
+      ],
+      "description": "Soft lavender pure cotton puff-sleeve feeding dress with discreet horizontal nursing overlap flap and roomy gathered skirt.",
+      "fabric": "Pure Mulmul Cotton",
+      "careInstructions": [
+        "Machine wash gentle cycle",
+        "Dry in shade",
+        "Warm iron"
+      ],
+      "feedingDetails": {
+        "zipType": "Concealed front-flap dual zippers",
+        "zipPlacement": "Integrated cleanly beneath vertical pleat overlap",
+        "description": "Dedicated nursing access tailored for everyday maternal comfort."
+      },
+      "isHandstock": true
+    },
+    {
+      "id": "prod-30",
+      "title": "Meghna Rust Kalamkari Tiered Maxi Dress",
+      "slug": "meghna-rust-kalamkari-tiered-maxi-dress",
+      "skuPrefix": "SFK-PTY-30",
+      "category": "partywear-dresses",
+      "categoryName": "Partywear Dresses",
+      "price": 1299,
+      "originalPrice": null,
+      "images": [
+        "/images/dresses/rust-kalamkari-frock.jpg",
+        "/images/dresses/ruby-floral-frock.jpg"
+      ],
+      "feedingConfig": "both",
+      "supportedClothingTypes": [
+        "Feeding",
+        "Non-Feeding"
+      ],
+      "availableColors": [
+        {
+          "id": "rust-kalamkari",
+          "name": "Rust Kalamkari",
+          "hex": "#8B3A2B"
+        },
+        {
+          "id": "ruby-floral",
+          "name": "Ruby Botanical",
+          "hex": "#9B1B30"
+        }
+      ],
+      "availableSizes": [
+        "S",
+        "M",
+        "L",
+        "XL",
+        "XXL"
+      ],
+      "variants": [
+        {
+          "id": "SFK-PTY-30-FD-rust-kalamkari-S",
+          "sku": "SFK-PTY-30-FD-RUST-KALAMKARI-S",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "rust-kalamkari",
+            "name": "Rust Kalamkari",
+            "hex": "#8B3A2B"
+          },
+          "size": "S",
+          "price": 1299,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-30-FD-rust-kalamkari-M",
+          "sku": "SFK-PTY-30-FD-RUST-KALAMKARI-M",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "rust-kalamkari",
+            "name": "Rust Kalamkari",
+            "hex": "#8B3A2B"
+          },
+          "size": "M",
+          "price": 1299,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-30-FD-rust-kalamkari-L",
+          "sku": "SFK-PTY-30-FD-RUST-KALAMKARI-L",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "rust-kalamkari",
+            "name": "Rust Kalamkari",
+            "hex": "#8B3A2B"
+          },
+          "size": "L",
+          "price": 1299,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-30-FD-rust-kalamkari-XL",
+          "sku": "SFK-PTY-30-FD-RUST-KALAMKARI-XL",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "rust-kalamkari",
+            "name": "Rust Kalamkari",
+            "hex": "#8B3A2B"
+          },
+          "size": "XL",
+          "price": 1299,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-30-FD-rust-kalamkari-XXL",
+          "sku": "SFK-PTY-30-FD-RUST-KALAMKARI-XXL",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "rust-kalamkari",
+            "name": "Rust Kalamkari",
+            "hex": "#8B3A2B"
+          },
+          "size": "XXL",
+          "price": 1299,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-30-FD-ruby-floral-S",
+          "sku": "SFK-PTY-30-FD-RUBY-FLORAL-S",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "ruby-floral",
+            "name": "Ruby Botanical",
+            "hex": "#9B1B30"
+          },
+          "size": "S",
+          "price": 1299,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-30-FD-ruby-floral-M",
+          "sku": "SFK-PTY-30-FD-RUBY-FLORAL-M",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "ruby-floral",
+            "name": "Ruby Botanical",
+            "hex": "#9B1B30"
+          },
+          "size": "M",
+          "price": 1299,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-30-FD-ruby-floral-L",
+          "sku": "SFK-PTY-30-FD-RUBY-FLORAL-L",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "ruby-floral",
+            "name": "Ruby Botanical",
+            "hex": "#9B1B30"
+          },
+          "size": "L",
+          "price": 1299,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-30-FD-ruby-floral-XL",
+          "sku": "SFK-PTY-30-FD-RUBY-FLORAL-XL",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "ruby-floral",
+            "name": "Ruby Botanical",
+            "hex": "#9B1B30"
+          },
+          "size": "XL",
+          "price": 1299,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-30-FD-ruby-floral-XXL",
+          "sku": "SFK-PTY-30-FD-RUBY-FLORAL-XXL",
+          "clothingType": "Feeding",
+          "color": {
+            "id": "ruby-floral",
+            "name": "Ruby Botanical",
+            "hex": "#9B1B30"
+          },
+          "size": "XXL",
+          "price": 1299,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-30-NF-rust-kalamkari-S",
+          "sku": "SFK-PTY-30-NF-RUST-KALAMKARI-S",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "rust-kalamkari",
+            "name": "Rust Kalamkari",
+            "hex": "#8B3A2B"
+          },
+          "size": "S",
+          "price": 1299,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-30-NF-rust-kalamkari-M",
+          "sku": "SFK-PTY-30-NF-RUST-KALAMKARI-M",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "rust-kalamkari",
+            "name": "Rust Kalamkari",
+            "hex": "#8B3A2B"
+          },
+          "size": "M",
+          "price": 1299,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-30-NF-rust-kalamkari-L",
+          "sku": "SFK-PTY-30-NF-RUST-KALAMKARI-L",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "rust-kalamkari",
+            "name": "Rust Kalamkari",
+            "hex": "#8B3A2B"
+          },
+          "size": "L",
+          "price": 1299,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-30-NF-rust-kalamkari-XL",
+          "sku": "SFK-PTY-30-NF-RUST-KALAMKARI-XL",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "rust-kalamkari",
+            "name": "Rust Kalamkari",
+            "hex": "#8B3A2B"
+          },
+          "size": "XL",
+          "price": 1299,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-30-NF-rust-kalamkari-XXL",
+          "sku": "SFK-PTY-30-NF-RUST-KALAMKARI-XXL",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "rust-kalamkari",
+            "name": "Rust Kalamkari",
+            "hex": "#8B3A2B"
+          },
+          "size": "XXL",
+          "price": 1299,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-30-NF-ruby-floral-S",
+          "sku": "SFK-PTY-30-NF-RUBY-FLORAL-S",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "ruby-floral",
+            "name": "Ruby Botanical",
+            "hex": "#9B1B30"
+          },
+          "size": "S",
+          "price": 1299,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-30-NF-ruby-floral-M",
+          "sku": "SFK-PTY-30-NF-RUBY-FLORAL-M",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "ruby-floral",
+            "name": "Ruby Botanical",
+            "hex": "#9B1B30"
+          },
+          "size": "M",
+          "price": 1299,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-30-NF-ruby-floral-L",
+          "sku": "SFK-PTY-30-NF-RUBY-FLORAL-L",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "ruby-floral",
+            "name": "Ruby Botanical",
+            "hex": "#9B1B30"
+          },
+          "size": "L",
+          "price": 1299,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-30-NF-ruby-floral-XL",
+          "sku": "SFK-PTY-30-NF-RUBY-FLORAL-XL",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "ruby-floral",
+            "name": "Ruby Botanical",
+            "hex": "#9B1B30"
+          },
+          "size": "XL",
+          "price": 1299,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        },
+        {
+          "id": "SFK-PTY-30-NF-ruby-floral-XXL",
+          "sku": "SFK-PTY-30-NF-RUBY-FLORAL-XXL",
+          "clothingType": "Non-Feeding",
+          "color": {
+            "id": "ruby-floral",
+            "name": "Ruby Botanical",
+            "hex": "#9B1B30"
+          },
+          "size": "XXL",
+          "price": 1299,
+          "originalPrice": null,
+          "stock": 10,
+          "inStock": true
+        }
+      ],
+      "description": "Hand-block Kalamkari tiered ankle-length dress in earthy rust cotton with gathered waist and puff sleeves.",
+      "fabric": "Mulmul Cotton",
+      "careInstructions": [
+        "Hand wash cold separately",
+        "Dry in shade",
+        "Warm iron"
+      ],
+      "feedingDetails": {
+        "zipType": "Concealed dual-side nursing access",
+        "zipPlacement": "Left and right vertical side openings",
+        "description": "Available in both discreet Feeding and Non-Feeding fits."
+      },
+      "isNewArrival": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "frocks",
+      "name": "Frocks",
+      "slug": "frocks",
+      "image": "/images/frocks/teal-zari-tiered-frock.jpg",
+      "itemCount": "Tiered & Flared",
+      "description": "Flared tiered frocks designed for ease of movement and everyday comfort.",
+      "tagline": "Effortless Flow & Comfort"
+    },
+    {
+      "id": "co-ord-sets",
+      "name": "Co-ord Sets",
+      "slug": "co-ord-sets",
+      "image": "/images/co-ords/crimson-botanical-coord.jpg",
+      "itemCount": "Matching Sets",
+      "description": "Matching ethnic top and trouser pairs tailored for contemporary wear.",
+      "tagline": "Modern Coordinated Style"
+    },
+    {
+      "id": "kurti-dupatta",
+      "name": "Kurti + Dupatta",
+      "slug": "kurti-dupatta",
+      "image": "/images/kurti-dupatta/magenta-ombre-kurti-dupatta.jpg",
+      "itemCount": "Kurti Sets",
+      "description": "Straight-cut and anarkali kurtis paired with matching lightweight dupattas.",
+      "tagline": "Timeless Everyday Grace"
+    },
+    {
+      "id": "3-piece-dresses",
+      "name": "3-Piece Dresses",
+      "slug": "3-piece-dresses",
+      "image": "/images/3pc-sets/indigo-blockprint-3pc-set.jpg",
+      "itemCount": "Complete Sets",
+      "description": "Coordinated three-piece ethnic ensembles including kurti, bottoms, and dupatta.",
+      "tagline": "Curated 3-Piece Ensembles"
+    },
+    {
+      "id": "partywear-dresses",
+      "name": "Partywear Dresses",
+      "slug": "partywear-dresses",
+      "image": "/images/dresses/crimson-floral-maxi.jpg",
+      "itemCount": "Gowns & Maxis",
+      "description": "Floor-length maxis and flared gowns crafted for festive and celebration wear.",
+      "tagline": "Celebration Ready Silhouettes"
+    },
+    {
+      "id": "sarees",
+      "name": "Sarees",
+      "slug": "sarees",
+      "image": "/images/sarees/emerald-checked-kanchivaram-saree.jpg",
+      "itemCount": "Traditional Weaves",
+      "description": "Soft silk, linen, and handloom sarees suited for traditional occasions.",
+      "tagline": "Draped in Traditional Heritage"
+    },
+    {
+      "id": "kids-collections",
+      "name": "Kids Collections",
+      "slug": "kids-collections",
+      "image": "/images/kidswear/maroon-pattu-frock.jpg",
+      "itemCount": "Kids & Twinning",
+      "description": "Comfortable ethnic dresses for little ones and matching mom-child pairs.",
+      "tagline": "Cherished Family Moments"
+    }
+  ],
+  "hero_slides": [
+    {
+      "id": "slide-1",
+      "title": "Sony Feeding Kurtis — Trendy Dresses for Every You",
+      "ctaLink": "/shop",
+      "desktopImage": "/images/banners/hero-sony-feeding-kurtis.jpg",
+      "mobileImage": "/images/banners/hero-sony-feeding-kurtis.jpg",
+      "preserveArtwork": true
+    },
+    {
+      "id": "slide-2",
+      "title": "Feeding Dress — Easy Feeding Access & Nursing Friendly",
+      "ctaLink": "/shop?clothingType=Feeding",
+      "desktopImage": "/images/banners/hero-feeding-dress.jpg",
+      "mobileImage": "/images/banners/hero-feeding-dress.jpg",
+      "preserveArtwork": true
+    }
+  ]
+}

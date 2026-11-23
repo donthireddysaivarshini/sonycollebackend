@@ -326,7 +326,7 @@ class ProductApiContractTests(TestCase):
         )
         ProductImage.objects.create(
             product=self.active_product,
-            image="/images/co-ords/botanical.jpg",
+            image="co-ords/botanical.jpg",
             order=1,
             is_primary=True,
         )
@@ -371,7 +371,7 @@ class ProductApiContractTests(TestCase):
 
         # Verify nested images
         self.assertEqual(len(prod["images"]), 1)
-        self.assertEqual(prod["images"][0]["image"], "/images/co-ords/botanical.jpg")
+        self.assertTrue(prod["images"][0]["image"].endswith("co-ords/botanical.jpg"))
 
         # Verify nested variants
         self.assertEqual(len(prod["variants"]), 1)

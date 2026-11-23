@@ -61,6 +61,9 @@ CORS_ALLOWED_ORIGINS = [
     ).split(',')
     if origin.strip()
 ]
+for prod_domain in ('https://sonyfeedingkurtis.com', 'https://www.sonyfeedingkurtis.com'):
+    if prod_domain not in CORS_ALLOWED_ORIGINS:
+        CORS_ALLOWED_ORIGINS.append(prod_domain)
 CORS_ALLOW_CREDENTIALS = True
 
 # Static files and media in production
@@ -105,3 +108,4 @@ LOGGING = {
         },
     },
 }
+

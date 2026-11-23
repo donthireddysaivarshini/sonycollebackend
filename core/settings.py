@@ -120,10 +120,10 @@ USE_I18N = True
 USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-MEDIA_URL = 'media/'
+MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
 # Default primary key field type
@@ -180,7 +180,7 @@ JAZZMIN_SETTINGS = {
         'accounts.SavedAddress': 'fas fa-address-book',
         'catalog.Category': 'fas fa-tags',
         'catalog.Product': 'fas fa-tshirt',
-        'catalog.ProductVariant': 'fas fa-boxes',
+        'catalog.HeroSlide': 'fas fa-images',
         'catalog.Color': 'fas fa-palette',
         'catalog.Size': 'fas fa-ruler',
         'catalog.HomepageSection': 'fas fa-th-large',
@@ -188,13 +188,12 @@ JAZZMIN_SETTINGS = {
         'cart.Cart': 'fas fa-shopping-cart',
         'cart.StockReservation': 'fas fa-clock',
         'orders.Order': 'fas fa-receipt',
+        'orders.Coupon': 'fas fa-ticket-alt',
         'orders.FeedingOrder': 'fas fa-baby',
         'orders.NonFeedingOrder': 'fas fa-female',
-        'orders.ReturnRequest': 'fas fa-undo',
         'orders.ExchangeRequest': 'fas fa-exchange-alt',
         'reports.Invoice': 'fas fa-file-invoice',
         'payments.PaymentTransaction': 'fas fa-credit-card',
-        'payments.RefundRecord': 'fas fa-undo-alt',
     },
     'default_icon_parents': 'fas fa-chevron-circle-right',
     'default_icon_children': 'fas fa-circle',
@@ -221,7 +220,7 @@ JAZZMIN_UI_TWEAKS = {
     'sidebar_nav_legacy_style': False,
     'sidebar_nav_flat_style': False,
     'theme': 'default',
-    'dark_mode_theme': None,
+    'default_theme_mode': 'light',
     'button_classes': {
         'primary': 'btn-outline-primary',
         'secondary': 'btn-outline-secondary',
@@ -241,7 +240,14 @@ CORS_ALLOWED_ORIGINS = [
     ).split(',')
     if origin.strip()
 ]
+for local_origin in ('http://localhost:5173', 'http://127.0.0.1:5173'):
+    if local_origin not in CORS_ALLOWED_ORIGINS:
+        CORS_ALLOWED_ORIGINS.append(local_origin)
 CORS_ALLOW_CREDENTIALS = True
+
+# Google OAuth 2.0 Credentials
+GOOGLE_CLIENT_ID = os.getenv('GOOGLE_CLIENT_ID', '')
+GOOGLE_CLIENT_SECRET = os.getenv('GOOGLE_CLIENT_SECRET', '')
 
 # Razorpay Payment Gateway Configuration
 RAZORPAY_KEY_ID = os.getenv('RAZORPAY_KEY_ID', 'rzp_test_placeholder_key')

@@ -4,6 +4,7 @@ from .views import (
     CustomerReturnListView,
     OrderCancelView,
     OrderCheckoutView,
+    CouponValidateView,
     OrderCreateView,
     OrderDetailView,
     OrderExchangeRequestView,
@@ -17,6 +18,7 @@ app_name = 'orders'
 urlpatterns = [
     path('', OrderListView.as_view(), name='order_list'),
     path('checkout/', OrderCheckoutView.as_view(), name='order_checkout'),
+    path('coupons/validate/', CouponValidateView.as_view(), name='coupon_validate'),
     path('create/', OrderCreateView.as_view(), name='order_create'),
     path('returns/', CustomerReturnListView.as_view(), name='customer_returns'),
     path('exchanges/', CustomerExchangeListView.as_view(), name='customer_exchanges'),

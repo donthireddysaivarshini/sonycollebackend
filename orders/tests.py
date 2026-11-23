@@ -1,4 +1,5 @@
 from decimal import Decimal
+from unittest.mock import patch
 
 from django.contrib.admin.sites import site
 from django.contrib.auth import get_user_model
@@ -486,7 +487,8 @@ class ConcurrencyAndInventoryRaceConditionTests(OrdersBaseTestCase):
 
 
 class OrderCancellationInventoryRestorationTests(OrdersBaseTestCase):
-    def test_paid_order_cancellation_restores_physical_stock_and_triggers_refund(self):
+    @patch('payments.razorpay_client.dispatch_razorpay_refund', return_value={'id': 'rfnd_test_cancel', 'status': 'processed'})
+    def test_paid_order_cancellation_restores_physical_stock_and_triggers_refund(self, mock_refund):
         # Create paid order with 2 units
         self.variant_feeding.stock = 8  # was 10, 2 were purchased
         self.variant_feeding.reserved_stock = 0
@@ -673,36 +675,35 @@ class ReturnAndExchangeWorkflowTests(OrdersBaseTestCase):
         self.assertEqual(dup_res.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertIn("active return request already exists", dup_res.data['error'])
 
-    def test_exchange_rejected_if_replacement_out_of_stock(self):
-        self.replacement_variant.stock = 0
-        self.replacement_variant.save(update_fields=['stock'])
-
+    def test_exchange_requires_proof_file(self):
         self.client.force_authenticate(user=self.user)
         url = reverse('orders:order_exchanges', kwargs={'order_number': self.delivered_order.order_number})
         payload = {
             'item_id': self.order_item.id,
-            'replacement_variant_id': self.replacement_variant.id,
-            'reason': 'size_exchange',
+            'reason': 'damaged',
         }
-        response = self.client.post(url, payload, format='json')
+        response = self.client.post(url, payload, format='multipart')
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-        self.assertIn("sufficient available stock", response.data['error'])
+        self.assertIn("photo or unboxing video", response.data['error'])
 
-    def test_exchange_success(self):
+    def test_exchange_success_with_proof(self):
+        from django.core.files.uploadedfile import SimpleUploadedFile
         self.client.force_authenticate(user=self.user)
         url = reverse('orders:order_exchanges', kwargs={'order_number': self.delivered_order.order_number})
+        proof = SimpleUploadedFile("damage.jpg", b"image_data_here", content_type="image/jpeg")
         payload = {
             'item_id': self.order_item.id,
-            'replacement_variant_id': self.replacement_variant.id,
-            'reason': 'size_exchange',
-            'customer_notes': 'Exchange for Size L',
+            'reason': 'damaged',
+            'customer_notes': 'Garment seam torn upon opening',
+            'proof_file': proof,
         }
-        response = self.client.post(url, payload, format='json')
+        response = self.client.post(url, payload, format='multipart')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(response.data['status'], 'Requested')
-        self.assertEqual(response.data['replacement_sku'], self.replacement_variant.sku)
+        self.assertIsNotNone(response.data['proof_file_url'])
 
-    def test_admin_return_approval_and_item_receipt_with_stock_restoration(self):
+    @patch('payments.razorpay_client.dispatch_razorpay_refund', return_value={'id': 'rfnd_test_return', 'status': 'processed'})
+    def test_admin_return_approval_and_item_receipt_with_stock_restoration(self, mock_refund):
         from django.contrib.messages.storage.fallback import FallbackStorage
 
         # Initial physical stock before return
@@ -744,21 +745,17 @@ class ReturnAndExchangeWorkflowTests(OrdersBaseTestCase):
         self.assertEqual(refund.amount, Decimal('1399.00'))
         self.assertEqual(refund.status, RefundRecord.STATUS_PROCESSED)
 
-    def test_admin_exchange_approval_and_dispatch_with_inventory_adjustments(self):
+    def test_admin_exchange_approval_and_voucher_generation(self):
         from django.contrib.messages.storage.fallback import FallbackStorage
+        from django.core.files.uploadedfile import SimpleUploadedFile
 
-        # Setup initial stock
-        self.variant_feeding.stock = 10
-        self.variant_feeding.save(update_fields=['stock'])
-        self.replacement_variant.stock = 5
-        self.replacement_variant.save(update_fields=['stock'])
-
+        proof = SimpleUploadedFile("damage_admin.jpg", b"image_data_here", content_type="image/jpeg")
         exchange_req = ExchangeRequest.objects.create(
             order=self.delivered_order,
             item=self.order_item,
             user=self.user,
-            replacement_variant=self.replacement_variant,
-            reason='size_exchange',
+            reason='damaged',
+            proof_file=proof,
             status=ExchangeRequest.STATUS_REQUESTED,
         )
 
@@ -768,23 +765,80 @@ class ReturnAndExchangeWorkflowTests(OrdersBaseTestCase):
         setattr(request, 'session', 'session')
         setattr(request, '_messages', FallbackStorage(request))
 
-        # 1. Admin approves exchange
+        # Admin approves exchange: generates single-use exchange coupon
         admin_instance.approve_exchanges(request, ExchangeRequest.objects.filter(id=exchange_req.id))
         exchange_req.refresh_from_db()
         self.assertEqual(exchange_req.status, ExchangeRequest.STATUS_APPROVED)
+        self.assertTrue(exchange_req.exchange_code.startswith('EXC-'))
 
-        # 2. Mark replacement dispatched: decrements replacement stock and restores original returned stock
-        admin_instance.mark_exchange_dispatched(request, ExchangeRequest.objects.filter(id=exchange_req.id))
-        exchange_req.refresh_from_db()
-        self.assertEqual(exchange_req.status, ExchangeRequest.STATUS_DISPATCHED)
+        from orders.models import Coupon
+        voucher = Coupon.objects.get(code=exchange_req.exchange_code)
+        self.assertEqual(voucher.value, self.order_item.line_total)
+        self.assertTrue(voucher.is_exchange_code)
+        self.assertEqual(voucher.usage_limit, 1)
 
-        # Replacement variant stock decremented from 5 to 4
-        self.replacement_variant.refresh_from_db()
-        self.assertEqual(self.replacement_variant.stock, 4)
 
-        # Original returned variant stock restored from 10 to 11
-        self.variant_feeding.refresh_from_db()
-        self.assertEqual(self.variant_feeding.stock, 11)
+class CouponAndExchangeValidationTests(OrdersBaseTestCase):
+    def setUp(self):
+        super().setUp()
+        from datetime import timedelta
+        from orders.models import Coupon
+        now = timezone.now()
+        self.coupon_pct = Coupon.objects.create(
+            code='TEST10',
+            discount_type='percentage',
+            value=Decimal('10.00'),
+            min_order_value=Decimal('1000.00'),
+            valid_from=now - timedelta(days=1),
+            valid_to=now + timedelta(days=30),
+            active=True,
+            usage_limit=100,
+        )
+        self.exchange_code = Coupon.objects.create(
+            code='EXCH500',
+            discount_type='fixed',
+            value=Decimal('500.00'),
+            min_order_value=Decimal('500.00'),
+            valid_from=now - timedelta(days=1),
+            valid_to=now + timedelta(days=30),
+            active=True,
+            is_exchange_code=True,
+            usage_limit=5,
+        )
+
+    def test_coupon_validate_api_success(self):
+        url = reverse('orders:coupon_validate')
+        res = self.client.post(url, {'code': 'test10', 'order_total': 1800}, format='json')
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        self.assertTrue(res.data['valid'])
+        self.assertEqual(res.data['code'], 'TEST10')
+        self.assertEqual(res.data['discount'], 180.0)
+
+    def test_coupon_validate_min_order_restriction(self):
+        url = reverse('orders:coupon_validate')
+        res = self.client.post(url, {'code': 'TEST10', 'order_total': 500}, format='json')
+        self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertIn('Minimum order value', str(res.data['error']))
+
+    def test_coupon_applied_during_checkout(self):
+        self.client.force_authenticate(user=self.user)
+        payload = {
+            'items': [{'variant_id': self.variant_feeding.id, 'quantity': 1}],
+            'address_id': self.saved_address.id,
+            'payment_method': 'razorpay',
+            'coupon_code': 'TEST10',
+        }
+        res = self.client.post(reverse('orders:order_checkout'), payload, format='json')
+        self.assertEqual(res.status_code, status.HTTP_201_CREATED)
+        order = Order.objects.get(order_number=res.data['order_number'])
+        self.assertEqual(order.coupon_code, 'TEST10')
+        # subtotal is 1399.00 -> 10% is 139.90 -> shipping is 99.00 -> total is 1358.10
+        self.assertEqual(order.discount, Decimal('139.90'))
+        self.assertEqual(order.shipping_fee, Decimal('99.00'))
+        self.assertEqual(order.total_amount, Decimal('1358.10'))
+        self.coupon_pct.refresh_from_db()
+        self.assertEqual(self.coupon_pct.uses_count, 1)
+
 
 
 

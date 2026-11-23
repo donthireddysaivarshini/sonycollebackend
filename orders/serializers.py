@@ -18,6 +18,8 @@ class OrderItemSerializer(serializers.ModelSerializer):
 
     unit_price = serializers.SerializerMethodField()
     line_total = serializers.SerializerMethodField()
+    product_image = serializers.SerializerMethodField()
+    product_slug = serializers.SerializerMethodField()
 
     class Meta:
         model = OrderItem
@@ -25,6 +27,7 @@ class OrderItemSerializer(serializers.ModelSerializer):
             'id',
             'product_name',
             'product_sku',
+            'product_slug',
             'product_image',
             'clothing_type',
             'color',
@@ -39,6 +42,28 @@ class OrderItemSerializer(serializers.ModelSerializer):
 
     def get_line_total(self, obj) -> str:
         return f"{obj.line_total:.2f}"
+
+    def get_product_slug(self, obj) -> str:
+        if obj.product and getattr(obj.product, 'slug', None):
+            return obj.product.slug
+        if obj.variant and obj.variant.product and getattr(obj.variant.product, 'slug', None):
+            return obj.variant.product.slug
+        from django.utils.text import slugify
+        return slugify(obj.product_name)
+
+    def get_product_image(self, obj) -> str:
+        if not obj.product_image:
+            return ""
+        img = str(obj.product_image).strip()
+        if img.startswith('http://') or img.startswith('https://'):
+            return img
+        if img.startswith('/media/'):
+            request = self.context.get('request')
+            return request.build_absolute_uri(img) if request else f"http://127.0.0.1:8000{img}"
+        clean_img = img.lstrip('/')
+        media_url = f"/media/{clean_img}"
+        request = self.context.get('request')
+        return request.build_absolute_uri(media_url) if request else f"http://127.0.0.1:8000{media_url}"
 
 
 class OrderSerializer(serializers.ModelSerializer):
@@ -67,6 +92,7 @@ class OrderSerializer(serializers.ModelSerializer):
             'subtotal',
             'shipping_fee',
             'discount',
+            'coupon_code',
             'is_cancellable',
             'tracking_number',
             'carrier_name',
@@ -97,8 +123,18 @@ class OrderSerializer(serializers.ModelSerializer):
 
 
 class OrderItemCreateInputSerializer(serializers.Serializer):
-    variant_id = serializers.IntegerField(required=True)
+    variant_id = serializers.CharField(required=False, allow_null=True, allow_blank=True)
+    sku = serializers.CharField(required=False, allow_blank=True, default='')
+    product_id = serializers.CharField(required=False, allow_null=True, allow_blank=True)
+    product_slug = serializers.CharField(required=False, allow_blank=True, default='')
+    product_title = serializers.CharField(required=False, allow_blank=True, default='')
+    clothing_type = serializers.CharField(required=False, allow_blank=True, default='')
+    color = serializers.CharField(required=False, allow_blank=True, default='')
+    size = serializers.CharField(required=False, allow_blank=True, default='')
     quantity = serializers.IntegerField(required=True, min_value=1)
+
+    def validate(self, attrs):
+        return attrs
 
 
 class OrderCreateSerializer(serializers.Serializer):
@@ -106,12 +142,10 @@ class OrderCreateSerializer(serializers.Serializer):
     Validates payload for creating a new order.
     """
 
-    address_id = serializers.IntegerField(required=False, allow_null=True)
+    address_id = serializers.CharField(required=False, allow_blank=True, allow_null=True)
     address = serializers.DictField(required=False, allow_null=True)
-    payment_method = serializers.ChoiceField(
-        choices=['razorpay', 'cod'],
-        default='razorpay',
-    )
+    payment_method = serializers.CharField(default='razorpay')
+    coupon_code = serializers.CharField(required=False, allow_blank=True, default='')
     items = OrderItemCreateInputSerializer(many=True, required=False)
 
     def validate(self, attrs):
@@ -162,9 +196,12 @@ class ExchangeRequestSerializer(serializers.ModelSerializer):
     item_id = serializers.IntegerField(source='item.id', read_only=True)
     original_product_name = serializers.CharField(source='item.product_name', read_only=True)
     original_sku = serializers.CharField(source='item.product_sku', read_only=True)
-    replacement_variant_id = serializers.IntegerField(source='replacement_variant.id', read_only=True)
-    replacement_sku = serializers.CharField(source='replacement_variant.sku', read_only=True)
+    product_image = serializers.CharField(source='item.product_image', read_only=True)
+    line_total = serializers.SerializerMethodField()
+    replacement_variant_id = serializers.IntegerField(source='replacement_variant.id', read_only=True, allow_null=True)
+    replacement_sku = serializers.CharField(source='replacement_variant.sku', read_only=True, allow_null=True)
     replacement_details = serializers.SerializerMethodField()
+    proof_file_url = serializers.SerializerMethodField()
 
     class Meta:
         model = ExchangeRequest
@@ -174,20 +211,30 @@ class ExchangeRequestSerializer(serializers.ModelSerializer):
             'item_id',
             'original_product_name',
             'original_sku',
+            'product_image',
+            'line_total',
             'replacement_variant_id',
             'replacement_sku',
             'replacement_details',
             'reason',
+            'other_reason',
+            'proof_file_url',
+            'exchange_code',
             'customer_notes',
             'admin_notes',
             'status',
             'created_at',
             'updated_at',
         ]
-        read_only_fields = ['id', 'status', 'admin_notes', 'created_at', 'updated_at']
+        read_only_fields = ['id', 'status', 'admin_notes', 'exchange_code', 'created_at', 'updated_at']
+
+    def get_line_total(self, obj) -> str:
+        return f"{obj.item.line_total:.2f}"
 
     def get_replacement_details(self, obj) -> dict:
         v = obj.replacement_variant
+        if not v:
+            return {}
         return {
             'clothing_type': v.clothing_type,
             'color': v.color.name,
@@ -195,11 +242,25 @@ class ExchangeRequestSerializer(serializers.ModelSerializer):
             'price': f"{v.final_price:.2f}",
         }
 
+    def get_proof_file_url(self, obj):
+        if not obj.proof_file:
+            return ''
+        request = self.context.get('request')
+        if request:
+            return request.build_absolute_uri(obj.proof_file.url)
+        return obj.proof_file.url
+
 
 class ExchangeRequestCreateSerializer(serializers.Serializer):
     item_id = serializers.IntegerField(required=True)
-    replacement_variant_id = serializers.IntegerField(required=True)
-    reason = serializers.CharField(required=True, max_length=100)
+    reason = serializers.CharField(required=False, default='damaged')
+    other_reason = serializers.CharField(required=False, allow_blank=True, default='')
     customer_notes = serializers.CharField(required=False, allow_blank=True, default='')
+    replacement_variant_id = serializers.IntegerField(required=False, allow_null=True)
+
+    def validate(self, attrs):
+        if attrs.get('reason') == 'other' and not attrs.get('other_reason', '').strip():
+            raise serializers.ValidationError({"other_reason": "Please specify the other reason."})
+        return attrs
 
 

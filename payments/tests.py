@@ -3,6 +3,7 @@ import hmac
 import json
 from datetime import timedelta
 from decimal import Decimal
+from unittest.mock import patch
 
 from django.conf import settings
 from django.contrib.auth import get_user_model
@@ -388,7 +389,8 @@ class LatePaymentReconciliationTests(PaymentsBaseTestCase):
 
 
 class RecoverableRefundCommandTests(PaymentsBaseTestCase):
-    def test_command_processes_pending_refund_records(self):
+    @patch('payments.tasks.dispatch_razorpay_refund', return_value={'id': 'rfnd_test_cmd_1', 'status': 'processed'})
+    def test_command_processes_pending_refund_records(self, mock_refund):
         order = Order.objects.create(
             user=self.user,
             first_name='Kavya',

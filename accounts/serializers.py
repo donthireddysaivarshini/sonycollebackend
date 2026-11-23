@@ -122,6 +122,11 @@ class SavedAddressSerializer(serializers.ModelSerializer):
 
         # Enforce maximum address limit (default: 3 saved addresses per customer)
         if self.instance is None and user and user.is_authenticated:
+            line1 = (attrs.get('address_line1') or '').strip()
+            pin = (attrs.get('pincode') or '').strip()
+            if line1 and pin and SavedAddress.objects.filter(user=user, address_line1__iexact=line1, pincode__iexact=pin).exists():
+                return attrs
+
             max_allowed = 3
             if SavedAddress.objects.filter(user=user).count() >= max_allowed:
                 raise serializers.ValidationError(

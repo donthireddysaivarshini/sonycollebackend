@@ -44,8 +44,8 @@ class Invoice(models.Model):
     issued_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        verbose_name = 'Tax Invoice'
-        verbose_name_plural = 'Tax Invoices'
+        verbose_name = 'Order Invoice'
+        verbose_name_plural = 'Order Invoices'
         ordering = ['-issued_at']
 
     def __str__(self):

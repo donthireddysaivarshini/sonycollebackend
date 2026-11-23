@@ -10,7 +10,7 @@ class Category(models.Model):
 
     name = models.CharField(max_length=100)
     slug = models.SlugField(max_length=120, unique=True)
-    image = models.CharField(max_length=500, blank=True)
+    image = models.ImageField(upload_to='categories/', blank=True, null=True)
     description = models.TextField(blank=True)
     tagline = models.CharField(max_length=200, blank=True)
     item_count_label = models.CharField(max_length=50, blank=True)
@@ -93,9 +93,39 @@ class Product(models.Model):
     description = models.TextField(blank=True)
     fabric = models.CharField(max_length=150, blank=True)
     care_instructions = models.TextField(blank=True)
-    is_new_arrival = models.BooleanField(default=False)
-    is_best_seller = models.BooleanField(default=False)
-    is_handstock = models.BooleanField(default=False)
+
+    # Homepage Sections Checklist
+    is_feeding_collection = models.BooleanField(
+        default=False,
+        verbose_name="Feeding & Non-Feeding Section",
+        help_text="Check to display in 'Feeding & Non-Feeding' carousel on homepage",
+    )
+    is_handstock = models.BooleanField(
+        default=False,
+        verbose_name="Handstock Section",
+        help_text="Check to display in 'Handstock (Ready to Ship)' carousel on homepage",
+    )
+    is_sarees_collection = models.BooleanField(
+        default=False,
+        verbose_name="Sarees Section",
+        help_text="Check to display in 'Sarees' carousel on homepage",
+    )
+    is_kidswear_collection = models.BooleanField(
+        default=False,
+        verbose_name="Kids Wear Section",
+        help_text="Check to display in 'Kids Wear' carousel on homepage",
+    )
+    is_new_arrival = models.BooleanField(
+        default=False,
+        verbose_name="New Arrivals Section",
+        help_text="Check to display in 'New Arrivals' carousel on homepage",
+    )
+    is_best_seller = models.BooleanField(
+        default=False,
+        verbose_name="Best Sellers Section",
+        help_text="Check to display in 'Best Sellers' carousel on homepage",
+    )
+
     is_active = models.BooleanField(default=True)
     rating = models.DecimalField(max_digits=3, decimal_places=2, default=Decimal('4.80'))
     review_count = models.PositiveIntegerField(default=120)
@@ -119,15 +149,37 @@ class Product(models.Model):
 
 class ProductImage(models.Model):
     """
-    Product gallery image ordered sequentially.
+    Product gallery image mapped to clothing type, color, and display order.
     """
+
+    IMAGE_CLOTHING_TYPE_CHOICES = (
+        ('Feeding', 'Feeding'),
+        ('Non-Feeding', 'Non-Feeding'),
+        ('Standard', 'Standard'),
+    )
 
     product = models.ForeignKey(
         Product,
         on_delete=models.CASCADE,
         related_name='images',
     )
-    image = models.CharField(max_length=500)
+    clothing_type = models.CharField(
+        max_length=20,
+        choices=IMAGE_CLOTHING_TYPE_CHOICES,
+        default='Feeding',
+        blank=True,
+        null=True,
+        help_text="Clothing type (Feeding, Non-Feeding, or Standard)",
+    )
+    image = models.ImageField(upload_to='products/')
+    color = models.ForeignKey(
+        Color,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='product_images',
+        help_text="Optional color match for this image",
+    )
     order = models.PositiveIntegerField(default=0)
     is_primary = models.BooleanField(default=False)
 
@@ -173,7 +225,7 @@ class ProductVariant(models.Model):
         on_delete=models.PROTECT,
         related_name='variants',
     )
-    sku = models.CharField(max_length=100, unique=True)
+    sku = models.CharField(max_length=100, unique=True, blank=True)
     stock = models.PositiveIntegerField(default=0)
     reserved_stock = models.PositiveIntegerField(default=0)
     price_override = models.DecimalField(
@@ -198,6 +250,21 @@ class ProductVariant(models.Model):
 
     def __str__(self):
         return f"{self.product.title} - {self.clothing_type} - {self.color.name} - {self.size.name} ({self.sku})"
+
+    def save(self, *args, **kwargs):
+        if not self.sku:
+            clothing_code = (self.clothing_type[:2] if self.clothing_type else 'ST').upper()
+            color_code = (self.color.name[:3] if self.color else 'CLR').upper().replace(' ', '')
+            size_code = self.size.name if self.size else 'STD'
+            prefix = self.product.sku_prefix or 'SKU'
+            base_sku = f"{prefix}-{clothing_code}-{color_code}-{size_code}".replace(' ', '')
+            candidate = base_sku
+            counter = 1
+            while ProductVariant.objects.filter(sku=candidate).exclude(pk=self.pk).exists():
+                candidate = f"{base_sku}-{counter}"
+                counter += 1
+            self.sku = candidate
+        super().save(*args, **kwargs)
 
     @property
     def available_stock(self):
@@ -304,22 +371,21 @@ class HomepageSectionItem(models.Model):
 
 class SiteConfig(models.Model):
     """
-    Singleton configuration model centralizing all store-wide business policies
-    with zero unconfirmed defaults (unset/null by default).
+    Singleton configuration model centralizing all store-wide business policies.
     """
 
     gstin = models.CharField(max_length=30, blank=True, null=True, default=None)
     registered_address = models.TextField(blank=True, null=True, default=None)
-    tax_percentage = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True, default=None)
-    is_tax_inclusive = models.BooleanField(blank=True, null=True, default=None)
-    shipping_fee = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True, default=None)
-    free_shipping_threshold = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True, default=None)
+    tax_percentage = models.DecimalField(max_digits=5, decimal_places=2, default=Decimal('5.00'))
+    is_tax_inclusive = models.BooleanField(default=True)
+    shipping_fee = models.DecimalField(max_digits=10, decimal_places=2, default=Decimal('99.00'))
+    free_shipping_threshold = models.DecimalField(max_digits=10, decimal_places=2, default=Decimal('1499.00'))
     cod_enabled = models.BooleanField(default=False)
     cod_extra_charge = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True, default=None)
     return_window_days = models.PositiveIntegerField(blank=True, null=True, default=None)
-    exchange_window_days = models.PositiveIntegerField(blank=True, null=True, default=None)
-    max_saved_addresses = models.PositiveIntegerField(blank=True, null=True, default=None)
-    shipping_notice = models.CharField(max_length=255, blank=True, null=True, default=None)
+    exchange_window_days = models.PositiveIntegerField(default=7)
+    max_saved_addresses = models.PositiveIntegerField(default=3)
+    shipping_notice = models.CharField(max_length=255, default='Free shipping across India on orders above ₹1499')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -332,12 +398,86 @@ class SiteConfig(models.Model):
 
     @classmethod
     def get_solo(cls):
-        obj, _ = cls.objects.get_or_create(id=1)
+        obj, created = cls.objects.get_or_create(
+            id=1,
+            defaults={
+                'shipping_fee': Decimal('99.00'),
+                'free_shipping_threshold': Decimal('1499.00'),
+                'shipping_notice': 'Free shipping across India on orders above ₹1499',
+                'exchange_window_days': 7,
+                'max_saved_addresses': 3,
+                'tax_percentage': Decimal('5.00'),
+                'is_tax_inclusive': True,
+                'cod_enabled': False,
+            }
+        )
+        # Populate defaults if existing singleton has nulls
+        changed = False
+        if obj.shipping_fee is None:
+            obj.shipping_fee = Decimal('99.00')
+            changed = True
+        if obj.free_shipping_threshold is None:
+            obj.free_shipping_threshold = Decimal('1499.00')
+            changed = True
+        if not obj.shipping_notice:
+            obj.shipping_notice = 'Free shipping across India on orders above ₹1499'
+            changed = True
+        if obj.exchange_window_days is None:
+            obj.exchange_window_days = 7
+            changed = True
+        if obj.max_saved_addresses is None:
+            obj.max_saved_addresses = 3
+            changed = True
+        if changed:
+            obj.save()
         return obj
 
     def save(self, *args, **kwargs):
         self.id = 1
         super().save(*args, **kwargs)
+
+
+class HeroSlide(models.Model):
+    """
+    Hero promotion banner slide displayed at the top of the storefront homepage.
+    Managed via Django Admin.
+    """
+
+    title = models.CharField(max_length=200, help_text="Slide heading or promotion title")
+    desktop_image = models.ImageField(
+        upload_to='hero/desktop/',
+        blank=True,
+        null=True,
+        help_text="Desktop banner image",
+    )
+    mobile_image = models.ImageField(
+        upload_to='hero/mobile/',
+        blank=True,
+        null=True,
+        help_text="Mobile banner image (falls back to desktop image if blank)",
+    )
+    cta_link = models.CharField(
+        max_length=255,
+        default='/shop',
+        help_text="Destination route when customer clicks banner (e.g. /shop, /shop?clothingType=Feeding)",
+    )
+    preserve_artwork = models.BooleanField(
+        default=True,
+        help_text="Preserve full graphic artwork aspect ratio without cropping",
+    )
+    display_order = models.PositiveIntegerField(default=0, help_text="Lower number shows first")
+    is_active = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = 'Hero Slide'
+        verbose_name_plural = 'Hero Slides'
+        ordering = ['display_order', 'id']
+
+    def __str__(self):
+        return f"{self.title} (Order: {self.display_order})"
+
 
 
 

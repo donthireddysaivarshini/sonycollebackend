@@ -58,3 +58,4 @@ echo "Run once DNS records point to VPS IP:"
 echo "sudo certbot --nginx -d sonyfeedingkurtis.com -d www.sonyfeedingkurtis.com -d api.sonyfeedingkurtis.com"
 
 echo "[7/7] Provisioning complete!"
+
