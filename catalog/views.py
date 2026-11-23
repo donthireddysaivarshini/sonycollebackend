@@ -4,6 +4,7 @@ from rest_framework.views import APIView
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.decorators import action
+from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
 
 from .models import Category, Product, HomepageSection, HeroSlide, SiteConfig, ProductReview
 from .serializers import (
@@ -50,6 +51,7 @@ class ProductViewSet(viewsets.ReadOnlyModelViewSet):
     """
 
     permission_classes = [AllowAny]
+    parser_classes = [MultiPartParser, FormParser, JSONParser]
     serializer_class = ProductSerializer
     lookup_field = 'slug'
     pagination_class = None  # Small-to-medium catalogue; supports unpaginated or direct consumption
@@ -180,17 +182,22 @@ class ProductViewSet(viewsets.ReadOnlyModelViewSet):
             if not user_name:
                 user_name = request.user.email.split('@')[0] if getattr(request.user, 'email', None) else 'Customer'
 
+            review_defaults = {
+                'user_name': user_name,
+                'rating': rating,
+                'headline': headline,
+                'comment': comment,
+                'verified_purchase': has_purchased,
+                'is_approved': True,
+            }
+            image_file = request.FILES.get('image')
+            if image_file:
+                review_defaults['image'] = image_file
+
             review, _ = ProductReview.objects.update_or_create(
                 product=product,
                 user=request.user,
-                defaults={
-                    'user_name': user_name,
-                    'rating': rating,
-                    'headline': headline,
-                    'comment': comment,
-                    'verified_purchase': has_purchased,
-                    'is_approved': True,
-                },
+                defaults=review_defaults,
             )
             review.recalculate_product_metrics()
             product.refresh_from_db(fields=['rating', 'review_count'])

@@ -129,8 +129,9 @@ class CategoryBriefSerializer(serializers.ModelSerializer):
 
 class ProductReviewSerializer(serializers.ModelSerializer):
     """
-    Amazon-style Customer Review & Rating Serializer.
+    Amazon-style Customer Review & Rating Serializer with photo attachment.
     """
+    image_url = serializers.SerializerMethodField()
 
     class Meta:
         model = ProductReview
@@ -140,10 +141,21 @@ class ProductReviewSerializer(serializers.ModelSerializer):
             'rating',
             'headline',
             'comment',
+            'image',
+            'image_url',
             'verified_purchase',
             'created_at',
         )
-        read_only_fields = ('id', 'user_name', 'verified_purchase', 'created_at')
+        read_only_fields = ('id', 'user_name', 'image_url', 'verified_purchase', 'created_at')
+
+    def get_image_url(self, obj):
+        if obj.image:
+            url = obj.image.url
+            if not url.startswith('http'):
+                clean = url.lstrip('/')
+                return f"/media/{clean}" if not url.startswith('/media/') else url
+            return url
+        return None
 
 
 class ProductSerializer(serializers.ModelSerializer):

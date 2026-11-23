@@ -258,6 +258,7 @@ class ProductReviewAdmin(admin.ModelAdmin):
         'product',
         'user_name',
         'star_rating_display',
+        'image_preview',
         'headline',
         'verified_purchase_badge',
         'is_approved',
@@ -266,7 +267,18 @@ class ProductReviewAdmin(admin.ModelAdmin):
     list_editable = ('is_approved',)
     list_filter = ('rating', 'verified_purchase', 'is_approved', 'created_at')
     search_fields = ('product__title', 'user_name', 'user__email', 'headline', 'comment')
+    readonly_fields = ('image_preview',)
     actions = ['approve_reviews', 'reject_reviews']
+
+    def image_preview(self, obj):
+        if obj.image:
+            return format_html(
+                '<a href="{}" target="_blank"><img src="{}" style="width: 44px; height: 44px; object-fit: cover; border-radius: 4px; border: 1px solid #ddd;" /></a>',
+                obj.image.url,
+                obj.image.url,
+            )
+        return "—"
+    image_preview.short_description = 'Photo'
 
     def star_rating_display(self, obj):
         stars = '★' * obj.rating + '☆' * (5 - obj.rating)

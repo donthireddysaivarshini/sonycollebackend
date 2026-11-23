@@ -507,6 +507,7 @@ class ProductReview(models.Model):
     )
     headline = models.CharField(max_length=255, blank=True)
     comment = models.TextField()
+    image = models.ImageField(upload_to='reviews/', blank=True, null=True, help_text="Customer photo attachment")
     verified_purchase = models.BooleanField(default=False)
     is_approved = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
