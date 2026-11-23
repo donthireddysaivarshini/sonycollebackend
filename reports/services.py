@@ -317,15 +317,19 @@ def export_orders_to_excel(queryset) -> bytes:
         'Customer Name',
         'Phone',
         'Email',
+        'Full Address (Complete Delivery Coordinates)',
         'Delivery Address',
+        'Apartment / Street',
+        'Landmark',
         'City',
         'State',
         'Pincode',
+        'Product Image Link(s)',
+        'Items Detail',
         'Has Feeding Wear',
         'Feeding Garments Count',
         'Non-Feeding Count',
         'Total Items Count',
-        'Items Detail',
         'Subtotal (INR)',
         'Shipping Fee (INR)',
         'Discount (INR)',
@@ -347,7 +351,7 @@ def export_orders_to_excel(queryset) -> bytes:
         cell.border = thin_border
 
     # Populate data rows
-    for order in queryset.prefetch_related('items'):
+    for order in queryset.prefetch_related('items', 'items__product', 'items__product__images'):
         feeding_count = sum(item.quantity for item in order.items.all() if item.clothing_type == 'Feeding')
         non_feeding_count = sum(item.quantity for item in order.items.all() if item.clothing_type in ('Non-Feeding', 'Standard'))
         items_summary = "; ".join(
@@ -355,21 +359,55 @@ def export_orders_to_excel(queryset) -> bytes:
             for i in order.items.all()
         )
 
+        # Build comprehensive full address
+        addr_parts = [
+            order.full_name,
+            f"Phone: {order.phone}",
+            order.shipping_address,
+        ]
+        if order.apartment:
+            addr_parts.append(order.apartment)
+        if order.landmark:
+            addr_parts.append(f"Landmark: {order.landmark}")
+        addr_parts.append(f"{order.city}, {order.state} - {order.zip_code}")
+        addr_parts.append("India")
+        full_address = ", ".join(p.strip() for p in addr_parts if p and p.strip())
+
+        # Build product image links
+        img_links = []
+        for i in order.items.all():
+            img_path = str(i.product_image or '').strip()
+            if img_path:
+                if not (img_path.startswith('http://') or img_path.startswith('https://')):
+                    clean = img_path.lstrip('/')
+                    if not clean.startswith('media/'):
+                        clean = f"media/{clean}"
+                    img_path = f"http://127.0.0.1:8000/{clean}"
+                img_links.append(f"{i.product_name} ({i.size}): {img_path}")
+            elif i.product and i.product.images.first():
+                img_path = i.product.images.first().image.url
+                img_links.append(f"{i.product_name} ({i.size}): http://127.0.0.1:8000{img_path}")
+        image_links_display = "\n".join(img_links) if img_links else "No image attached"
+
         row = [
             order.order_number,
             order.created_at.strftime('%Y-%m-%d %H:%M'),
             order.full_name,
             order.phone,
             order.email,
-            f"{order.shipping_address} {order.apartment}".strip(),
+            full_address,
+            order.shipping_address,
+            order.apartment or '',
+            order.landmark or '',
             order.city,
             order.state,
             order.zip_code,
+            image_links_display,
+            items_summary,
             'YES' if order.has_feeding_items else 'NO',
             feeding_count,
             non_feeding_count,
             order.items_count,
-            items_summary,
             float(order.subtotal),
             float(order.shipping_fee),
             float(order.discount),

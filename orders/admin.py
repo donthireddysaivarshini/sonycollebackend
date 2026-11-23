@@ -14,11 +14,13 @@ from .models import (
 
 class OrderItemInline(admin.TabularInline):
     model = OrderItem
+    verbose_name = 'Order Line Item'
+    verbose_name_plural = 'Order Line Items'
     extra = 0
     can_delete = False
     fields = [
         'product_image_preview',
-        'product_name',
+        'product_name_display',
         'product_sku',
         'clothing_type_badge',
         'color',
@@ -29,7 +31,7 @@ class OrderItemInline(admin.TabularInline):
     ]
     readonly_fields = [
         'product_image_preview',
-        'product_name',
+        'product_name_display',
         'product_sku',
         'clothing_type_badge',
         'color',
@@ -47,11 +49,33 @@ class OrderItemInline(admin.TabularInline):
             clean_url = img_url.lstrip('/')
             img_url = f"/media/{clean_url}" if not img_url.startswith('/media/') else img_url
         return format_html(
-            '<img src="{}" alt="{}" style="width: 46px; height: 56px; object-fit: cover; border-radius: 6px; border: 1px solid rgba(255,255,255,0.15); box-shadow: 0 1px 3px rgba(0,0,0,0.3);" />',
+            '<a href="{}" target="_blank" rel="noopener noreferrer" title="Click to view full image in new tab">'
+            '<img src="{}" alt="{}" style="width: 46px; height: 56px; object-fit: cover; border-radius: 6px; border: 1px solid rgba(255,255,255,0.25); box-shadow: 0 1px 3px rgba(0,0,0,0.3); cursor: pointer; transition: transform 0.15s ease;" onmouseover="this.style.transform=\'scale(1.08)\'" onmouseout="this.style.transform=\'scale(1)\'" />'
+            '</a>',
+            img_url,
             img_url,
             obj.product_name,
         )
     product_image_preview.short_description = 'Image'
+
+    def product_name_display(self, obj):
+        if not obj:
+            return "-"
+        if obj.product:
+            admin_url = f"/admin/catalog/product/{obj.product.id}/change/"
+            store_url = f"http://localhost:5173/product/{obj.product.slug}"
+            return format_html(
+                '<div style="font-weight: 600; color: #F3F4F6;">{}</div>'
+                '<div style="margin-top: 4px; display: flex; gap: 8px; font-size: 11px;">'
+                '<a href="{}" target="_blank" style="color: #EC4899; text-decoration: underline;" title="Edit product in admin">Admin Edit ↗</a>'
+                '<a href="{}" target="_blank" style="color: #60A5FA; text-decoration: underline;" title="View product in storefront">Storefront ↗</a>'
+                '</div>',
+                obj.product_name,
+                admin_url,
+                store_url,
+            )
+        return obj.product_name
+    product_name_display.short_description = 'Product Name'
 
     def clothing_type_badge(self, obj):
         if not obj or not getattr(obj, 'clothing_type', None):
@@ -85,6 +109,13 @@ class OrderItemInline(admin.TabularInline):
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
     list_per_page = 25
+    jazzmin_section_order = (
+        'Order Identification',
+        'Customer & Delivery Coordinates',
+        'Order Line Items',
+        'Financial Snapshot',
+        'Fulfilment & Tracking',
+    )
     list_display = [
         'order_number',
         'customer_info',
