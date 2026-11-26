@@ -23,19 +23,12 @@ def get_razorpay_client() -> razorpay.Client | None:
 def create_razorpay_order(amount_paise: int, receipt: str, currency: str = "INR") -> dict[str, Any]:
     """
     Creates a server-side order with Razorpay in paise.
-    Simulates response if running in test environment or with placeholder credentials.
+    Requires active, valid Razorpay API keys in production/staging.
     """
-    key_id = getattr(settings, 'RAZORPAY_KEY_ID', '')
-    if key_id.startswith('rzp_test_placeholder') or 'your_razorpay_key' in key_id or getattr(settings, 'RAZORPAY_MOCK_DISPATCH', False):
-        return {
-            'id': f"order_sim_{receipt}",
-            'amount': amount_paise,
-            'currency': currency,
-            'receipt': receipt,
-            'status': 'created',
-        }
-
     client = get_razorpay_client()
+    if not client:
+        raise ValueError("Razorpay client credentials not configured. Please set RAZORPAY_KEY_ID and RAZORPAY_KEY_SECRET.")
+
     data = {
         'amount': amount_paise,
         'currency': currency,
@@ -43,20 +36,11 @@ def create_razorpay_order(amount_paise: int, receipt: str, currency: str = "INR"
         'payment_capture': 1,
     }
 
-    if client:
-        try:
-            return client.order.create(data=data)
-        except Exception as e:
-            logger.warning(f"Razorpay API call failed, generating simulated order for dev/test: {e}")
-
-    # Fallback / dev / test simulation
-    return {
-        'id': f"order_sim_{receipt}",
-        'amount': amount_paise,
-        'currency': currency,
-        'receipt': receipt,
-        'status': 'created',
-    }
+    try:
+        return client.order.create(data=data)
+    except Exception as e:
+        logger.error(f"Razorpay order creation failed for receipt {receipt}: {e}")
+        raise e
 
 
 def compute_payment_signature(razorpay_order_id: str, razorpay_payment_id: str, secret: str = None) -> str:
@@ -64,7 +48,7 @@ def compute_payment_signature(razorpay_order_id: str, razorpay_payment_id: str, 
     Computes expected HMAC-SHA256 signature for Razorpay payment callback verification.
     """
     if secret is None:
-        secret = getattr(settings, 'RAZORPAY_KEY_SECRET', 'placeholder_secret')
+        secret = getattr(settings, 'RAZORPAY_KEY_SECRET', '')
     message = f"{razorpay_order_id}|{razorpay_payment_id}".encode('utf-8')
     return hmac.new(secret.encode('utf-8'), message, hashlib.sha256).hexdigest()
 
@@ -72,11 +56,11 @@ def compute_payment_signature(razorpay_order_id: str, razorpay_payment_id: str, 
 def verify_payment_signature(razorpay_order_id: str, razorpay_payment_id: str, razorpay_signature: str) -> bool:
     """
     Verifies that razorpay_signature is a valid HMAC-SHA256 of order_id|payment_id.
-    Accepts simulated test/demo orders seamlessly.
+    Strictly verifies Razorpay cryptographic signature.
     """
-    if razorpay_order_id.startswith('order_sim_') or razorpay_signature == 'simulated_signature' or getattr(settings, 'RAZORPAY_MOCK_DISPATCH', False):
-        return True
-    secret = getattr(settings, 'RAZORPAY_KEY_SECRET', 'placeholder_secret')
+    secret = getattr(settings, 'RAZORPAY_KEY_SECRET', '')
+    if not secret:
+        return False
     expected_sig = compute_payment_signature(razorpay_order_id, razorpay_payment_id, secret)
     return hmac.compare_digest(expected_sig, razorpay_signature)
 

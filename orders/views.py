@@ -593,7 +593,17 @@ class OrderCheckoutView(APIView):
                     created_reservations.append(res)
 
                 amount_paise = int(total_amount * 100)
-                rzp_order = create_razorpay_order(amount_paise=amount_paise, receipt=order.order_number)
+                try:
+                    rzp_order = create_razorpay_order(amount_paise=amount_paise, receipt=order.order_number)
+                except Exception as e:
+                    logger.error(f"Razorpay order initialization failed: {e}")
+                    return Response(
+                        {
+                            'error': f'Razorpay API authentication failed ({e}). Please check that RAZORPAY_KEY_ID and RAZORPAY_KEY_SECRET in .env are active in your Razorpay Dashboard.',
+                            'detail': str(e)
+                        },
+                        status=status.HTTP_400_BAD_REQUEST
+                    )
                 rzp_order_id = rzp_order['id']
 
                 order.razorpay_order_id = rzp_order_id
