@@ -1,3 +1,4 @@
+import logging
 from decimal import Decimal
 
 from django.db import transaction
@@ -20,6 +21,8 @@ from .serializers import (
     ExchangeRequestSerializer,
     ExchangeRequestCreateSerializer,
 )
+
+logger = logging.getLogger(__name__)
 
 
 class OrderListView(generics.ListAPIView):
